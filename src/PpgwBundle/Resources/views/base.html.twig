@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html" charset=utf-8" />
+        <title>{% block title %}{% endblock %}&nbsp Propagator's World</title>
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        {% block stylesheets %}
+            <link href='http://fonts.googleapis.com/css?family=Cinzel+Decorative:700' rel='stylesheet' type='text/css'>
+            <link href='http://fonts.googleapis.com/css?family=PT+Sans+Caption' rel='stylesheet' type='text/css'>
+            <link href="{{ asset('bundles/ppgw/css/screen.css') }}" type="text/css" rel="stylesheet" />
+            <link rel="shortcut icon" href="{{ asset('flower_icon.ico') }}" />
+        {% endblock %}
+        {% block javascripts %}
+            <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        {% endblock %}
+    </head>
+    <body>
+        
+        <a href="https://google.com">
+            <img style="position: absolute; top: 0; right: 0; border: 0;" src="{{ asset('bundles/ppgw/images/Ribbon.png') }}" alt="100% Free">
+        </a>
+
+        <section id="wrapper">
+            <header id="header">
+                <div class="top">
+                    {% block navigation %}
+                        <nav>
+                            <ul class="leftnav">
+                                <li><a href="{{ path('PpgwBundle_homepage') }}" class="en" title="English">English</a></li>
+                                <li><a href="{{ path('PpgwBundle_homepage') }}" class="es" title="Spanish">Español</a></li>
+                                <li><a href="{{ path('PpgwBundle_homepage') }}" class="fra" title="French">Français</a></li>
+                                <li><a href="{{ path('PpgwBundle_homepage') }}" class="ja" title="Japanese">日本語</a></li>
+                            </ul>
+                            <ul class="my_navigation">                                
+                                <li><a href="{{ path('PpgwBundle_homepage') }}">Home</a></li> 
+                                <li><a href="{{ path('PpgwBundle_about') }}">About</a></li> 
+                                {% if app.user %}
+                                    <li><a href="{{ path('PpgwBundle_logout') }}">Logout</a></li>
+                                {% else %}
+                                    <li><a href="{{ path('PpgwBundle_login') }}">Login</a></li> 
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    {% endblock %}
+                </div>
+
+                <hgroup>
+                    
+                    <h2>
+                        {% block blog_title %}
+                            <div class="title_left"> 
+                                <a id='logo' href="{{ path('PpgwBundle_homepage') }}">
+                                    <img src="{{ asset('bundles/ppgw/images/left_leaf.png') }}" >
+                                    Propagator's</a> 
+                            </div>
+                            <div class="title_right">                                 
+                                <a id='logo' href="{{ path('PpgwBundle_homepage') }}">World
+                                <img src="{{ asset('bundles/ppgw/images/right_leaf.png') }}" >
+                                </a> 
+                            </div>
+                        {% endblock %}
+                    </h2>
+                        <h3><a id='tagline' href="{{ path('PpgwBundle_homepage') }}">{% block blog_tagline %}Sell or Swap: seeds, starts, cuttings, tissue cultures, bulbs, bare-root & fully potted plants {% endblock %}</a></h3>
+                <div class="main_nav_wrapper" >    
+                    {% block main_nav %}{% endblock %}
+                </div>
+                </hgroup>
+            </header>
+
+            <section class="main-col">
+                {% block body %}{% endblock %}
+            </section>
+            <aside class="sidebar">
+                {% block sidebar %}{% endblock %}
+            </aside>
+
+            <div id="footer">
+                {% block footer %}                   
+                {% endblock %}
+            </div>
+        </section>
+    </body>
+</html>

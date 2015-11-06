@@ -1,0 +1,25 @@
+{# empty Twig template #}
+        <span class='brown'>$builder</span>->add(<span class="ng">'origin'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:Country'</span>,
+            <span class="ng">'query_builder'</span> =>  <span class="br">$this</span>-><span class="gr">em</span>->getRepository(<span class="ng">'BloggerBlogBundle:Country'</span>)->getGeographicRegionQuery(<span class="pink">21</span>,<span class="pink">32</span>),
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Origin'</span>,
+            <span class="ng">'placeholder'</span>   =>  <span class="ng">'Choose'</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'heightHigh'</span>, <span class="ng">'integer'</span>, <span class="bl">array</span>(
+            <span class="ng">'attr'</span>         =>  <span class="bl">array</span>(
+                <span class="ng">'placeholder'</span>   =>  <span class="ng">'High'</span>)
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'heightLow'</span>, <span class="ng">'integer'</span>, <span class="bl">array</span>(
+            <span class="ng">'label'</span>         =>  <span class="ng">'Plant Height'</span>,
+            <span class="ng">'attr'</span>         =>  <span class="bl">array</span>(
+                <span class="ng">'placeholder'</span>   =>  <span class="ng">'Low'</span>)
+        ));
+        <span class="w">// no, that's not a typo.  The way the form is layed out, the 'Plant Height' label had to be used in this place</span>
+        <span class='brown'>$builder</span>->add(<span class="ng">'height_measure'</span>, <span class="ng">'choice'</span>, <span class="bl">array</span>(
+            <span class="ng">'choices'</span>         =>  <span class="bl">array</span>(
+                <span class="ng">'inches'</span>   =>  <span class="ng">'inches'</span>,
+                <span class="ng">'feet'</span>     =>  <span class="ng">'feet'</span>
+            ),
+            <span class="ng">'required'</span>        =>  <span class="bl">true</span>
+        ));

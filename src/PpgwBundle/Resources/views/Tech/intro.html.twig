@@ -1,0 +1,108 @@
+{% extends 'PpgwBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/symblog.css')}}" type="text/css" />
+{% endblock%}
+{% block title %}Symblog - Introduction{% endblock%}
+{% block sidebar %}
+    {% render controller("PpgwBundle:Tech:tableOfContents") %}
+{% endblock %}
+{% block body %}
+    <div class="symblog">
+    <div class="section-header"><h1>Creating a blog in Symfony2</h1>
+        <ul class="page-nav">
+            <li><a href="#">Code Behind</a></li>
+            <li><a href="#">Comment</a></li>
+        </ul>
+    </div>
+        <div class="section-header"><span class="title"><h2>Introduction</h2></span></div>
+    <div class='tech-body'>
+        <p>
+            This tutorial will guide you through the process of creating a full featured blogging website using 
+            Symfony2. The Standard Distribution of the Symfony2 framework will be used, which includes the main 
+            components you will need when building your own websites. The tutorial is split into a number of 
+            parts, each part covering different aspects of Symfony2 and its components. This tutorial is aimed 
+            to be worked through similar to the symfony 1 
+            <a href='http://www.symfony-project.org/jobeet/1_4/Doctrine/en/'>Jobeet</a> tutorial.
+        </p><p>
+            <span class="title"><h3>Tutorial Parts</h3></span>
+        <ul class='arabic simple'>
+            <li><a href=''>[Part 1] - Symfony2 Configuration and Templating</a></li>
+            <li><a href=''>[Part 2] - Contact Page: Validators, Forms and Emailing</a></li>
+            <li><a href=''>[Part 3] - The Blog Model: Using Doctrine 2 and Data Fixtures</a></li>
+            <li><a href=''>[Part 4] - The Comments Model: Adding comments, Doctrine Repositories and Migrations</a></li>
+            <li><a href=''>[Part 5] - Customising the view: Twig extensions, The sidebar and Assetic</a></li>
+            <li><a href=''>[Part 6] - Testing: Unit and Functional with PHPUnit</a></li>
+        </ul>
+        </p>
+        <div class="section-header"><span class="title"><h3>Demo Website</h3></span></div>
+        <p>
+            The symblog website can be viewed at <a href="http://symblog.co.uk/">http://symblog.co.uk</a>. The 
+            source code is available via <a href="https://github.com/dsyph3r/symblog">Github</a>. It follows 
+            along with each part of the tutorial
+        </p>
+        <div class="section-header"><span class="title"><h3>Coverage</h3></span></div>
+        <p>
+            This tutorial aims to cover the common tasks you are faced with when creating websites using Symfony2.
+        <ol class='arabic simple'>
+            <li>Bundles</li>
+            <li>Controllers</li>
+            <li>Templating (Using TWIG)</li>
+            <li>Model - Doctrine 2</li>
+            <li>Migrations</li>
+            <li>Data Fixtures</li>
+            <li>Validators</li>
+            <li>Forms</li>
+            <li>Routing</li>
+            <li>Asset Management</li>
+            <li>Emailing</li>
+            <li>Environments</li>
+            <li>Customising Error pages</li>
+            <li>Security</li>
+            <li>The User & Sessions</li>
+            <li>CRUD Generation</li>
+            <li>Caching</li>
+            <li>Testing</li>
+            <li>Deployment</li>
+        </ol>
+        </p>
+        <p>
+            Symfony2 is highly customisable and provides a number of different ways to perform the same task. 
+            Some examples of this include writing configuration options in YAML, XML, PHP, or Annotation, 
+            and creating templates using Twig or PHP. To keep this tutorial simple we will use YAML and 
+            Annotations for configuration and Twig for templating. The 
+            <a href="http://symfony.com/doc/current/book/index.html">Symfony book</a> provides a great 
+            resource for examples of how to use the other methods. If other people would like to contribute to the 
+            completion of alternative methods simply fork the repository on 
+            <a href="https://github.com/dsyph3r/symblog-docs">Github</a> and send over the pull requests :)
+        </p>
+        <div class="section-header"><span class="title"><h2>Translations</h2></span></div>
+        <div class="translations">
+            <span class="title"><h3>Spanish</h3></span>
+            <p>
+                Symblog has been translated into <a href="http://symblog.site90.net/">Spanish</a> thanks to the contribution by <a href="https://twitter.com/#!/esymfony">Lisper</a>.
+            </p>
+            <span class="title"><h3>French</h3></span>
+            <p>
+                Symblog has been translated into <a href="http://keiruaprod.fr/symblog-fr/">French</a> thanks to the contribution by <a href="https://twitter.com/clemkeirua">Clement Keirua</a>.
+            </p>
+            <span class="title"><h3>Portuguese</h3></span>
+            <p>
+                Symblog has been translated into <a href="http://symfony2blog.totlab.com.br/">Brazilian Portuguese</a> thanks to the contribution by <a href="http://totlab.com.br/">TotLab - Pesquisa e Desenvolvimento Web</a>.
+            </p>
+        </div>
+        <div class="section-header"><span class="title"><h3>Author</h3></span></div>
+        <p>This tutorial is being created by <a href="http://twitter.com/#!/dsyph3r">dsyph3r.</a></p>
+        
+        <div class="section-header"><span class="title"><h3>Contributing</h3></span></div>
+        <p>The <a href="https://github.com/dsyph3r/symblog-docs">source</a> for this tutorial is available on Github. If you would like to improve and extend this tutorial simply fork the project and send over the pull requests. You can also raise issues using the <a href="https://github.com/dsyph3r/symblog-docs/issues">GitHub Issue Tracker</a>. If any one is interested in creating a much more visually pleasing design please get in <a href="http://twitter.com/#!/dsyph3r">touch</a>!</p>
+        
+        <div class="section-header"><span class="title"><h3>Credits</h3></span></div>
+        <p>Special thanks to all the contributors of the <a href="http://symfony.com/doc/current/">Official Symfony2 documentation</a>. This provided an invaluable resource of information.</p>
+        <p>Flag Icons sourced from <a href="http://www.famfamfam.com/lab/icons/flags/">famfamfam</a>.</p>
+        
+        <div class="section-header"><span class="title"><h3>Searching</h3></span></div>
+        <p>Looking for a specific topic? Use the <a href="http://tutorial.symblog.co.uk/search.html">Search Page</a>.</p>
+    </div>
+    </div>
+{% endblock %}

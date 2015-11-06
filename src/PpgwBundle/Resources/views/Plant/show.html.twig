@@ -1,0 +1,121 @@
+{% extends 'PpgwBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} <link href="{{ asset('bundles/ppgw/css/plant.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+{% block title %}Plant Details{% endblock%}
+{% block body %}
+    <div class="section-header"><h1>Plant Summary</h1>
+        <ul class="page-nav">
+            <li><a href="#">Search</a></li>        
+            <li><a href="{{ path("PpgwBundle_plant_new") }}">Create New</a></li> 
+            <li><a href="{{ path("PpgwBundle_plant_edit", {'id' : plant.id} ) }}">Edit</a></li>
+        </ul>
+    </div>
+    <div class="wrapper">
+        <div class="img_section">
+            {% if plant.pictures is not empty %}<img src="{{ random(plant.pictures).path }}" />{% else %}<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNDcrG80wqzVn2wZRARTJEuZ3mUVSXxMiXfE6cGOvm6TOEiI_F" />{% endif %}
+        </div>
+        <div class="taxonomy_section" >
+            <div class="taxonomy_container">
+                <div class="tax_name_cont">
+                    {% if plant.taxName|length > 40 %}
+                        <span class='tax_name_short'>
+                            <span class="i">
+                                {{ plant.taxName }}
+                            </span>
+                        </span>
+                    {%else%}
+                        <span class='tax_name'>
+                            <span class="i">
+                                {{ plant.taxGenus|title }} {{ plant.taxSpecies|lower }}
+                            </span>
+                        </span> var. 
+                        <span class='tax_name'>
+                                <span class='i'>'{{ plant.taxVariety|capitalize }}'</span>
+                        </span>
+                    {% endif %}                    
+                </div>
+                <div class="common-name"><div>Common Name: </div><section><h7>{{ plant.name|title }}</h7></section></div>
+                <div class="alt_cont_a"><div>Kingdom: </div><section><h7>{{ plant.taxKingdom.name|title }}</h7></section></div>
+                <div class="alt_cont_a"><div>Phylum: </div><section><h7>{{ plant.taxPhylum.name|title }}</h7></section></div>
+                <div class="alt_cont_a"><div>Order: </div><section><h7>{{ plant.taxOrder.name|title }}</h7></section></div>
+                <div class="alt_cont_a"><div>Class: </div><section><h7>{{ plant.taxClass.name|title }}</h7></section></div>
+                <div class="alt_cont_a"><div>Family: </div><section><h7>{{ plant.taxFamily|title }}</h7></section></div>
+                <div class="alt_cont_a"><div>Genus: </div><section><h7>{{ plant.taxGenus|title }}</h7></section></div>
+                <div class="alt_cont_a"><div>Species: </div><section><h7>{{ plant.taxSpecies|title }}</h7></section></div>
+                <div class="alt_cont_a"><div>Variety: </div><section><h7>{{ plant.taxVariety|title }}</h7></section></div>
+            </div>
+        </div>
+    </div>
+    <div id="alt_cont_b">
+        <div id="thumbnails">
+            {% for pic in plant.pictures %}
+                <a href="{{ pic.path }}" target="_blank"><img src="{{ pic.path }}" height="72" width="72"/></a>
+            {% endfor %}
+        </div>
+        <div id="alt_cont_c">
+            <div class="alt_cont_d">
+                <ul>
+                    <li><span class="plant_height"><h4>Height</h4><h5>{{ plant.heightLow }} to {{ plant.heightHigh }} {{ plant.heightMeasure }}</h5></span></li>
+                    <li><span class="plant_spread"><h4>Spread</h4><h5>{{ plant.spreadLow }} to {{ plant.spreadHigh }} {{ plant.widthMeasure }}</h5></span></li>
+                    <li><span class="plant_soil"><h4>Soil Requirement</h4><h5>{{ soil }}</h5></span></li>
+                    <li><span class="plant_flower_color"><h4>Bloom Color</h4><h5>{{ color }}</h5></span></li>
+                    <li><span class="plant_geo_org"><h4>Geographic Origin</h4><h5>{{ origin }}</h5></span></li>
+                </ul>
+            </div>
+            <div class="alt_cont_d">
+                <ul>
+                    <li><span class="plant_zone"><h4>Zone</h4><h5>{{ plant.zoneLow.name }} to {{ plant.zoneHigh.name }}</h5></span></li>
+                    <li><span class="plant_bloom_time"><h4>Bloom-time</h4><h5>{{ bloomtime }}</h5></span></li>
+                    <li><span class="plant_light"><h4>Light Requirement</h4><h5>{{ light }}</h5></span></li>
+                    <li><span class="plant_foliage_color"><h4>Foliage-color</h4><h5>{{ plant.foliageColor.name }}</h5></span></li>
+                    <li>
+                        {% if plant.resistsDeer == true %}
+                            <span class="plant_deer"><h4 style="padding-top: 7px; padding-bottom: 10px;">Resists Deer</h4></span>
+                        {% else %}
+                            <span class="plant_deer_no"></span>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+            <div class="plant_desc">
+                <h4>Description</h4>
+                <p>{{ plant.summary }}</p>
+                <p>Bloom-times typically occur during the following months of the year for zones {{ plant.zoneLow.name }} to {{ plant.zoneHigh.name }}: 
+                    <ul>{% for pbt in plant.bloomTimes %}<li>{{pbt.name}}</li>{% endfor %}</ul>
+                </p>
+                <p>'<span class="i">{{ plant.taxGenus|title }} {{ plant.taxSpecies|lower }}</span>' has been observed successfully growing in the following soil conditions: 
+                    <ul>{% for ps in plant.soil %}<li>{{ps.name}}</li>{% endfor %}</ul>
+                </p>
+                {% if color != 'Unspecified' %}
+                    <p>'<span class="i">{{ plant.taxGenus|title }} {{ plant.taxSpecies|lower }}</span>' comes in a variety of colors; they are: 
+                            <ul>{% for color in plant.flowerColor %}<li>{{color.name}}</li>{% endfor %}</ul>
+                    </p>
+                {% endif %}
+                {% if light != 'Unspecified' %}
+                    <p>Additionally, '<span class="i">{{ plant.taxGenus|title }} {{ plant.taxSpecies|lower }}</span>' does best under the following light conditions: 
+                            <ul>{% for pl in plant.light %}<li>{{pl.name}}</li>{% endfor %}</ul>
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <span class="section-header" ><h1>Plant Details</h1></span>
+    <div id="plant_details_cont">
+        <div class="alt_cont_e"><div><h7>Type: </h7></div><section><p>{{ plant.plantTypes.name }}</p></section></div>
+        <div class="alt_cont_e"><div><h7>Lifecycle: </h7></div><section><p>{{ plant.lifecycle.name }}</p></section></div>
+        <div class="alt_cont_e"><div><h7>Group: </h7></div><section><p>{{ plant.plantGroup.name }}</p></section></div>
+        <div class="alt_cont_e"><div><h7>Behavior: </h7></div><section><p>{{ plant.invasivness|capitalize  }}, {{ plant.seed|capitalize  }}</p></section></div>
+        <div class="alt_cont_e"><div><h7>Wildlife: </h7></div><section><p>{{ wildlife|capitalize  }}</p></section></div> 
+        <div class="alt_cont_e"><div><h7>Diseases: </h7></div><section><p>{{ diseases|capitalize }}</p></section></div>
+        <div class="alt_cont_e"><div><h7>Pests: </h7></div><section><p>{{ pests|capitalize  }}</p></section></div>
+    </div>
+    <span class="section-header" ><h1>Propagation</h1></span>
+    <p><span class="h7_noIndent">Successful propagation methods include:</span> {{ propMeths|capitalize }}</p>
+    <p>{{ plant.propagation }}</p>
+    <span class="section-header" ><h1>Planting</h1></span>
+    <p>{{ plant.planting }}</p>
+    <span class="section-header" ><h1>Care</h1></span>
+    <p>{{ plant.care }}</p>
+{% endblock %}
+

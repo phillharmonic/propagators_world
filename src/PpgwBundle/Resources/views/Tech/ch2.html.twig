@@ -1,0 +1,54 @@
+{% extends 'PpgwBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/symblog.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/coding.css')}}" type="text/css" />
+{% endblock%}
+{% block title %}Propagators World - Symfony2 Configuration: Windows, WAMP & Netbeans{% endblock%}
+{% block sidebar %}
+    {% render controller("PpgwBundle:Tech:tableOfContents") %}
+{% endblock %}
+{% block body %}
+    <div class='symblog'>
+    <div class="section-header"><h1>[ Chapter 2 ] - Coding Standards</h1>
+        <ul class="page-nav">
+            <li><a href="#">Code Behind</a></li>
+            <li><a href="#">Comment</a></li>
+        </ul>
+    </div>
+    
+        <div class="section-header"><span class="title"><h2>Overview</h2></span></div>
+    <div class='tech-body'>
+        <p>
+            Since I am 100% self-taught, I had to go through a somewhat arduous journey learning what the 
+            coding standards were for all of the various technologies.  For my own sake, I had to come up
+            with a coding standard so my code would be readable.  
+        </p><p>
+            The following standards are covered in this chapter:
+        </p>
+        <ol class='arabic simple'>
+            <li>PHP Naming Conventions</li>
+            <li>Doctrine Naming Conventions</li>
+            <li>Symfony2 Naming Conventions</li>
+            <li>Shortcut: Namespaces</li>
+            <li>Shortcut: Classes</li>
+            <li>Shortcut: Methods</li>
+            <li>Shortcut: Functions</li>
+            <li>Shortcut: Globals</li>
+            <li>Shortcut: Variables</li>
+            <li>Shortcut: Database Columns/Fields</li>
+        </ol>
+        
+        <h3>Database Columns/Fields</h3>
+        <p>
+            Format: separate_words_with_underscore
+        </p>
+        <p>
+            Reason: doctrine will do it for you if you name your columns with camelCase or PascalCase.  In
+            either case, they will be converted to camel_case and pascal_case -> which leads to confusion.
+            Yes, ultimately, you will end up using variables that are named $column_one, but at least that 
+            way you know what kind of variable you are dealing with.  
+        </p>
+    </div>
+</div>
+{% endblock %}

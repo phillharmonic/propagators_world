@@ -1,0 +1,41 @@
+{% extends 'BloggerBlogBundle::layout.html.twig' %}
+
+{% block title %}New Ad{% endblock%}
+
+{% block body %}
+    <header class="nav-header" >
+        <h1>Create Ad</h1>
+        <ul class="page-nav">
+            <li><a href="#">Save</a></li>        
+            <li><a href="#">Cancel</a></li>
+        </ul>
+    </header>
+    <hr class="nav-hr">
+    
+    <form action="{{ path('BloggerBlogBundle_new_ad') }}" method="post" {{ form_enctype(form) }} class="blogger">
+        {{ form_errors(form) }}
+
+        {{ form_row(form.botanicalType) }}
+        {{ form_row(form.botanicalName) }}
+        {{ form_row(form.commonName) }}
+        {{ form_row(form.country) }}
+        {{ form_row(form.stateOrProvince) }}
+        {{ form_row(form.zone) }}
+        {{ form_row(form.lightReq) }}
+        {{ form_row(form.bloomTime) }}
+        {{ form_row(form.height) }}
+        {{ form_row(form.bloomColor) }}
+        {{ form_row(form.hardiness) }}
+        {{ form_row(form.buyOrSell) }}
+        {{ form_row(form.quantity) }}
+        {{ form_row(form.propagationMethod) }}
+        {{ form_row(form.measure) }}
+        {{ form_row(form.pricePerMeasure) }}
+        {{ form_row(form.currency) }}
+
+        {{ form_rest(form) }}
+
+        <input type="submit" value="Submit" />
+    </form>
+    
+{% endblock %}

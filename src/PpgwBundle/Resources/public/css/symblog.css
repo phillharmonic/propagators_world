@@ -1,0 +1,168 @@
+/* 
+    web/css
+    Created on : Oct 26, 2015, 3:21:05 PM
+    Author     : Patrick
+*/
+.symblog h1{
+    font-size: 1.3em;
+    line-height: 45px;
+}
+.symblog h2{
+    font-size: 1.5em;
+    font-weight: normal;
+    color: #555555;
+    padding: 3px 10px;
+    margin: 17px 0;
+    background-color: #eee;
+}
+.symblog h3{
+    font-size: 1.3em;
+    font-weight: normal;
+    color: #000;
+    padding: 5px 10px;
+    margin: 17px 0;
+    border-bottom: 1px dotted #ccc;
+}
+.symblog p{
+    padding: 3px 10px;
+}
+ul.arabic.simple{
+    display: block;
+    list-style-type: disc;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 50px;
+    line-height: 1.5em;
+}
+li.arabic.simple{
+    display: list-item;
+}
+ol.arabic.simple{
+    display: block;
+    list-style-type: decimal;
+    margin-top: -1em;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 0;
+    padding-left: 50px;
+    line-height: 1.5em;
+}
+.symblog h2 a.headerlink {
+    color: #eee !important;
+    padding-left: 5px;
+}
+.symblog h2 a.headerlink:hover {
+    color: #00E600 !important;
+}
+.symblog h3 a.headerlink {
+    color: white !important;
+    padding-left: 5px;
+}
+.symblog h3 a.headerlink:hover {
+    color: #00E600 !important;
+}
+div.title {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #0c3762;
+    border-bottom: dotted thin #e0e0e0;
+    margin-bottom: 25px;
+}
+div.admonition {
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border-style: dotted;
+    border-width: thin;
+    border-color: #dcdcdc;
+    padding: 10px 15px 10px 15px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+div.note {
+    padding: 10px 15px 10px 80px;
+    background: #e4ffde url(alert_info_32.png) 15px 15px no-repeat;
+    min-height: 42px;
+}
+div.note pre, div.warning pre, div.tip pre {
+    width: 603px;
+}
+div.warning {
+    padding: 10px 15px 10px 80px;
+    background: #fffbc6 url(alert_warning_32.png) 15px 15px no-repeat;
+    min-height: 42px;
+}
+.admonition-title{
+    font-size: 2em;
+    color: #303030;
+    font-weight: bold;
+}
+.admonition p{
+    margin: 0px;
+    padding: 0;
+    padding-bottom: 5px;
+}
+p.last {
+    margin-bottom: 0;
+}
+td {
+    vertical-align: top;
+}
+tt {
+    background-color: #e2e2e2;
+    font-size: 1.0em;
+    font-family: monospace;
+}
+pre {
+    border-color: #0c3762;
+    border-style: dotted;
+    border-width: thin;
+    margin: 0 0 12px 0;
+    padding: 0.8em;
+    background-color: #f0f0f0;
+    overflow-x: scroll; 
+    width:684px;
+}
+.note, .tip, .warning {
+    border: 1px solid !important;
+    margin: 10px 0px !important;
+    padding:15px 10px 15px 70px !important;
+    background-repeat: no-repeat !important;
+    background-position: 10px center !important;
+}
+.note {
+    border-color: #00529B !important;
+    background-color: #DBF3FF !important;
+    background-image: url('/symfony2_project_1/web/bundles/bloggerblog/images/note.png') !important;
+}
+.tip {
+    border-color: #4F8A10 !important;
+    background-color: #E5F2D0 !important;
+    background-image:url('/symfony2_project_1/web/bundles/bloggerblog/images/tip.png') !important;
+    }
+.warning {
+    border-color: #9F6000 !important;
+    background-color: #FFF7DB !important;
+    background-image: url('/symfony2_project_1/web/bundles/bloggerblog/images/warning.png') !important;
+}
+.shade-grey{
+    background-color: #ccc;
+    padding: 2px;
+    font-family: courier new;
+}
+.shade-yellow{
+    background-color: yellow;
+    padding: 2px;
+}
+.shade-blue{
+    background-color: #5eb5e0;
+    padding: 2px;
+}
+.shade-green{
+    background-color: lightgreen;
+    padding: 2px;
+    font-family: courier new;
+}

@@ -1,0 +1,230 @@
+#PpgwBundle_homepage:
+#    path:     /hello/{name}
+#    defaults: { _controller: PpgwBundle:Default:index }
+#    
+#PpgwBundle_index:
+#    path:     /hello/{name}
+#    defaults: { _controller: PpgwBundle:Default:index }
+    
+PpgwBundle_about:
+    pattern:  /about
+    defaults: { _controller: PpgwBundle:Page:about }
+    requirements:
+        _method:  GET
+
+PpgwBundle_ad_created_success:
+    pattern:  /ad_created_success
+    defaults: { _controller: PpgwBundle:Classifieds:adCreatedSuccess }
+    requirements:
+        _method:  GET
+        
+PpgwBundle_blog_show:
+    pattern:  /{id}/{slug}
+    defaults: { _controller: PpgwBundle:Blog:show }
+    requirements:
+        _method:  GET
+        id: \d+
+        
+PpgwBundle_classifieds:
+    pattern:  /classifieds
+    defaults: { _controller: PpgwBundle:Page:classifieds }
+    requirements:
+        _method:  GET
+        
+PpgwBundle_comment_create:
+    pattern:  /comment/{blog_id}
+    defaults: { _controller: PpgwBundle:Comment:create }
+    requirements:
+        _method:  POST
+        blog_id: \d+
+        
+PpgwBundle_contact:
+    pattern:  /contact
+    defaults: { _controller: PpgwBundle:Page:contact }
+    requirements:
+        _method:  GET|POST
+
+PpgwBundle_new_ad:
+    pattern:  /new_ad
+    defaults: { _controller: PpgwBundle:Classifieds:new }
+    requirements:
+        _method:  GET|POST
+
+PpgwBundle_disclaimer:
+    pattern:  /disclaimer
+    defaults: { _controller: PpgwBundle:Page:disclaimer }
+    requirements:
+        _method:  GET
+
+PpgwBundle_forum:
+    pattern:  /forum
+    defaults: { _controller: PpgwBundle:Page:forum }
+    requirements:
+        _method:  GET
+
+PpgwBundle_gardenSupplies:
+    pattern:  /gardenSupplies
+    defaults: { _controller: PpgwBundle:Page:gardenSupplies }
+    requirements:
+        _method:  GET
+
+PpgwBundle_homepage:
+    pattern:  /
+    defaults: { _controller: PpgwBundle:Page:index }
+    requirements:
+        _method:  GET
+
+PpgwBundle_instructables:
+    pattern:  /instructables
+    defaults: { _controller: PpgwBundle:Page:instructables }
+    requirements:
+        _method:  GET
+
+PpgwBundle_login:
+    pattern:  /login
+    defaults: { _controller: FOSUserBundle:Security:login }
+    
+PpgwBundle_logout:
+    pattern:  /logout
+    defaults: { _controller: FOSUserBundle:Security:logout }
+    
+PpgwBundle_plant_index:
+    pattern:  /plant/index
+    defaults: { _controller: PpgwBundle:Plant:index }
+    requirements:
+        _method:  GET  
+        
+PpgwBundle_plant_edit:
+    pattern:  /plant/edit/{id}
+    defaults: { _controller: PpgwBundle:Plant:edit }
+    requirements:
+        _method:  GET|POST
+        id: \d+
+        
+PpgwBundle_plant_new:
+    pattern:  /plant/new
+    defaults: { _controller: PpgwBundle:Plant:new }
+    requirements:
+        _method:  GET|POST
+    
+PpgwBundle_plant_show:
+    pattern:  /plant/show/{id}/{slug}
+    defaults: { _controller: PpgwBundle:Plant:show }
+    requirements:
+        _method:  GET    
+        id: \d+
+    
+PpgwBundle_register:
+    pattern:  /register
+    defaults: { _controller: FOSUserBundle:Registration:register }
+        
+PpgwBundle_resources:
+    pattern:  /resources
+    defaults: { _controller: PpgwBundle:Page:resources }
+    requirements:
+        _method:  GET
+        
+PpgwBundle_sort:
+    pattern:  /plant/index
+    defaults: { _controller: PpgwBundle:Plant:index }
+    requirements:
+        _method:  GET|POST
+        
+PpgwBundle_tech_index:    
+    pattern:  /tech/index
+    defaults: { _controller: PpgwBundle:Tech:index }
+    requirements:
+        _method:  GET
+     
+PpgwBundle_symblog_intro:        
+    pattern:  /tech/part/0
+    defaults: { _controller: PpgwBundle:Tech:intro }
+    requirements:
+        _method:  GET
+        
+PpgwBundle_symblog_1:        
+    pattern:  /tech/part/1/{slug}
+    defaults: { _controller: PpgwBundle:Tech:part1 }
+    requirements:
+        _method:  GET
+        
+PpgwBundle_symblog_2:        
+    pattern:  /tech/part/2/{slug}
+    defaults: { _controller: PpgwBundle:Tech:part2 }
+    requirements:
+        _method:  GET
+        
+PpgwBundle_symblog_3:        
+    pattern:  /tech/part/3/{slug}
+    defaults: { _controller: PpgwBundle:Tech:part3 }
+    requirements:
+        _method:  GET
+        
+PpgwBundle_symblog_4:        
+    pattern:  /tech/part/4/{slug}
+    defaults: { _controller: PpgwBundle:Tech:part4 }
+    requirements:
+        _method:  GET
+        
+PpgwBundle_symblog_5:        
+    pattern:  /tech/part/5/{slug}
+    defaults: { _controller: PpgwBundle:Tech:part5 }
+    requirements:
+        _method:  GET
+        
+PpgwBundle_symblog_6:        
+    pattern:  /tech/part/6/{slug}
+    defaults: { _controller: PpgwBundle:Tech:part6 }
+    requirements:
+        _method:  GET
+        
+PpgwBundle_ch_1:        
+    pattern:  /tech/chapter/1/{slug}
+    defaults: { _controller: PpgwBundle:Tech:ch1 }
+    requirements:
+        _method:  GET
+        
+PpgwBundle_ch_2:        
+    pattern:  /tech/chapter/2/{slug}
+    defaults: { _controller: PpgwBundle:Tech:ch2 }
+    requirements:
+        _method:  GET
+        
+PpgwBundle_ch_3:        
+    pattern:  /tech/chapter/3/{slug}
+    defaults: { _controller: PpgwBundle:Tech:ch3 }
+    requirements:
+        _method:  GET
+        
+PpgwBundle_ch_4:        
+    pattern:  /tech/chapter/4/{slug}
+    defaults: { _controller: PpgwBundle:Tech:ch4 }
+    requirements:
+        _method:  GET
+        
+PpgwBundle_ch_5:        
+    pattern:  /tech/chapter/5/{slug}
+    defaults: { _controller: PpgwBundle:Tech:ch5 }
+    requirements:
+        _method:  GET
+        
+PpgwBundle_ch_6:        
+    pattern:  /tech/chapter/6/{slug}
+    defaults: { _controller: PpgwBundle:Tech:ch6 }
+    requirements:
+        _method:  GET
+
+PpgwBundle_ch_7:        
+    pattern:  /tech/chapter/7/{slug}
+    defaults: { _controller: PpgwBundle:Tech:ch7 }
+    requirements:
+        _method:  GET
+        
+PpgwBundle_ch_8:        
+    pattern:  /tech/chapter/8/{slug}
+    defaults: { _controller: PpgwBundle:Tech:ch8 }
+    requirements:
+        _method:  GET
+        
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

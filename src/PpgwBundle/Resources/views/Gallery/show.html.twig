@@ -1,0 +1,21 @@
+{% extends 'BloggerBlogBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} <link href="{{ asset('bundles/bloggerblog/css/plant.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+{% block title %}Image Details{% endblock%}
+{% block body %}
+    <div class="section-header"><h1>Image Summary</h1>
+        <ul class="page-nav">
+            <li><a href="#">Search</a></li>        
+            <li><a href="{{ path("BloggerBlogBundle_gallery_new") }}">Add</a></li> 
+        </ul>
+    </div>
+        
+    {{image.plant.name}} 
+    </br>
+    <img src="{{ image.path }}" />
+    </br>
+    {{ image.description}}    
+    
+{% endblock %}
+

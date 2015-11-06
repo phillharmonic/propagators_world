@@ -1,0 +1,37 @@
+{# empty Twig template #}
+
+{% extends 'PpgwBundle::layout.html.twig' %}
+
+{% block title %}Classifieds{% endblock%}
+
+{% block body %}
+    <header class="nav-header" >
+        <h1>Classifieds</h1>
+        <ul class="page-nav">
+            <li><a href="{{ path('PpgwBundle_new_ad') }}">Create Ad</a></li>        
+            <li><a href="#">Edit Ad</a></li>
+            <li><a href="#">Remove Ad</a></li>
+        </ul>
+    </header>
+    <hr class="nav-hr">
+    
+    <p>Filters:</p>
+    <ul class="list-styled">
+        <li>Type (bush, flower, tree, tropical, water plant, etc)</li>
+        <li>Botanical Name</li>
+        <li>Common Name</li>
+        <li>Country</li>
+        <li>State / Province</li>
+        <li>Zone</li>
+        <li>Light Requirements</li>
+        <li>Bloom Time</li>
+        <li>Height</li>
+        <li>Bloom Color</li>
+        <li>Perennial or Annual</li>
+        <li>Buying or Selling</li>
+    </ul>
+    
+    <h1>Classifieds Listed</h1>
+    <div style="height: 200px; background-color: gray;">Classifieds here</div>
+    
+{% endblock %}

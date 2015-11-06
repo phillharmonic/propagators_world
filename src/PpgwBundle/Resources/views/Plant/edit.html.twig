@@ -1,0 +1,120 @@
+{# empty Twig template #}
+{% extends 'PpgwBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} <link href="{{ asset('bundles/ppgw/css/forms.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="{{ asset('bundles/ppgw/js/forms.js') }}"></script>
+{%endblock %}
+
+{% block title %}Edit Plant{% endblock%}
+
+{% form_theme form _self %}
+
+    {% block choice_widget_expanded %}
+        {% spaceless %}
+            <fieldset class="group"> 
+                <ul {{ block('widget_container_attributes') }} >
+                {% for child in form %}
+                    {{ form_widget(child) }}
+                {% endfor %}
+                </ul>
+            </fieldset> 
+        {% endspaceless %}
+    {% endblock choice_widget_expanded %}
+
+    {% block checkbox_widget %}
+        {% spaceless %}
+            <li>
+                <label  for="{{ id }}" class="checkbox {% if checked %}checked{% endif %}" >
+                    <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />{{ label|trans }}
+                </label>
+            </li>
+        {% endspaceless %}
+    {% endblock checkbox_widget %}
+
+{% block body %}
+    <div class="section-header"><h1>Edit Plant</h1>
+        <ul class="page-nav">
+            <li><a href="">Save</a></li>    
+            <li><a href="{{ path('PpgwBundle_plant_show', {'id' : plant.id, 'slug' : slug }) }}">Cancel</a>
+        </ul>
+    </div>
+    
+    <form action="{{ path('PpgwBundle_plant_edit', {'id' : plant.id}) }}" method="post" {{ form_enctype(form) }} class="plant">
+        {# {{ form_widget(form) }} #}
+        {{ form_errors(form) }}
+        <div class="section-header"><h6>Name & Taxonomy</h6><span class="fr">Taxonomy Standards [ <a href="http://www.catalogueoflife.org/annual-checklist/2015/browse/" target="_blank">here</a> ] </span></div>
+            {{ form_row(form.name) }}
+            {{ form_row(form.taxKingdom) }}
+            {{ form_row(form.taxPhylum) }}
+            {{ form_row(form.taxClass) }}
+            {{ form_row(form.taxOrder) }}
+            {{ form_row(form.taxFamily) }}
+            {{ form_row(form.taxGenus) }}
+            {{ form_row(form.taxSpecies) }}
+            {{ form_row(form.taxVariety) }}
+        <div class="section-header"><h6>Grouping</h6></div>
+            {{ form_row(form.plantTypes) }}
+            {{ form_row(form.lifecycle) }}
+            {{ form_row(form.plantGroup) }}
+        <div class="section-header"><h6>Details</h6></div>
+            {{ form_row(form.summary) }}
+        <div class="same_line">
+            {{ form_row(form.zoneLow) }}
+            <span>To</span>
+            {{ form_widget(form.zoneHigh) }}
+        </div>  
+            {{ form_row(form.bloomTimes) }}
+            {{ form_row(form.flowerColor) }}
+            {{ form_row(form.foliageColor) }}
+            {{ form_row(form.light) }}
+        <div class="same_line">
+            {{ form_row(form.heightLow) }}
+            <span>To</span>
+            {{ form_widget(form.heightHigh) }}
+            {{ form_widget(form.height_measure) }}
+        </div>
+        <div class="same_line">
+            {{ form_row(form.spreadLow) }}
+            <span>To</span>
+            {{ form_widget(form.spreadHigh) }}
+            {{ form_widget(form.width_measure) }}
+        </div>
+            {{ form_row(form.soil) }}
+            {{ form_row(form.invasivness) }}
+            {{ form_row(form.seed) }}
+            {{ form_row(form.attracts) }}
+            {{ form_row(form.pests) }}
+            {{ form_row(form.diseases) }}                        
+            <label for="plant_resistsDeer">Resists Deer</label>
+            <fieldset class="group">
+                <ul class="checkboxes" >
+                    {{ form_widget(form.resistsDeer) }}
+                </ul>
+            </fieldset>
+            {{ form_row(form.origin) }}
+        <div class="section-header"><h6>Propagation</h6></div>
+            {{ form_row(form.propagationMethod) }}
+            {{ form_row(form.propagation) }}
+        <div class="section-header"><h6>Planting</h6></div>
+            {{ form_row(form.planting) }}        
+        <div class="section-header"><h6>Care</h6></div>
+            {{ form_row(form.care) }}
+            
+        <div class="section-header"><h6>Images</h6></div>
+        <div class="images" data-prototype="{{ form_widget(form.pictures.vars.prototype)|e }}">
+            {# iterate over each existing tag and render its only field: description #}
+            {% for picture in form.pictures %}
+                <section>
+                    {{ form_row(picture.path, { 'attr': {'class': 'img_path'} }) }}
+                    {{ form_row(picture.description) }}
+                </section>
+            {% endfor %}
+        </div>
+            {{ form_rest(form) }}
+        <input type="submit" value="Submit" />
+    </form>
+{%endblock%}

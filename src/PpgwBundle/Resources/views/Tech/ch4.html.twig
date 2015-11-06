@@ -1,0 +1,53 @@
+{% extends 'PpgwBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/symblog.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/coding.css')}}" type="text/css" />
+{% endblock%}
+{% block title %}Propagators World - Symfony2 & Doctrine{% endblock%}
+{% block sidebar %}
+    {% render controller("PpgwBundle:Tech:tableOfContents") %}
+{% endblock %}
+{% block body %}
+    <div class='symblog'>
+    <div class="section-header"><h1>[ Chapter 4 ] - Doctrine</h1>
+        <ul class="page-nav">
+            <li><a href="#">Code Behind</a></li>
+            <li><a href="#">Comment</a></li>
+        </ul>
+    </div>
+    
+    <div class="section-header"><span class="title"><h2>Overview</h2></span></div>
+    <div class='tech-body'>
+        <p>
+            You might be wondering what the need is for a dedicated chapter to Doctrine - since this is a 
+            tutorial concerning Symfony.  Well, I'm glad you asked.  It's because I am 100% self-taught and
+            initially had difficulty identifying which technology was being used in each page being written.
+            I didn't know what was PHP, what was a Symfony core framework method, what was a MySQL syntax, or
+            what even-the-hell Doctrine was.  ...I did mention that I didn't know squat when I first started
+            developing my first Symfony1.4 project, right?  As in... I didn't even try to learn PHP without 
+            a framework prior to jumping in feet first.  I just saw a tutorial on Jobeet, and figured I could do
+            that.  At any rate, I just thought that if there was anyone out there, as stupid as I was, trying to
+            figure out how to develop websites by following along with <i>this</i> tutorial - that I should try to make
+            some sense out of the chaos.  And Doctrine is it's own beast onto itself.  
+        </p><p>
+            The following standards are covered in this chapter:
+        </p>
+        <ol class='arabic simple'>
+            <li>stuff</li>
+            <li>stuff</li>
+            <li>stuff</li>
+            <li>stuff</li>
+            <li>stuff</li>
+            <li>stuff</li>
+            <li>stuff</li>
+            <li>stuff</li>
+            <li>stuff</li>
+            <li>stuff</li>
+            <li>stuff</li>
+            <li>stuff</li>
+            <li>stuff</li>
+        </ol>
+    </div>
+</div>
+{% endblock %}

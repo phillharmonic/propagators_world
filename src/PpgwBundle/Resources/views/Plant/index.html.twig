@@ -1,0 +1,74 @@
+{% extends 'PpgwBundle::layout.html.twig' %}
+{% block stylesheets %}{{parent()}}
+    <link href="{{ asset('bundles/ppgw/css/plant.css') }}" type="text/css" rel="stylesheet" />
+{% endblock%}
+{% block title %}Plant Library{% endblock%}
+
+{% block body %}
+    <div class="section-header"><h1>Plant Index</h1>
+        <ul class="page-nav">
+            <li><a href="{{ path("PpgwBundle_plant_new") }}">Add Plant</a></li> 
+        </ul>
+    </div>
+    <div class="search_section">
+        <ul name="alphabet" class="inline">
+            <label for="alphabet">List by Name:</label>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'A'}) }}">A</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'B'}) }}">B</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'C'}) }}">C</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'D'}) }}">D</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'E'}) }}">E</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'F'}) }}">F</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'G'}) }}">G</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'H'}) }}">H</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'I'}) }}">I</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'J'}) }}">J</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'K'}) }}">K</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'L'}) }}">L</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'M'}) }}">M</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'N'}) }}">N</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'O'}) }}">O</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'P'}) }}">P</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'Q'}) }}">Q</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'R'}) }}">R</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'S'}) }}">S</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'T'}) }}">T</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'U'}) }}">U</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'V'}) }}">V</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'W'}) }}">W</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'X'}) }}">X</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'Y'}) }}">Y</a></li>
+            <li><a href="{{ path("PpgwBundle_sort", {'letter' : 'Z'}) }}">Z</a></li>
+        </ul>   
+        <span>or</span>
+        <form action="{{ path('PpgwBundle_sort') }}" method="post" {{ form_enctype(form) }} class="search_form">
+            {{ form_widget(form.plantGroup) }}
+            {{ form_rest(form) }}
+            <input type="submit" />
+        </form>
+        <span>or</span>
+        <form action="{{ path('PpgwBundle_sort') }}" method="post" {{ form_enctype(form) }} class="search_form">
+           <input id="keywords_search" type="search" name="keywords" placeholder="Search Keyword" /> 
+           <input type="submit" class="keyword_input" />
+        </form>
+    </div>
+    
+    <div class="section-header"><h3 class="results">[ {{ pagination.getTotalItemCount }} ] Results</h3></div>
+    <form class='view-pref'>
+        <label for="view_pref">View Preference:</label><input type="radio" name="view_pref" value="List" checked>List <input type="radio" name="view_pref" value="Profile">Profile
+        <div class="selection" >
+            {% if letter is defined %}[ Letter "{{ letter }}" was selected ]{%endif%}
+            {% if group is defined %}[ Group "{{ group }}" was selected ]{%endif%}
+            {% if keywords is defined %}[ Keywords "{{ keywords }}" was searched ]{%endif%}
+        </div>
+    </form>
+    <ul class="plant_list">
+        {% for plant in pagination %}
+            <li {% if loop.index is odd %}class="pagination-highlight"{% endif %}><a style="font-style: italic; padding-left: 5px;" href="{{ path('PpgwBundle_plant_show', { 'id': plant.id, 'slug': plant.slug }) }}">{{ plant.taxName }}</a> - {{plant.name}}</li>
+        {% endfor %}
+    </ul>
+<div class="navigation-pagination"><div class='pager'>{{ knp_pagination_render(pagination) }}</div></div>
+
+    
+    
+{% endblock %}

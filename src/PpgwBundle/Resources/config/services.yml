@@ -1,0 +1,9 @@
+services:
+    app.form.registration:
+        class: PpgwBundle\Form\RegistrationForm
+        tags:
+            - { name: form.type, alias: ppgw_user_registration }
+    ppgw.twig.extension:
+        class: PpgwBundle\Twig\Extensions\PpgwExtension
+        tags:
+            - { name: twig.extension }

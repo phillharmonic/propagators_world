@@ -1,0 +1,37 @@
+{% extends 'PpgwBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/symblog.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/coding.css')}}" type="text/css" />
+{% endblock%}
+{% block title %}Propagators World - Symfony2 Embedded Forms{% endblock%}
+{% block sidebar %}
+    {% render controller("PpgwBundle:Tech:tableOfContents") %}
+{% endblock %}
+{% block body %}
+    <div class="symblog">
+    <div class="section-header"><h1>[ Chapter 6 ] - Embedded Forms</h1>
+        <ul class="page-nav">
+            <li><a href="#">Code Behind</a></li>
+            <li><a href="#">Comment</a></li>
+        </ul>
+    </div>
+    <div class="section" id="overview">
+        <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+        <div class='tech-body'>
+            <p>
+               
+            </p><p>
+                Page Contents:
+            </p>
+            <ol class='arabic simple'>
+                <li><a href="#index">Symfony2 Index Action</a></li>
+                <li><a href="#new">Symfony2 New Action</a></li>
+                <li><a href="#show">Symfony2 Show Action</a></li>
+                <li><a href="#edit">Symfony2 Edit Action</a></li>
+                <li><a href="#delete">Symfony2 Delete Action</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock %}

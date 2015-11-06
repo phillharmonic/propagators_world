@@ -1,0 +1,43 @@
+{% extends 'BloggerBlogBundle::layout.html.twig' %}
+
+{% block title %}Plant Library{% endblock%}
+
+{% block body %}
+    <div class="section-header"><h1>Plant Library</h1>
+        <ul class="page-nav">
+            <li><a href="{{ path("BloggerBlogBundle_plant_library_new") }}">Create New Entry</a></li>   
+            <li><a href="{{ path("BloggerBlogBundle_plant_library_index") }}">Index</a></li>  
+        </ul>
+    </div>
+    
+    Search database: <form style="margin-bottom: 50px;"><input type="search" name="Search" ><input type="submit" name="Go"></form>
+    
+    <header class="nav-header" >
+        <h1>Browse Plant Library</h1>
+    </header>
+    <hr class="nav-hr">
+    <form style="margin-bottom: 50px;">
+        <label>Botanical Group: </label>
+        <select>
+            <option value="0"></option>
+            <option value="1">Perennial Flower</option>
+            <option value="2">Annual Flower</option>
+            <option value="3">Deciduous Tree</option>
+            <option value="4">Evergreen Tree</option>
+            <option value="">Fruit-bearing Tree's & Bushes</option>
+            <option value="5">Deciduous Bush</option>
+            <option value="">Evergreen Bush</option>
+            <option value="">Submersible</option>
+            <option value="">Boggy</option>
+            <option value="">Ground cover</option>
+            <option value="">Vines</option>
+            <option value="">House plants</option>
+            <option value="">Succulents</option>
+            <option value="">Tropicals</option>
+            <option value="">Vegetables</option>
+
+        </select>
+        <br style='margin-bottom: 20px;'></br>
+        <input type='submit'></input>
+    </form>
+{% endblock %}

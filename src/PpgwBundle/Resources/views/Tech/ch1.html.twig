@@ -1,0 +1,66 @@
+{% extends 'PpgwBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/symblog.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/coding.css')}}" type="text/css" />
+{% endblock%}
+{% block title %}Propagators World - Symfony2 Configuration: Windows, WAMP & Netbeans{% endblock%}
+{% block sidebar %}
+    {% render controller("PpgwBundle:Tech:tableOfContents") %}
+{% endblock %}
+{% block body %}
+    <div class='symblog'>
+    <div class="section-header"><h1>[ Chapter 1 ] - Configuration</h1>
+        <ul class="page-nav">
+            <li><a href="#">Code Behind</a></li>
+            <li><a href="#">Comment</a></li>
+        </ul>
+    </div>
+    
+    <div class="section-header"><span class="title"><h2>Overview</h2></span></div>
+    <div class='tech-body'>
+        <p>
+            This chapter will cover the first steps when creating a development environment using Windows, 
+            WAMP, Netbeans IDE, Composer, and of course Symfony2.            
+        </p><p>
+            The following topics will be demonstrated in this chapter:
+        </p>
+        <ol class='arabic simple'>
+            <li>Configuring Windows 10 as a development server using WAMP</li>
+            <li>Installing and configuring WAMP Server 2.5 64Bit </li>
+            <li>Installing and configuring Netbeans IDE 8.X.X</li>
+            <li>Apache 2.4.9</li>
+            <li>PHP 5.5.12</li>
+            <li>MySQL 5.0.11</li>
+            <li>Doctrine 2</li>
+            <li>Symphony 2</li>
+            <li>Composer</li>
+            <li>Installing PHP globally</li>
+        </ol>
+    </div>
+    
+    <div class="section-header"><span class="title"><h2>Composer</h2></span></div>
+    <div class='tech-body'>
+        <p>Installing Composer in Windows 10:</p>
+        <ol class='arabic simple'>
+            <li>Right-click the window icon and choose <tt class="docutils literal">'Command Prompt'</tt></li>
+            <li>Open up <tt class="docutils literal">File Explorer</tt> and navigate to your php directory in WAMP.  Mine is: <tt class="docutils literal">C:/WAMP/bin/php/php5.5.12</tt></li>
+            <li>In the navigation bar of File Explorer, right-click the php directory and Copy the address</li>
+            <li>In the Command Prompt, type: '<tt class="docutils literal">cd </tt>' then right-click and choose Paste.  Press Enter.</li>
+            <li>At the next prompt, after the directory has changed to the above directory, type the following command and press enter: <tt class="docutils literal">php -r "readfile('https://getcomposer.org/installer');" | php</tt></li>
+            <li>Composer will install.</li>
+        </ol>
+    </div>
+    <div class='tech-body'>
+        <p>Installing Composer in Netbeans 8.0.2:</p>
+        <ol class='arabic simple'>
+            <li>Navigate to: Tools->Options</li>
+            <li>Select the PHP menu</li>
+            <li>Select the 'Frameworks & Tools' tab</li>
+            <li>In the Composer field, choose 'Browse' and browse to the location where your php install is located.  Mine is: <tt class="docutils literal">C:/WAMP/bin/php/php5.5.12</tt></li>
+            <li>Choose the file composer.phar and select 'Apply'</li>
+            <li>After composer is installed, select 'OK'</li>
+        </ol>
+    </div>
+</div>
+{% endblock %}

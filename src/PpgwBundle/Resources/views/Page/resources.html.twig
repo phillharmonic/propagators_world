@@ -1,0 +1,31 @@
+{% extends 'BloggerBlogBundle::layout.html.twig' %}
+
+{% block title %}Resources{% endblock%}
+
+{% block body %}
+    <div class="section-header"><h1>Resources & Reference</h1>
+        <ul class="page-nav">
+            <li><a href="{{ path("BloggerBlogBundle_plant_library_new") }}">Create New Entry</a></li>    
+            <li><a href="{{ path("BloggerBlogBundle_plant_library") }}">Search</a>
+        </ul>
+    </div>
+    
+        <div class="section-header"><h1>Often Cited</h1></div>
+        <ul class="list-styled">
+            <li><a href="http://www.eol.org/" target="_blank">Encyclopedia of Life</a></li>
+            <li><a href="http://www.catalogueoflife.org/annual-checklist/2015/browse/" target="_blank">Catalogue of Life</a></li>
+            <li><a href="http://www.missouribotanicalgarden.org/" target="_blank">Missouri Botanical Garden</a></li>
+            <li><a href="http://www.gardening.cornell.edu/homegardening/scenee139.html" target="_blank">Cornell University - Flower Growing Guide</a></li>
+            <li><a href="http://www.missouribotanicalgarden.org/Portals/0/Gardening/Gardening%20Help/PDFs/Bloom%20summary%20by%20month.pdf" target="_blank">List of Flowers by Bloom Time</a></li>
+            <li><a href="http://www.britannica.com/" target="_blank">Encyclopedia Britannica</a></li>
+        </ul>
+        {# 
+        <p> Result: {{ result }} </p>
+        
+        <p> Array Collection: {{ dump(array) }} </p>
+        
+        <p> My Method Result: {{ dump(test_array) }} </p>
+        #}
+        
+        
+{% endblock %}

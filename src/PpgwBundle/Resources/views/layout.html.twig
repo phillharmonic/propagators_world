@@ -1,0 +1,19 @@
+{% extends 'PpgwBundle::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {# <link href="{{ asset('bundles/bloggerblog/css/blog.css') }}" type="text/css" rel="stylesheet" /> #}
+    <link href="{{ asset('bundles/ppgw/css/sidebar.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block main_nav %}
+    {% render controller("PpgwBundle:Page:mainNav") %}
+{% endblock %}
+
+{% block sidebar %}
+    {% render controller("PpgwBundle:Page:sidebar") %} 
+{% endblock %}
+
+{% block footer %}
+    {% render controller("PpgwBundle:Page:footer") %}
+{% endblock %}

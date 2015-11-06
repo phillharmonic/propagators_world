@@ -1,0 +1,402 @@
+{% extends 'PpgwBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/symblog.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/coding.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/prism.css')}}" type="text/css" />
+{% endblock%}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/ppgw/js/prism.js') }}"></script>
+{%endblock %}
+{% block title %}Propagators World - Symfony2 Pagination{% endblock%}
+{% block sidebar %}
+    {% render controller("PpgwBundle:Tech:tableOfContents") %}
+{% endblock %}
+{% block body %}
+    <div class="symblog">
+    <div class="section-header"><h1>[ Chapter 7 ] - Pagination</h1>
+        <ul class="page-nav">
+            <li><a href="#">Code Behind</a></li>
+            <li><a href="#">Comment</a></li>
+        </ul>
+    </div>
+    <div class="section" id="overview">
+        <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+        <div class='tech-body'>
+            <p>
+                Symfony2 does not come bundled with a pagination package.  It is assumed the developer will 
+                develop their own or use a third-party bundle (formerly known as Plugins).  As a new developer,
+                writing your own solution for a common task such as pagination would not make a lot of sense.  
+                Therefore, for this demonstration, we will be utilizing a third-party bundle.  There are a few popular
+                choices for pagination.  Two of the more common bundles are:
+            </p>
+            <ul class='arabic simple'>
+                <li><a href="https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/README.md">KnpPaginatorBundle</a></li>
+                <li><a href="https://github.com/javiacei/IdeupSimplePaginatorBundle">IdeupSimplePaginatorBundle</a></li>
+            </ul>
+            <p>We will be demonstrating how to install, configure, and use the first option: <span class="shade-green">KnpPaginatorBundle</span></p>
+            <p>
+                Page Contents:
+            </p>
+            <ol class='arabic simple'>
+                <li><a href="#install">Install Package</a></li>
+                <li><a href="#activate">Activate the Package</a></li>
+                <li><a href="#configure">Configure the Package</a></li>
+                <li><a href="#implement">Implement the Package</a></li>
+            </ol>
+        </div>
+    </div>    
+    <div class="section" id="overview">
+        <h2 id='install'>Install Package<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
+        <div class='tech-body'>
+            <div class="admonition warning">
+                <p class="first admonition-title">Warning!</p>
+                <p class="last">
+                    Windows 10, or any version of Windows for that matter, does not use what's called <span class='shade-grey'>"symlinks"</span>
+                    or <span class='shade-grey'>"Symbolic Links"</span> in Unix-like systems.  For non-unix users, think of symlinks as shortcuts
+                    on steriods.  A symlink is placed in a directory, and it is automatically read by the operating
+                    system - i.e. it doesn't have to be iniated by the user to be executed.  <span class='shade-yellow'>Symlinks are pointers
+                        to different directories</span> - which means a folder full of symlinks pointing to different folders would 
+                    look and appear to the operating system like just one directory (instead of multiple folders).
+                    It's a very useful tool for developers who want to maintain integrity, reduce redundancy, and
+                    allow unix-like systems to "package" plugins and add-ons with extreme ease.  Not so with Windows.
+                    </p></br><p>
+                    Since we ARE working with Windows, we cannot take advantage of Symlinks.  The work-around
+                    is that whole directory contents must be copied and pasted to mirrored directories.  One such
+                    directory is the <span class='shade-grey'>web/buddles/bloggerblog</span> directory - which happens to include the css, images, 
+                    and javascript directories.  <span class='shade-yellow'>Every time an asset is installed which depends on Symlinks (which is
+                    most of them), composer attempts to publish these symlinks, and since it can't it reverts to copying
+                    the files</span> from your <span class='shade-grey'>../Resources/public</span> directory to the web directory which
+                    is actually readable by browsers.  <span class='shade-yellow'>When it copies, it overwrites</span> and it is impossible to recover over-written files.  Unless you update your
+                    assets by running the Symfony2 command <span class='shade-grey'>console assets:install</span> everytime you 
+                    make a change to your css files (something I am not in the habbit of doing), you will lose all the
+                    changes you made in your <span class='shade-grey'>web/buddles/bloggerblog</span> directory.  Therefore, <span class='shade-blue'>before
+                    you install anything using Composer, ALWAYS sinc your two libraries</span>.  That way, when composer attempts
+                    to install it's symlinks, your data will maintain inegrity and you won't lose anything.  I learned this the
+                    hard way.  Don't be like that me.  Upgrade to Linux.
+                </p>
+            </div>
+            <h3>Steps</h3>
+            <p>In Netbeans:</p>
+            <ul class='arabic simple'>
+                <li>In your <span class='shade-green'>Projects</span> pane, right-click your project</li>
+                <li>Hover over the <span class='shade-green'>Composer</span> option until the next menu appears - choose <span class='shade-green'>Add Dependency...</span> from the options</li>
+                <li>In the <span class='shade-green'>Token:</span> field, paste this: <span class="shade-grey">knplabs/knp-paginator-bundle</span> and click <span class='shade-green'>Search</span></li>
+                <li>A lot of options will be available in the search results.  Choose the option that best describes the package that we want: <span class="shade-green">knplabs/knp-paginator-bundle</span> and click <span class="shade-green">Require</span></li>
+            </ul>
+            <img src="{{asset('bundles/ppgw/images/ppgworld_screenshots/composer-paginator.png')}}" style='padding: 10px 10px; margin-left: 50px;'/>
+            <ul class='arabic simple'>
+                <li>Before you clicked <span class='shade-green'>Require</span>, you did remeber to back-up your assets, right??  I'll assume you heeded my Warning! at the top of this section, and move on...</li>
+                <li>After you clicked <span class='shade-green'>Require</span>, Netbeans via Composer will begin installing the 
+                knp-paginator-bundle and all of its dependencies.  Be patient.  It took my system more than a few minutes to install.
+                </li>
+                <li>Soon enough, the output section of your Netbeans IDE will read 'Done'.  When this happens, installation is complete.</li>
+                <li>You will now find a new bundle in your project in the following directory: Project/Source Files/vendor/knplabs/knp-paginator-bundle</li>
+            </ul>
+        </div>
+    </div>      
+    <h2 id='activate'>Activate the Package<a class="headerlink" href="#activate" title="Permalink to this headline">¶</a></h2>
+    <ul class='arabic simple'>
+        <li>Add PaginatorBundle to your application kernel</li>
+    </ul>
+    <div class="highlight-php"><div class="highlight">
+<pre>
+<span class='w'>// app/AppKernel.php</span>
+
+<span class='gr'>public function</span> registerBundles()
+{
+    <span class='bl'>return array</span>(
+        <span class='w'>// ...</span>
+        <span class='bl'>new</span> Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+        <span class='w'>// ...</span>
+    );
+}
+</pre></div></div>
+    <h2 id='configure'>Configure the Package<a class="headerlink" href="#configure" title="Permalink to this headline">¶</a></h2>
+    <p>
+        The package comes pre-configured out of the box.  However, if you want to tweek the settings, you may do
+        so in YOUR yml settings... do not try to configure the package's yml settings.  If you do choose to 
+        change these settings, add the following to your project's config.yml:
+    </p>
+    <div class="highlight-php"><div class="highlight">
+<pre>
+<span class='w'>// project/Source Files/app/config/config.yml</span>
+
+<span class='w'>//...</span>
+<span class="bl">knp_paginator</span>: 
+    <span class="bl">page_range</span>: 25                          <span class='w'># default page range used in pagination control</span>
+    <span class="bl">default_options</span>:
+        <span class="bl">page_name</span>: page                     <span class='w'># page query parameter name</span>
+        <span class="bl">sort_field_name</span> :sort               <span class='w'># sort field query parameter name</span>
+        <span class="bl">sort_direction_name</span>: direction      <span class='w'># sort direction query parameter name</span>
+        <span class="bl">distinct</span>: true                      <span class='w'># ensure distinct results, useful when ORM queries are using GROUP BY statements</span>
+    <span class="bl">template</span>:
+        <span class="bl">pagination</span>: KnpPaginatorBundle:Pagination:sliding.html.twig       <span class='w'># sliding pagination controls template</span>
+        <span class="bl">sortable</span>: KnpPaginatorBundle:Pagination:sortable_link.html.twig   <span class='w'># sort link template</span>
+<span class='w'>//...</span>
+</pre></div></div>
+    <h2 id='implement'>Implement the Package<a class="headerlink" href="#implement" title="Permalink to this headline">¶</a></h2>
+    <p>
+        To implement the package, it's as simple as dropping in a few lines of code.  Let's start with the controller:
+    </p>
+    <h3>The Controller</h3>
+    <p>
+        In most circumstances, to implement a paginator, it's as simple as including the following code in 
+        your controller indexAction:
+    </p>
+    <div class="highlight-php"><div class="highlight">
+<pre>
+<span class='w'>// project/Source Files/src/Blogger/BlogBundle/Controller/PlantController.php</span>
+
+<span class='w'>//...</span>
+<span class='bl'>public function</span> indexAction(Request <span class='br'>$request</span>){
+<span class='w'>//...</span>
+        <span class='br'>$em</span> = <span class='br'>$this</span>->getDoctrine()->getEntityManager();
+        <span class='br'>$query</span> = <span class='br'>$em</span>->getRepository(<span class='ng'>'BloggerBlogBundle:Plant'</span>)->getLatestPlants();
+        <span class='br'>$paginator</span>  = <span class='br'>$this</span>->get(<span class='ng'>'knp_paginator'</span>);
+        <span class='br'>$pagination = <span class='br'>$paginator</span>->paginate(
+            <span class='br'>$query</span>,
+            <span class='br'>$request</span>-><span class='gr'>query</span>->getInt(<span class='ng'>'page'</span>, <span class='pink'>1</span>),<span class='w'>/*page number*/</span>
+            <span class='pink'>10</span> <span class='w'>/*limit per page*/</span>
+        );
+        <span class='w'>//send your collection to the view:</span>
+        <span class='bl'>return</span> <span class='br'>$this</span>->render(<span class='ng'>'BloggerBlogBundle:Plant:index.html.twig'</span>, <span class='bl'>array</span>(<span class='ng'>'pagination'</span> => <span class='br'>$pagination</span>));
+
+}
+<span class='w'>//...</span>
+</pre></div></div>
+    <p>
+        However, to include pagination in our <span class='shade-green'>Plant</span> <span class='shade-grey'>indexAction</span>, we need to do some refactoring.  This is due
+        to the four (4) seperate calls to different queries; all of which must be paginated.  We could simply
+        drop the above code into each <span class='shade-grey'>if</span> statement, but since we are trying to 
+        write concise code, we need to make a few changes.  
+    </p>
+    <p>
+        First, let's write a small function which we will include within our indexAction:
+    </p>
+    <div class="highlight-php"><div class="highlight">
+<pre>
+<span class='w'>// project/Source Files/src/Blogger/BlogBundle/Controller/PlantController.php</span>
+
+<span class='w'>//...</span>
+<span class='bl'>public function</span> indexAction(Request <span class='br'>$request</span>){
+<span class='w'>//...</span>
+        <span class='bl'>function</span> paginate(<span class='br'>$params</span>, <span class='br'>$request</span>){            
+            <span class='bl'>return</span> <span class='br'>$params</span>[<span class='ng'>'paginator'</span>]->paginate(<span class='br'>$params</span>[<span class='ng'>'plants'</span>],<span class='br'>$request</span>-><span class='gr'>query</span>->getInt(<span class='ng'>'page'</span>, <span class='pink'>1</span>),<span class='pink'>3</span>);
+        }
+<span class='w'>//...</span>
+}
+<span class='w'>//...</span>
+</pre></div></div>
+    <p>
+        Next, create the paginator parameter:
+    </p>
+    <div class="highlight-php"><div class="highlight">
+<pre>
+<span class='w'>// project/Source Files/src/Blogger/BlogBundle/Controller/PlantController.php</span>
+
+<span class='w'>//...</span>
+<span class='bl'>public function</span> indexAction(Request <span class='br'>$request</span>){
+<span class='w'>//...</span>
+        <span class='br'>$params</span>[<span class='ng'>'paginator'</span>] = <span class='br'>$this</span>->get(<span class='ng'>'knp_paginator'</span>);
+        <span class='bl'>function</span> paginate(<span class='br'>$params</span>, <span class='br'>$request</span>){            
+            <span class='bl'>return</span> <span class='br'>$params</span>[<span class='ng'>'paginator'</span>]->paginate(<span class='br'>$params</span>[<span class='ng'>'plants'</span>],<span class='br'>$request</span>-><span class='gr'>query</span>->getInt(<span class='ng'>'page'</span>, <span class='pink'>1</span>),<span class='pink'>3</span>);
+        }
+<span class='w'>//...</span>
+}
+<span class='w'>//...</span>
+</pre></div></div>
+    <p>
+        Now, include one line of code in each if statement where a query is called:
+    </p>
+    <div class="highlight-php"><div class="highlight">
+<pre><code class="language-php">
+<span class='w'>// project/Source Files/src/Blogger/BlogBundle/Controller/PlantController.php</span>
+
+<span class='w'>//...</span>
+<span class='bl'>public function</span> indexAction(Request <span class='br'>$request</span>){
+<span class='w'>//...</span>
+        <span class='br'>$params</span>[<span class='ng'>'paginator'</span>] = <span class='br'>$this</span>->get(<span class='ng'>'knp_paginator'</span>);
+        <span class='bl'>function</span> paginate(<span class='br'>$params</span>, <span class='br'>$request</span>){            
+            <span class='bl'>return</span> <span class='br'>$params</span>[<span class='ng'>'paginator'</span>]->paginate(<span class='br'>$params</span>[<span class='ng'>'plants'</span>],<span class='br'>$request</span>-><span class='gr'>query</span>->getInt(<span class='ng'>'page'</span>, <span class='pink'>1</span>),<span class='pink'>3</span>);
+        }
+        <span class='bl'>if</span>(){
+            <span class='w'>//...</span>
+            <span class='br'>$params</span>[<span class='ng'>'pagination'</span>] = paginate(<span class='br'>$params</span>, <span class='br'>$request</span>);
+        }<span class='bl'>elseif</span>(){
+            <span class='w'>//...</span>
+            <span class='br'>$params</span>[<span class='ng'>'pagination'</span>] = paginate(<span class='br'>$params</span>, <span class='br'>$request</span>);
+        }<span class='bl'>elseif()</span>{
+            <span class='w'>//...</span>
+            <span class='br'>$params</span>[<span class='ng'>'pagination'</span>] = paginate(<span class='br'>$params</span>, <span class='br'>$request</span>);
+        }<span class='bl'>else</span>{
+            <span class='w'>//...</span>
+            <span class='br'>$params</span>[<span class='ng'>'pagination'</span>] = paginate(<span class='br'>$params</span>, <span class='br'>$request</span>);
+        }
+        <span class='w'>//send your collection to the view:</span>
+        <span class='bl'>return</span> <span class='br'>$this</span>->render(<span class='ng'>'BloggerBlogBundle:Plant:index.html.twig'</span>, <span class='br'>$params</span>);
+}
+<span class='w'>//...</span></code>
+</pre></div></div>
+    
+<pre><code class="language-php">
+    public function indexAction(Request $request){
+        $params = array();
+        $params['paginator'] = $this->get('knp_paginator');
+        $em = $this->getDoctrine()->getEntityManager();
+        $params['form'] = $this->createForm(new BrowseCategoryForm($this->getDoctrine()->getManager()))->createView();
+        
+        function paginate($params, $request){            
+            return $params['paginator']->paginate($params['plants'],$request->query->getInt('page', 1),3);
+        }
+        
+        //sort by letter
+        if(!is_null($request->get('letter'))){
+            $params['letter'] = $request->get('letter');
+            $params['plants'] = $em->getRepository('BloggerBlogBundle:Plant')->getSortedPlants($params['letter']);
+            $params['pagination'] = paginate($params, $request);
+        //sort by group
+        }elseif(!is_null($request->get('plant')['plantGroup'])){
+            /*
+             * because you re-used a form of the plant class, the plant object was used.  Therefore, 
+             * the post parameter was wrapped in the 'plant' collection - necessitating the 
+             * array key->value
+             */
+            $group = $request->get('plant')['plantGroup'];
+            $params['plants'] = $em->getRepository('BloggerBlogBundle:Plant')->getPlantsInGroup($group);
+            $params['pagination'] = paginate($params, $request);
+            $params['group'] = $em->getRepository('BloggerBlogBundle:PlantGroup')->find($group)->getName();
+        //search by plant keyword (common name)
+        }elseif(!is_null($request->get('keywords'))){
+            $params['keywords'] = $request->get('keywords');
+            $params['plants'] = $em->getRepository('BloggerBlogBundle:Plant')->getPlantsByKeyword($params['keywords']);
+            $params['pagination'] = paginate($params, $request);
+        //if no search was performed, just return a list by alphabetical order
+        }else{
+            $params['plants'] = $em->getRepository('BloggerBlogBundle:Plant')->getLatestPlants();
+            $params['pagination'] = paginate($params, $request);
+        }
+        //send your collection to the view:
+        return $this->render('BloggerBlogBundle:Plant:index.html.twig', $params);
+    }
+</code></pre>
+    
+    <h3>The View</h3>
+    <p>
+        We have to refactor a few items in the view as well to accomodate our new paginator object. Before the refactoring
+        the view looked like this:
+    </p>
+    <div class="highlight-html">
+        <div class="highlight">
+<pre>
+<span class="w">&#123;&#35; ..views/Plant/index.html.twig &#35;&#125;</span>
+
+<span class="brown">&#123;&#37;</span> <span class="light-blue">extends</span> <span class="mustard">'BloggerBlogBundle::layout.html.twig'</span> <span class="gd">&#37;&#125;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">block</span> stylesheets <span class="gd">&#37;&#125;</span>
+    <span class="brown">&#123;&#123;</span> parent<span class="light-blue">()</span> <span class="gd">&#125;&#125;</span>
+    <span class="blue">&lt;link </span><span class="green">href=</span><span class="orange">"</span><span class="brown">&#123;&#123;</span><span class="light-blue">(</span><span class="mustard">'bundles/bloggerblog/css/plant.css'</span><span class="light-blue">)</span><span class="brown">&#125;&#125;</span><span class="orange">"</span><span class="green"> type=</span><span class="orange">"text/css"</span><span class="green"> rel=</span><span class="orange">"stylesheet"</span><span class="gt"> /&gt;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">endblock</span> <span class="gd">&#37;&#125;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">block</span> title <span class="gd">&#37;&#125;</span>Plant Index<span class="brown">&#123;&#37;</span> <span class="light-blue">endblock</span> <span class="gd">&#37;&#125;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">block</span> body <span class="gd">&#37;&#125;</span>
+<span class="w">&#123;&#35; .... &#35;&#125;</span>
+    <span class="blue">&lt;ul </span><span class="green">class=</span><span class="orange">"</span><span class="green">plant_list</span><span class="orange">"</span><span class="gt"> /&gt;</span>
+        <span class="brown">&#123;&#37;</span> <span class='light-blue'>for </span>plant <span class='light-blue'>in</span> plants <span class="gd">&#37;&#125;</span>
+            <span class="blue">&lt;li&gt;</span><span class="blue">&lt;a </span><span class="green">href=</span><span class="orange">"</span><span class="brown">&#123;&#123;</span> path<span class="light-blue">(</span><span class="mustard">'BloggerBlogBundle_plant_show'</span><span class="light-blue">, {</span><span class="mustard">'id'</span><span class='light-blue'> : </span>plant<span class='light-blue'>.</span>id<span class='light-blue'>,</span> <span class='mustard'>'slug' </span><span class='light-blue'>:</span> plant<span class='light-blue'>.</span>slug <span class="light-blue">})</span> <span class="gd">&#125;&#125;</span><span class="orange">"</span><span class="blue">&gt;</span><span class="brown">&#123;&#123;</span> plant<span class='light-blue'>.</span>taxName <span class="gd">&#125;&#125;</span><span class="blue">&lt;/a&gt;</span> - <span class="brown">&#123;&#123;</span> plant<span class='light-blue'>.</span>name <span class="gd">&#125;&#125;</span><span class="blue">&lt;/li&gt;</span>
+        <span class="brown">&#123;&#37;</span> <span class='light-blue'>endfor</span> <span class="gd">&#37;&#125;</span>
+    <span class="blue">&lt;/ul&gt;</span>
+<span class="w">&#123;&#35; .... &#35;&#125;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">endblock</span>  <span class="gd">&#37;&#125;</span>
+</pre>
+        </div>
+    </div>
+    <p>
+        And after:
+    </p>
+    <div class="highlight-html">
+        <div class="highlight">
+<pre>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">extends</span> <span class="mustard">'BloggerBlogBundle::layout.html.twig'</span> <span class="gd">&#37;&#125;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">block</span> stylesheets <span class="gd">&#37;&#125;</span>
+    <span class="brown">&#123;&#123;</span> parent<span class="light-blue">()</span> <span class="gd">&#125;&#125;</span>
+    <span class="blue">&lt;link </span><span class="green">href=</span><span class="orange">"</span><span class="brown">&#123;&#123;</span><span class="light-blue">(</span><span class="mustard">'bundles/bloggerblog/css/plant.css'</span><span class="light-blue">)</span><span class="brown">&#125;&#125;</span><span class="orange">"</span><span class="green"> type=</span><span class="orange">"text/css"</span><span class="green"> rel=</span><span class="orange">"stylesheet"</span><span class="gt"> /&gt;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">endblock</span> <span class="gd">&#37;&#125;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">block</span> title <span class="gd">&#37;&#125;</span>Plant Index<span class="brown">&#123;&#37;</span> <span class="light-blue">endblock</span> <span class="gd">&#37;&#125;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">block</span> body <span class="gd">&#37;&#125;</span>
+<span class="w">&#123;&#35; .... &#35;&#125;</span>
+
+<span class="bl">&lt;div</span> <span class="gr">class=</span><span class="ng">"</span><span class="gr">section-header</span><span class="ng">"</span><span class="bl">></span><span class="bl">&lt;h3</span> <span class="gr">class=</span><span class="ng">"</span><span class="gr">results</span><span class="ng">"</span><span class="bl">></span>[ <span class="br">&#123;&#123;</span> pagination<span class="lb">.</span>getTotalItemCount <span class="br">}}</span> ] Results<span class="bl">&lt;/h3></span><span class="bl">&lt;/div></span>
+    <span class="bl">&lt;form</span> <span class="gr">class=</span><span class="ng">"</span><span class="gr">view-pref</span><span class="ng">"</span><span class="bl">></span>
+        <span class="bl">&lt;label</span> for="view_pref"<span class="bl">></span>View Preference:&lt;/label>&lt;input type="radio" name="view_pref" value="List" checked<span class="bl">></span>List &lt;input type="radio" name="view_pref" value="Profile">Profile
+        <span class="bl">&lt;div</span> <span class="gr">class=</span><span class="ng">"</span><span class="gr">selection</span><span class="ng">"</span> <span class="bl">></span>
+            <span class="brown">&#123;&#37;</span> <span class="lb">if</span> letter <span class="lb">is</span> defined <span class="gd">&#37;&#125;</span>[ Letter "<span class="brown">&#123;&#123;</span> letter }}" was selected ]<span class="brown">&#123;&#37;</span><span class="lb"> endif </span><span class="gd">&#37;&#125;</span>
+            <span class="brown">&#123;&#37;</span> <span class="lb">if</span> group <span class="lb">is</span> defined <span class="gd">&#37;&#125;</span>[ Group "<span class="brown">&#123;&#123;</span> group }}" was selected ]<span class="brown">&#123;&#37;</span><span class="lb"> endif </span><span class="gd">&#37;&#125;</span>
+            <span class="brown">&#123;&#37;</span> <span class="lb">if</span> keywords <span class="lb">is</span> defined <span class="gd">&#37;&#125;</span>[ Keywords "<span class="brown">&#123;&#123;</span> keywords }}" was searched ]<span class="brown">&#123;&#37;</span><span class="lb"> endif </span><span class="gd">&#37;&#125;</span>
+        <span class="bl">&lt;/div></span>
+    <span class="bl">&lt;/form></span>
+    <span class="bl">&lt;ul</span> <span class="gr">class=</span><span class="ng">"</span><span class="gr">plant_list</span><span class="ng">"</span><span class="bl">></span>
+        <span class="brown">&#123;&#37;</span> <span class="lb">for</span> plant <span class="lb">in</span> pagination <span class="gd">&#37;&#125;</span>
+            <span class="bl">&lt;li</span> <span class="brown">&#123;&#37;</span> <span class="lb">if</span> loop<span class="lb">.</span>index <span class="lb">is</span> odd <span class="gd">&#37;&#125;</span>class="pagination-highlight"&#123;&#37;<span class="lb"> endif </span>%}>&lt;a style="font-style: italic; padding-left: 5px;" href="&#123;&#123; path('BloggerBlogBundle_plant_show', { 'id': plant.id, 'slug': plant.slug }) }}">&#123;&#123; plant.taxName }}&lt;/a> - &#123;&#123;plant.name}}&lt;/li>
+        <span class="brown">&#123;&#37;</span><span class="lb"> endfor </span><span class="gd">&#37;&#125;</span>
+    <span class="bl">&lt;/ul></span>
+<span class="bl">&lt;div</span> class="navigation-pagination">&lt;div class='pager'><span class="brown">&#123;&#123;</span> knp_pagination_render(pagination) }}&lt;/div>&lt;/div>
+
+<span class="brown">&#123;&#37;</span> <span class="light-blue">endblock</span>  <span class="gd">&#37;&#125;</span>
+</pre>
+        </div>
+    </div>
+    <h3>Stylesheet</h3>
+    <p>Add some CSS and we're all done:</p>
+    <div class="highlight-html">
+        <div class="highlight">
+<pre><code class="language-css">
+<span class="gr">.section-header</span> {
+    <span class="bl">display</span>: inline-block;
+    <span class="bl">width</span>: 100%;
+    <span class="bl">height</span>: auto;
+}
+<span class="gr">.results</span>{
+    <span class="bl">width</span>: auto !important;
+}
+<span class="gr">.view-pref</span>{
+    <span class="bl">margin-top</span>: 10px;
+    <span class="bl">background-color</span>: #eee;
+    <span class="bl">margin-left</span>: 5px;
+    <span class="bl">padding-left</span>: 5px;
+    <span class="bl">padding-top</span>: 3px;
+    <span class="bl">width</span>: 97%;
+    <span class="bl">height</span>:25px;
+    <span class="bl">margin-bottom</span>: 10px;
+}
+<span class="gr">.selection</span>{
+    <span class="bl">margin-right</span>: 15px;
+    <span class="bl">line-height</span>: 18pt;
+    <span class="bl">float: right</span>;
+}
+<span class="gr">.plant_list</span>{
+    <span class="bl">padding</span>: 10px 10px 10px 5px;
+}
+<span class="gr">.plant_list li</span>{
+    <span class="bl">padding</span>: 5px 0;
+}
+<span class="gr">.navigation-pagination</span>{
+    <span class="bl">text-align</span>: center;
+    <span class="bl">background-color</span>: #eee;
+    <span class="bl">margin-top</span>: 10px;
+    <span class="bl">margin-left</span>: 5px;
+    <span class="bl">width</span>: 98%;
+    <span class="bl">height</span>: 25px;
+}
+<span class="gr">.pager</span>{
+    <span class="bl">padding-top</span>: 5px;
+}
+</code></pre>
+        </div>
+    </div>
+            
+<pre><code class="language-twig">
+{{ twig }}
+</code></pre>
+    
+</div>
+{% endblock %}

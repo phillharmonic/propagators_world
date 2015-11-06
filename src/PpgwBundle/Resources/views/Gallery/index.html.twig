@@ -1,0 +1,15 @@
+{% extends 'BloggerBlogBundle::layout.html.twig' %}
+{% block stylesheets %}{{parent()}}{% endblock%}
+{% block title %}Plant Gallery{% endblock%}
+
+{% block body %}
+    <div class="section-header"><h1>Plant Gallery</h1>
+        <ul class="page-nav">
+            <li><a href="{{ path("BloggerBlogBundle_gallery_index") }}">Index</a></li>
+            <li><a href="{{ path("BloggerBlogBundle_gallery_new") }}">New</a></li>    
+            {# <li><a href="{{ path("BloggerBlogBundle_gallery_show") }}">Show</a></li> #}
+            <li><a href="{{ path("BloggerBlogBundle_gallery_edit") }}">Edit</a></li>
+            <li><a href="{{ path("BloggerBlogBundle_gallery_delete") }}">Delete</a></li>
+        </ul>
+    </div>
+{% endblock %}

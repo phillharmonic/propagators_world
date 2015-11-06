@@ -1,0 +1,329 @@
+/* 
+    Created on : Sep 9, 2015, 12:15:23 PM
+    Author     : Patrick
+*/
+.i{
+    font-style: italic;
+}
+.wrapper {
+    width: 100%; 
+    height: 200px; 
+    background-color: white; 
+    display: inline-block;
+}
+.img_section {
+    width: 300px; 
+    height: 200px; 
+    float: left; 
+    background-color: white;
+}
+.img_section img {
+    width: inherit;
+}
+.taxonomy_section {
+    width: 410px; 
+    height: 200px; 
+    float: left; 
+    background-color: white;
+}
+.taxonomy_container {
+    background-color: #eee;
+    width: 400px;
+    height: 200px;
+    margin-left: 10px;
+    border: 1pt solid #ccc;
+    padding-top: 2px;
+}
+.alt_cont_a {
+    width:100%; 
+    height:14pt;
+    padding: 1px 0;
+}
+.alt_cont_a div {
+    width: 120px; 
+    text-align: right; 
+    float:left
+}
+.alt_cont_a section {
+    float:left; 
+    width: 250px;
+}
+.common-name{
+    width:100%; 
+    height:14pt;   
+    padding: 1px 0;
+}
+.common-name div{
+    width: 120px; 
+    text-align: right; 
+    float:left    
+}
+.common-name section {
+    float:left; 
+    width: 250px;
+}
+.common-name h7{
+    color:#00E600;
+}
+#alt_cont_b {
+    background-color: white; 
+    width: 100%; 
+    height: auto; 
+    display: inline-block;
+}
+#thumbnails{
+    width:300px; 
+    background-color: white; 
+    float:left; 
+    height: auto;
+    padding-top: 12px;
+}
+#alt_cont_c {
+    width:400px; 
+    background-color: white; 
+    float:right; 
+    height: inherit;
+}
+.alt_cont_d {
+    width:200px; 
+    height: 285px; 
+    background-color: white; 
+    float:left;
+}
+.alt_cont_d ul {
+    display:block;
+    margin:10px 0 0;
+    padding:10px;
+    border-top:1px solid #000000;
+    border-bottom:1px solid #000000;
+}
+.alt_cont_d li {
+    display:inline-block;
+    width:180px;
+    margin:5px 0px 5px 0;
+    vertical-align:top;
+}
+#plant_details_cont {
+    margin-bottom: 20px;
+}
+.alt_cont_e {
+    display:inline-block; 
+    height:auto; 
+    width: 100%; 
+    padding: 3px 0;
+}
+.alt_cont_e div {
+    width: 20%; 
+    text-align: right; 
+    float:left;
+    padding-top: 3px;
+}
+.alt_cont_e section {
+    float:left; 
+    width: 80%;
+}
+.alt_cont_e p{
+    padding-left: 5px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.plant_height {
+    background: url('/symfony2_project_1/web/bundles/bloggerblog/images/height.PNG') 0px -3px no-repeat;
+    padding:3px 0 5px 38px;
+    display:block;
+}
+.plant_spread {
+    background: url('/symfony2_project_1/web/bundles/bloggerblog/images/width.PNG') -2px -5px no-repeat;
+    padding:3px 0 5px 38px;
+    display:block;
+}
+.plant_soil {
+    background: url('/symfony2_project_1/web/bundles/bloggerblog/images/soil.PNG') -2px 0px no-repeat;
+    padding: 3px 0 5px 38px;
+    display:block;
+    
+}
+.plant_flower_color {
+    background: url('/symfony2_project_1/web/images/flower.png') 3px 3px no-repeat;
+    background-size: 30px 30px;
+    padding:3px 0 5px 38px;
+    display:block;
+}
+.plant_geo_org {
+    background: url('/symfony2_project_1/web/images/globe.png') 3px 3px no-repeat;
+    background-size: 30px 30px;
+    padding:3px 0 5px 38px;
+    display:block;
+}
+.plant_zone {
+    background: url('/symfony2_project_1/web/bundles/bloggerblog/images/zone.PNG') 3px -3px no-repeat;
+    padding:3px 0 5px 38px;
+    display:block;
+}
+.plant_bloom_time {
+    background: url('/symfony2_project_1/web/bundles/bloggerblog/images/bloom_time.PNG') 3px 3px no-repeat;
+    padding:3px 0 5px 38px;
+    display:block;
+}
+.plant_light {
+    background: url('/symfony2_project_1/web/images/sun_req.jpg') 3px 3px no-repeat;
+    background-size: 30px 30px;
+    padding:3px 0 5px 38px;
+    display:block;
+}
+.plant_foliage_color {
+    background: url('/symfony2_project_1/web/images/foliage_color.png') 3px 3px no-repeat;
+    background-size: 30px 40px;
+    padding:3px 0 5px 38px;
+    display:block;
+}
+.plant_deer {
+    background: url('/symfony2_project_1/web/bundles/bloggerblog/images/resists_deer.PNG') 3px 3px no-repeat;
+    padding:3px 0 5px 38px;
+    display:block;
+}
+.plant_deer_no {
+    background: 3px 3px no-repeat;
+    padding:35px 0 5px 38px;
+    display:block;
+}
+.plant_desc {
+    display:inline-block; 
+    float: right; 
+    width: 400px; 
+    background-color: white; 
+    margin-top: 20px;
+}
+.plant_desc p {
+    padding-top: 5px;
+}
+.plant_desc ul{
+    padding:0;
+    margin:0;
+    list-style-type: disc;
+    margin-left: 40px;
+    margin-top: -15px;
+    line-height: 14pt;
+}
+h4 {
+    font-size: 11pt;
+    font-weight: bold;
+    color: #565656;
+}
+h5 {
+    font-size: 9pt;
+    font-weight: bold;
+    color: #565656;
+    padding-top: 5px;
+}
+h6 {
+    font-size: 18pt;
+    font-weight: bold;
+    color: #565656;
+    padding: 5px;
+}
+h7 {
+    font-size: 11pt;
+    font-weight: bold;
+    color: #565656;
+    padding: 5px;
+}
+h8 {
+    font-size: 8pt;
+    font-weight: bold;
+    color: #565656;
+    padding-left: 10px;
+}
+.h7_noIndent{
+    font-size: 11pt;
+    font-weight: bold;
+    color: #565656;
+}
+.plant_list {
+    padding: 10px 10px 10px 5px;
+}
+.plant_list li {
+    padding: 5px 0;
+}
+.inline {
+    padding:5px 20px 20px 20px;
+}
+.inline li {
+    display: inline;
+}
+.tax_name{
+    font-size: 10pt;
+    font-weight: bold;
+    color: #F48A00;
+    padding: 5px;
+}
+.tax_name_short{
+    font-size: 8pt;
+    font-weight: normal;
+    color: #F48A00;
+    padding: 5px;
+}
+
+select:required:invalid {
+  color: #ccc;
+}
+option[value=""][disabled] {
+  display: none;
+}
+option {
+  color: black;
+}
+.search_form{
+    width: auto;
+    display: inline;
+    float: left;
+    margin-left: 15px;
+}
+.search_section{
+    display: block;
+    margin-bottom: 65px;
+}
+.search_section label{
+    padding-right: 10px;
+}
+.search_section span {
+    margin-left: 23px; 
+    display: inline; 
+    float:left;
+}
+.search_section input[type='submit']{
+    margin-right: 10px;
+}
+.search_section input[type='search']{
+    margin-left: 10px; 
+    display: inline; 
+    float:left;
+}
+.keyword_input {
+    margin-left: 5px;
+    display: inline; 
+    float:left;
+}
+.results{
+    width: auto !important;
+}
+.view-pref{
+    margin-top: 10px;
+    background-color: #eee;
+    margin-left: 5px;
+    padding-left: 5px;
+    padding-top: 3px;
+    width: 97%;
+    height:25px;
+    margin-bottom: 10px;
+}
+.selection{
+    margin-right: 15px;
+    line-height: 18pt;
+    float: right;
+}
+
+.section-title{
+    float:right;
+    margin-top: -20px;
+}

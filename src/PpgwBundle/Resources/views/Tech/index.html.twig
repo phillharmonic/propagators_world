@@ -1,0 +1,51 @@
+{% extends 'PpgwBundle::layout.html.twig' %}
+{% block stylesheets %}{{parent()}}<link href="{{ asset('bundles/ppgw/css/plant.css') }}" type="text/css" rel="stylesheet" />{% endblock%}
+{% block title %}Technical{% endblock%}
+{% block sidebar %}
+    {% render controller("PpgwBundle:Tech:tableOfContents") %}
+{% endblock %}
+{% block body %}
+    <div class="section-header"><h1>Technical</h1>
+        <ul class="page-nav">
+            <li><a href="#">Comment</a></li>
+        </ul>
+    </div>
+        
+    <div>
+        <p>
+            I am not a developer by trade. 
+        </p><p>
+            Nor do I have a technical education.  But I <i style='font-style: italic;'>do</i> like to learn.
+        </p><p>
+            I am forking the Symblog tutorial in an effort to teach myself Symfony2.7.X, Doctrine2, PHP5, HTML5, 
+            CSS, Javascript, Netbeans8, Apache, and MySQL all on a Windows10 operating system running WAMP. 
+        </p><p>
+            I am 100% self-taught.  As such, I am fully aware that I don't know what I don't know. But I want 
+            to learn how to develop and write code correctly, succinctly, and to standard.  Which is why I have 
+            forked Symblog and published this tutorial on the internet - in an effort to get community feedback on
+            how to code in a generally accepted way.
+        </p><p>
+            Another reason I decided to fork Symblog, is due to the lack of examples available for Symfony2.
+            The Sysmfony 1.4 Jobeet tutorial was exceptionally helpful and Symblog, while very helpful in its
+            own right, falls short of providing an all-encompassing example - which is what this tuturial will 
+            aspire to achieve with the community's help.
+        </p><p>
+            With all of the above points in mind, I will write code as I go and publish my examples - 
+            fully aware that they will contain errors and will not be to standard.  This is where I solicit the 
+            community for their feedback.  If errors or non-standard code is identified by the community - I will 
+            change it and publish the corrections.  I am also soliciting the community for Symfony2.X examples 
+            that you would like to see published in this project.  This will be an ongoing project for me as I 
+            continue to learn how to code. Deprecations will be noted as Symfony and Doctrine continue to evolve.
+            Hopefully, somewhere along the way, this tutorial will help others in their quest to learn.
+        </p><p>
+            Going forward, when referencing 'Propagators World' technical tutorial, it will be abbreviated 'PW' or 
+            'PPGs World'.
+        </p><p>
+            A few words: [1] Propagators World is a real-world website for gardening enthusiast.  Please keep 
+            technical talk confined to the technical section of this website. [2] Users who become members of
+            this website and choose the 'Tech User' option during registration will be granted 'Code-Behind'
+            tab views for each and every page of this website - a useful option.  
+        </p>
+        
+    </div>
+{% endblock %}

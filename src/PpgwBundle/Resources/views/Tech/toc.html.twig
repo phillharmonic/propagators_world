@@ -1,0 +1,56 @@
+{# empty Twig template #}
+<style type="text/css">
+    .h10{
+        color: #F48A00;
+        font-size: 1em;
+        font-style: normal;
+    }
+    .toc ul{
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    .toc ul li{
+        list-style-type: disc;
+        margin-left: 25px;
+        font-size: 10pt;
+    }
+    .h10-header{
+        width: 96%; background-color: white; padding: 7px 10px;
+        border-top: 1pt solid #ccc; border-bottom: 1pt solid #ccc;
+    }
+</style>
+
+<div class='toc'>
+    <div class='h10-header'><span class='h10'>Symblog - Table of Contents</span></div>
+    <ul>
+        <li><a href="{{path('PpgwBundle_symblog_intro')}}">Symblog Introduction</a></li>
+        <li><a href="{{path('PpgwBundle_symblog_1', {'slug' : pt1 })}}">Symblog [Part 1] - Symfony2 Configuration and Templating</a></li>
+        <li><a href="{{path('PpgwBundle_symblog_2', {'slug' : pt2 })}}">Symblog [Part 2] - Contact Page: Validators, Forms and Emailing</a></li>
+        <li><a href="{{path('PpgwBundle_symblog_3', {'slug' : pt3 })}}">Symblog [Part 3] - The Blog Model: Using Doctrine 2 and Data Fixtures</a></li>
+        <li><a href="{{path('PpgwBundle_symblog_4', {'slug' : pt4 })}}">Symblog [Part 4] - The Comments Model: Adding comments, Doctrine Repositories and Migrations</a></li>
+        <li><a href="{{path('PpgwBundle_symblog_5', {'slug' : pt5 })}}">Symblog [Part 5] - Customising the view: Twig extensions, The sidebar and Assetic</a></li>
+        <li><a href="{{path('PpgwBundle_symblog_6', {'slug' : pt6 })}}">Symblog [Part 6] - Testing: Unit and Functional with PHPUnit</a></li>
+    </ul>
+    <div class='h10-header'><span class='h10'>PPGs World - Table of Contents</span></div>
+    <ul>
+        <li><a href="{{path('PpgwBundle_ch_1', {'slug' : ch1 })}}">[CH 1] - Configuration</a></li>
+        <li><a href="{{path('PpgwBundle_ch_2', {'slug' : ch2 })}}">[CH 2] - Coding Standards</a></li>
+        <li><a href="{{path('PpgwBundle_ch_3', {'slug' : ch3 })}}">[CH 3] - GitHub, Working in Teams & Backup</a></li>
+        <li><a href="{{path('PpgwBundle_ch_4', {'slug' : ch4 })}}">[CH 4] - Doctrine</a></li>
+        <li><a href="{{path('PpgwBundle_ch_5', {'slug' : ch5 })}}">[CH 5] - Index, New, Show, Edit, & Delete actions</a></li>
+        <li><a href="{{path('PpgwBundle_ch_6', {'slug' : ch6 })}}">[CH 6] - Embedded Forms</a></li>
+        <li><a href="{{path('PpgwBundle_ch_7', {'slug' : ch7 })}}">[CH 7] - Pagination</a></li>
+        <li><a href="{{path('PpgwBundle_ch_8', {'slug' : ch8 })}}">[CH 8] - Search</a></li>
+        <li><a href="">[CH ] - Security & Authentication</a></li>
+        <li><a href="">[CH ] - SEO</a></li>
+        <li><a href="">[CH ] - Advertising & Reselling</a></li>
+        <li><a href="">[CH ] - Payment</a></li>
+        <li><a href="">[CH ] - Internationalization</a></li>
+        <li><a href="">[CH ] - Adding a Forum</a></li>
+        <li><a href="">[CH ] - CRUD Generation</a></li>
+        <li><a href="">[CH ] - Testing</a></li>
+        <li><a href="">[CH ] - Deployment</a></li>
+        <li><a href="">[CH ] - Emailing</a></li>
+        <li><a href="">[CH ] - Customized Error Pages</a></li>
+    </ul>
+</div>

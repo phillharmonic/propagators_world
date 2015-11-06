@@ -1,0 +1,29 @@
+{% extends 'PpgwBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/symblog.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/coding.css')}}" type="text/css" />
+{% endblock%}
+{% block title %}Propagators World - Symfony2 & Doctrine{% endblock%}
+{% block sidebar %}
+    {% render controller("PpgwBundle:Tech:tableOfContents") %}
+{% endblock %}
+{% block body %}
+    <div class='symblog'>
+    <div class="section-header"><h1>[ Chapter 3 ] - GitHub, Working in Teams & Backup</h1>
+        <ul class="page-nav">
+            <li><a href="#">Code Behind</a></li>
+            <li><a href="#">Comment</a></li>
+        </ul>
+    </div>
+        
+    <ol>
+        <li>Before attempting to initiate a version control system on your project, back it up locally, so if anything goes wrong, you won't lose anything.  Yes.  I speak from experience.</li>
+        <li>Don't ever do a hard-reset on the remote.</li>
+        <li>Register for a Free account with GitHub</li>
+        <li>Make a repository on GitHub</li>
+        <li></li>
+    </ol>
+        
+    </div>
+{% endblock %}

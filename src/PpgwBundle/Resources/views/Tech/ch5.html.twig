@@ -1,0 +1,1485 @@
+{% extends 'PpgwBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/symblog.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/coding.css')}}" type="text/css" />
+{% endblock%}
+{% block title %}Propagators World - Symfony2 Index, Show, New, Edit, & Delete Actions{% endblock%}
+{% block sidebar %}
+    {% render controller("PpgwBundle:Tech:tableOfContents") %}
+{% endblock %}
+{% block body %}
+    <div class="symblog">
+    <div class="section-header"><h1>[ Chapter 5 ] - Index, Show, New, Edit, & Delete Actions</h1>
+        <ul class="page-nav">
+            <li><a href="#">Code Behind</a></li>
+            <li><a href="#">Comment</a></li>
+        </ul>
+    </div>
+    <div class="section" id="overview">
+        <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+        <div class='tech-body'>
+            <p>
+                One of the greatest teaching aids for me when I began teaching myself to code was the Jobeet 
+                tutorial - way the hell back with the Symfony 1.4 version release.  Symfony has grown quite a bit since then
+                and it has changed quite radically.  When I made the switch to Symfony2, it seemed like I was 
+                starting all over from scratch; the transition was not seamless in any way.  So there I was, googling
+                everything, searching forums, reading the cookbook - all for the seemingly most basic methods: like 
+                the Index, New, Edit, Show, and Delete actions.  So, from what I've gathered, here then, is the 
+                Symfony-2-Way of doing things:
+            </p><p>
+                Page Contents:
+            </p>
+            <ol class='arabic simple'>
+                <li><a href="#index">Symfony2 Index Action</a></li>
+                <li><a href="#new">Symfony2 New Action</a></li>
+                <li><a href="#show">Symfony2 Show Action</a></li>
+                <li><a href="#edit">Symfony2 Edit Action</a></li>
+                <li><a href="#delete">Symfony2 Delete Action</a></li>
+            </ol>
+        </div>
+    </div>
+    <h2 id="index">Symfony2 Index Action<a class="headerlink" href="#Symfony2-Index-Action" title="Permalink to this headline">¶</a></h2>
+     <div class='tech-body'>
+        <p>
+            
+        </p>
+     </div>
+    <h3>The View<a class="headerlink" href="#the-view-plant" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-html">
+        <div class="highlight">
+<pre>
+<span class="w">&#123;&#35; ..views/Plant/index.html.twig &#35;&#125;</span>
+
+<span class="brown">&#123;&#37;</span> <span class="light-blue">extends</span> <span class="mustard">'BloggerBlogBundle::layout.html.twig'</span> <span class="gd">&#37;&#125;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">block</span> stylesheets <span class="gd">&#37;&#125;</span>
+    <span class="brown">&#123;&#123;</span> parent<span class="light-blue">()</span> <span class="gd">&#125;&#125;</span>
+    <span class="blue">&lt;link </span><span class="green">href=</span><span class="orange">"</span><span class="brown">&#123;&#123;</span><span class="light-blue">(</span><span class="mustard">'bundles/bloggerblog/css/plant.css'</span><span class="light-blue">)</span><span class="brown">&#125;&#125;</span><span class="orange">"</span><span class="green"> type=</span><span class="orange">"text/css"</span><span class="green"> rel=</span><span class="orange">"stylesheet"</span><span class="gt"> /&gt;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">endblock</span> <span class="gd">&#37;&#125;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">block</span> title <span class="gd">&#37;&#125;</span>Plant Index<span class="brown">&#123;&#37;</span> <span class="light-blue">endblock</span> <span class="gd">&#37;&#125;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">block</span> body <span class="gd">&#37;&#125;</span>
+<span class="w">&#123;&#35; .... &#35;&#125;</span>
+    <span class="blue">&lt;ul </span><span class="green">class=</span><span class="orange">"</span><span class="green">plant_list</span><span class="orange">"</span><span class="gt"> /&gt;</span>
+        <span class="brown">&#123;&#37;</span> <span class='light-blue'>for </span>plant <span class='light-blue'>in</span> plants <span class="gd">&#37;&#125;</span>
+            <span class="blue">&lt;li&gt;</span><span class="blue">&lt;a </span><span class="green">href=</span><span class="orange">"</span><span class="brown">&#123;&#123;</span> path<span class="light-blue">(</span><span class="mustard">'BloggerBlogBundle_plant_show'</span><span class="light-blue">, {</span><span class="mustard">'id'</span><span class='light-blue'> : </span>plant<span class='light-blue'>.</span>id<span class='light-blue'>,</span> <span class='mustard'>'slug' </span><span class='light-blue'>:</span> plant<span class='light-blue'>.</span>slug <span class="light-blue">})</span> <span class="gd">&#125;&#125;</span><span class="orange">"</span><span class="blue">&gt;</span><span class="brown">&#123;&#123;</span> plant<span class='light-blue'>.</span>taxName <span class="gd">&#125;&#125;</span><span class="blue">&lt;/a&gt;</span> - <span class="brown">&#123;&#123;</span> plant<span class='light-blue'>.</span>name <span class="gd">&#125;&#125;</span><span class="blue">&lt;/li&gt;</span>
+        <span class="brown">&#123;&#37;</span> <span class='light-blue'>endfor</span> <span class="gd">&#37;&#125;</span>
+    <span class="blue">&lt;/ul&gt;</span>
+<span class="w">&#123;&#35; .... &#35;&#125;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">endblock</span>  <span class="gd">&#37;&#125;</span>
+</pre>
+        </div>
+    </div>
+
+    <h3>The Route<a class="headerlink" href="#the-route" title="Permalink to this headline">¶</a></h3>
+    <p>
+        
+    </p>
+    <div class="highlight-yaml">
+        <div class="highlight">
+<pre><span class="w"># src/Blogger/BlogBundle/Resources/config/routing.yml</span>
+<span class="l-Scalar-Plain">BloggerBlogBundle_plant_index</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">/plant/index</span>
+    <span class="l-Scalar-Plain">defaults</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">_controller</span><span class="p-Indicator">:</span> <span class="nv">BloggerBlogBundle</span><span class="p-Indicator">:</span><span class="nv">Plant</span><span class="p-Indicator">:</span><span class="nv">index</span> <span class="p-Indicator">}</span>
+    <span class="l-Scalar-Plain">requirements</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">_method</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">GET</span>
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Controller<a class="headerlink" href="#the-route" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-php">
+        <div class="highlight">
+<pre>
+<span class="o">&lt;?</span><span class="nx">php</span>
+<span class="w">// src/Blogger/BlogBundle/Controller/PlantController.php</span>
+
+<span class="gt">namespace</span> <span class="nx">Blogger\BlogBundle\Controller</span><span class="p">;</span>
+
+<span class="gt">use</span> <span class="nx">Symfony\Bundle\FrameworkBundle\Controller\Controller;</span> 
+<span class="gt">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request;</span> 
+
+<span class="gt">class</span> <span class="gs">PlantController</span> <span class="gt">extends</span> Controller
+<span class="p">{</span>
+    <span class="w">//...</span>
+    <span class="gt">public function</span> <span class="gs">indexAction</span>(){
+        <span class="w">//get your collection of plants:</span>
+        <span class="gd">$em</span> = <span class="gd">$this</span>->getDoctrine()->getEntityManager();        
+        <span class="gd">$plants</span> = <span class="brown">$em</span>->getRepository(<span class="mustard">'BloggerBlogBundle:Plant'</span>)->getLatestPlants();
+
+        <span class="w">//send your collection to the view:</span>
+        <span class="blue">return</span> <span class="brown">$this</span>->render(<span class="mustard">'BloggerBlogBundle:Plant:index.html.twig'</span>, <span class="blue">array</span>(
+            <span class='orange'>'plants'</span>    =>  <span class='brown'>$plants</span>
+        ));
+    <span>}</span>
+    <span class="w">//...</span>
+<span class="p">}</span>
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Model<a class="headerlink" href="#the-model" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-php">
+        <div class="highlight">
+<pre>
+<span class="o">&lt;?</span><span class="nx">php</span>
+<span class="w">// src/Blogger/BlogBundle/Entity/Repository/PlantRepository.php</span>
+
+<span class="gt">namespace</span> <span class="nx">Blogger\BlogBundle\Entity\Repository</span><span class="p">;</span>
+
+<span class="gt">use</span> <span class="nx">Doctrine\ORM\EntityRepository;</span> 
+
+<span class="gt">class</span> <span class="gs">PlantRepository</span> <span class="gt">extends</span> EntityRepository
+<span class="p">{</span>
+    <span class="w">//...</span>
+    <span class="gt">public function</span> <span class="gs">getLatestPlants</span>(){
+        <span class="brown">$qb</span> = <span class="brown">$this</span>->createQueryBuilder(<span class="orange">'p'</span>)
+               ->select(<span class="orange">'p'</span>)
+               ->addOrderBy(<span class="orange">'p.taxGenus'</span>, <span class="orange">'ASC'</span>)
+                ->addOrderBy(<span class="orange">'p.taxSpecies'</span>, <span class="orange">'ASC'</span>)
+                 ->addOrderBy(<span class="orange">'p.taxVariety'</span>, <span class="orange">'ASC'</span>);
+
+                <span class="blue">return</span> <span class="brown">$qb</span>->getQuery()
+                  ->getResult();
+    <span>}</span>
+    <span class="w">//...</span>
+<span class="p">}</span>
+</pre>
+        </div>
+    </div>
+    
+    <h2 id="new">Symfony2 New Action<a class="headerlink" href="#alphabet_search" title="Permalink to this headline">¶</a></h2>
+     <div class='tech-body'>
+        <p>
+        </p>
+     </div>
+    <h3>The View<a class="headerlink" href="#the-view" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-html">
+        <div class="highlight">
+<pre>
+<span class="w">&#123;&#35; ..views/Plant/new.html.twig &#35;&#125;</span>
+
+<span class="brown">&#123;&#37;</span> <span class="light-blue">extends</span> <span class="mustard">'BloggerBlogBundle::layout.html.twig'</span> <span class="gd">&#37;&#125;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">block</span> stylesheets <span class="gd">&#37;&#125;</span>
+    <span class="brown">&#123;&#123;</span> parent<span class="light-blue">()</span> <span class="gd">&#125;&#125;</span>
+    <span class="blue">&lt;link </span><span class="green">href=</span><span class="orange">"</span><span class="brown">&#123;&#123;</span><span class="light-blue">(</span><span class="mustard">'bundles/bloggerblog/css/plant.css'</span><span class="light-blue">)</span><span class="brown">&#125;&#125;</span><span class="orange">"</span><span class="green"> type=</span><span class="orange">"text/css"</span><span class="green"> rel=</span><span class="orange">"stylesheet"</span><span class="gt"> /&gt;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">endblock</span> <span class="gd">&#37;&#125;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">block</span> title <span class="gd">&#37;&#125;</span>New Plant<span class="brown">&#123;&#37;</span> <span class="light-blue">endblock</span> <span class="gd">&#37;&#125;</span>
+<span class="brown">&#123;&#37;</span> <span class="lb">block</span> javascripts <span class="gd">&#37;&#125;</span>
+    <span class="brown">&#123;&#123;</span> parent<span class="lb">()</span> <span class="gd">&#125;&#125;</span>
+    <span class="bl">&lt;script</span> <span class="gr">src=</span><span class="ng">"https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"</span><span class="bl">&gt;&lt;/script&gt;</span>
+    <span class="bl">&lt;script</span> <span class="gr">src=</span><span class="ng">"</span><span class="brown">&#123;&#123;</span> asset<span class="lb">(</span><span class="ng">'bundles/bloggerblog/js/forms.js'</span><span class="lb">)</span> <span class="gd">&#125;&#125;</span><span class="ng">"</span><span class="bl">&gt;&lt;/script&gt;</span>
+<span class="brown">&#123;&#37;</span> <span class="lb">endblock</span> <span class="gd">&#37;&#125;</span>
+
+<span class="brown">&#123;&#37;</span> form_theme form _self <span class="gd">&#37;&#125;</span>
+
+<span class='brown'>&#123;&#37; </span><span class='blue'>block </span>choice_widget_expanded <span class='brown'>&#37;&#125; </span>
+    <span class='brown'>&#123;&#37; </span><span class='light-blue'>spaceless </span><span class='brown'>&#37;&#125; </span>
+        <span class='blue'>&lt;fieldset </span><span class='green'>class=</span><span class='orange'>"</span><span class='green'>group</span><span class='orange'>"</span><span class='blue'>&gt;</span>
+            <span class='blue'>&lt;ul </span><span class='brown'>&#123;&#123; </span>block<span class='light-blue'>(</span><span class='mustard'>'widget_container_attributes'</span><span class='light-blue'>) </span><span class='brown'>&#125;&#125; </span><span class='blue'>&gt;</span>
+                <span class='brown'>&#123;&#37; </span><span class='light-blue'>for </span>child <span class='light-blue'>in </span>form <span class='brown'>&#37;&#125; </span>
+                    <span class='brown'>&#123;&#123; </span>form_widget<span class='light-blue'>(</span>child<span class='light-blue'>) </span><span class='brown'>&#125;&#125; </span>
+                <span class='brown'>&#123;&#37; </span><span class='light-blue'>endfor </span><span class='brown'>&#37;&#125; </span>
+            <span class='blue'>&lt;/ul&gt;</span>
+        <span class='blue'>&lt;/fieldset&gt;</span>
+    <span class='brown'>&#123;&#37; </span><span class='light-blue'>endspaceless </span><span class='brown'>&#37;&#125; </span>
+<span class='brown'>&#123;&#37; </span><span class='light-blue'>endblock </span>choice_widget_expanded <span class='brown'>&#37;&#125; </span>
+
+<span class="brown">&#123;&#37;</span> <span class="light-blue">block</span> checkbox_widget <span class="gd">&#37;&#125;</span>
+    <span class='brown'>&#123;&#37; </span><span class='light-blue'>spaceless </span><span class='brown'>&#37;&#125; </span>
+        <span class='blue'>&lt;li&gt;</span>
+            <span class='blue'>&lt;label </span><span class='green'>for=</span><span class='orange'>"</span><span class='brown'>&#123;&#123;</span> id <span class='brown'>&#125;&#125;</span><span class='orange'>" </span><span class='green'>class=</span><span class='orange'>"</span><span class='green'>checkbox </span><span class='brown'>&#123;&#37; </span><span class="light-blue">if </span>checked <span class='brown'>&#37;&#125; </span><span class='green'>checked</span> <span class="brown">&#123;&#37;</span> <span class="light-blue">endif</span> <span class="gd">&#37;&#125;</span><span class='orange'>"</span><span class='blue'> &gt;</span>
+                <span class="blue">&lt;input </span><span class="green">type=</span><span class="orange">"checkbox"</span><span class="brown">&#123;&#123; </span>block<span class="light-blue">(</span><span class="mustard">'widget_attributes'</span><span class="light-blue">)</span><span class="brown">&#125;&#125; &#123;&#37; </span><span class="light-blue">if </span>value <span class="light-blue">is </span>defined <span class="brown">&#37;&#125; </span><span class="green">value=</span><span class="orange">"</span><span class="brown">&#123;&#123; </span>value <span class="brown">&#125;&#125;</span><span class="orange">" </span><span class="brown">&#123;&#37; </span><span class="light-blue">endif </span><span class="brown">&#37;&#125; </span><span class="brown">&#123;&#37; </span><span class="light-blue">if </span>checked <span class="brown">&#37;&#125; </span><span class="green">checked=</span><span class="orange">"checked" </span><span class="brown">&#123;&#37; </span><span class="light-blue">endif </span><span class="brown">&#37;&#125;</span><span class="blue"> /&gt;</span><span class="brown"> &#123;&#123; </span>label<span class="light-blue">|</span>trans <span class="brown">&#125;&#125;</span>
+            <span class='blue'>&lt;/label&gt;</span>
+        <span class='blue'>&lt;/li&gt;</span>
+    <span class='brown'>&#123;&#37; </span><span class='light-blue'>endspaceless </span><span class='brown'>&#37;&#125; </span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">endblock</span> checkbox_widget <span class="gd">&#37;&#125;</span>
+
+<span class="brown">&#123;&#37;</span> <span class="light-blue">block</span> body <span class="gd">&#37;&#125;</span>
+    <span class="blue">&lt;div </span><span class="green">class=</span><span class="orange">"</span><span class="green">section-header</span><span class="orange">"</span><span class="blue">&gt;&lt;h1&gt;</span>New Plant<span class="blue">&lt;/h1&gt;</span>
+        <span class="blue">&lt;ul </span><span class="green">class=</span><span class="orange">"</span><span class="green">page-nav</span><span class="orange">"</span><span class="blue">&gt;</span>
+            <span class="blue">&lt;li&gt;&lt;a</span> <span class="green">href=</span><span class="orange">""</span><span class="blue">&gt;</span>Save<span class="blue">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="blue">&lt;li&gt;&lt;a</span><span class="green">href=</span><span class="orange">"</span><span class="brown">&#123;&#123;</span>path<span class="light-blue">(</span><span class="mustard">'BloggerBlogBundle_plant_index'</span><span class="light-blue">)</span><span class="brown">&#125;&#125;</span><span class="orange">"</span><span class="blue">&gt;</span>Cancel<span class="blue">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="blue">&lt;/ul&gt;</span>
+    <span class="blue">&lt;/div&gt;</span>
+    
+    <span class="blue">&lt;form </span><span class="green">action=</span><span class="orange">"</span><span class="brown">&#123;&#123;</span> path<span class="light-blue">(</span><span class="mustard">'BloggerBlogBundle_plant_new'</span><span class="light-blue">) </span><span class="brown">&#125;&#125;</span><span class="orange">" </span><span class="green">method=</span><span class="orange">"post" </span><span class="brown">&#123;&#123; </span>form_enctype<span class="light-blue">(</span>form<span class="light-blue">) </span><span class="brown">&#125;&#125; </span><span class="green">class=</span><span class="orange">"</span><span class="green">blogger</span><span class="orange">"</span><span class="blue">&gt;</span>
+        <span class="brown">&#123;&#123;</span> form_errors<span class="light-blue">(</span>form<span class="light-blue">)</span> <span class="gd">&#125;&#125;</span>
+        <span class="blue">&lt;div </span><span class="green">class=</span><span class="orange">"</span><span class="green">section-header</span><span class="orange">"</span><span class="blue">&gt;&lt;h6&gt;</span>Name & Taxonomy<span class="blue">&lt;/h6&gt;&lt;div </span><span class="green">class=</span><span class="orange">"</span><span class="green">section-title</span><span class="orange">"</span><span class="blue">&gt;</span>Taxonomy Standards [ <span class="blue">&lt;a </span><span class="green">href=</span><span class="orange">"http://www.catalogueoflife.org/annual-checklist/2015/browse/" </span><span class="green">target=</span><span class="orange">"_blank"</span><span class="blue">&gt;</span>here<span class="blue">&lt;/a&gt;</span> ] <span class="blue">&lt;/div&gt;&lt;/div&gt;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>name<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>taxKingdom<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>taxPhylum<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>taxClass<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>taxOrder<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>taxFamily<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>taxGenus<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>taxSpecies<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>taxVariety<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+    <span class="blue">&lt;div </span><span class="green">class=</span><span class="orange">"</span><span class="green">section-header</span><span class="orange">"</span><span class="blue">&gt;&lt;h6&gt;</span>Grouping<span class="blue">&lt;/h6&gt;&lt;/div&gt;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>plantTypes<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>lifecycle<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>plantGroup<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+    <span class="blue">&lt;div </span><span class="green">class=</span><span class="orange">"</span><span class="green">section-header</span><span class="orange">"</span><span class="blue">&gt;&lt;h6&gt;</span>Details<span class="blue">&lt;/h6&gt;&lt;/div&gt;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>summary<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+    <span class="blue">&lt;div </span><span class="green">class=</span><span class="orange"></span><span class="green">same_line</span><span class="orange">"</span><span class="blue">&gt;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>zoneLow<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="blue">&lt;span&gt;</span>To<span class="blue">&lt;/span&gt;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>zoneHigh<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+    <span class="blue">&lt;/div&gt;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>bloomTimes<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>flowerColor<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>foliageColor<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>light<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+    <span class="blue">&lt;div </span><span class="green">class=</span><span class="orange"></span><span class="green">same_line</span><span class="orange">"</span><span class="blue">&gt;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>heightLow<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="blue">&lt;span&gt;</span>To<span class="blue">&lt;/span&gt;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>heightHigh<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>height_measure<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+    <span class="blue">&lt;/div&gt;</span>
+    <span class="blue">&lt;div </span><span class="green">class=</span><span class="orange"></span><span class="green">same_line</span><span class="orange">"</span><span class="blue">&gt;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>spreadLow<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="blue">&lt;span&gt;</span>To<span class="blue">&lt;/span&gt;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>spreadHigh<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>width_measure<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+    <span class="blue">&lt;/div&gt;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>soil<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>invasivness<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>seed<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>attracts<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>pests<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>diseases<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="blue">&lt;label </span><span class="green">for=</span><span class="orange">"plant_resistsDeer"</span>Resists Deer<span class="blue">&lt;/label&gt;</span>
+        <span class="blue">&lt;fieldset </span><span class="green">class=</span><span class="orange">"</span><span class="green">group</span><span class="orange">"</span><span class="blue">&gt;</span>
+            <span class="blue">&lt;ul </span><span class="green">class=</span><span class="orange">"</span><span class="green">checkboxes</span><span class="orange">" </span><span class="blue">&gt;</span>
+                <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>resistsDeer<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+            <span class="blue">&lt;/ul&gt;</span>
+        <span class="blue">&lt;/fieldset&gt;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>origin<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+    <span class="blue">&lt;div </span><span class="green">class=</span><span class="orange">"</span><span class="green">section-header</span><span class="orange">"</span><span class="blue">&gt;&lt;h6&gt;</span>Propagation<span class="blue">&lt;/h6&gt;&lt;/div&gt;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>propagationMethod<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>propagation<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+    <span class="blue">&lt;div </span><span class="green">class=</span><span class="orange">"</span><span class="green">section-header</span><span class="orange">"</span><span class="blue">&gt;&lt;h6&gt;</span>Planting<span class="blue">&lt;/h6&gt;&lt;/div&gt;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>planting<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+    <span class="blue">&lt;div </span><span class="green">class=</span><span class="orange">"</span><span class="green">section-header</span><span class="orange">"</span><span class="blue">&gt;&lt;h6&gt;</span>Care<span class="blue">&lt;/h6&gt;&lt;/div&gt;</span>
+        <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>form<span class="light-blue">.</span>care<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+    <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">section-header</span><span class="ng">"</span><span class="bl">&gt;&lt;h1&gt;</span>Images<span class="bl">&lt;/h1&gt;&lt;/div&gt;</span>
+    <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">images</span><span class="ng">" </span><span class="gr">data-prototype=</span><span class="ng">"</span><span class="br">&#123;&#123; </span>form_widget<span class="bl">(</span>form<span class="lb">.</span>pictures<span class="lb">.</span>vars<span class="lb">.</span>prototype<span class="lb">) |</span>e <span class="br">&#125;&#125;</span><span class="ng">"</span><span class="bl">&gt;</span>
+        <span class="w">&#123;&#35; iterate over each existing tag and render its fields &#35;&#125; </span>
+        <span class="br">&#123;&#37; </span><span class="lb">for </span>picture <span class="lb">in </span>form<span class="lb">.</span>pictures <span class="br">&#37;&#125;</span>
+            <span class="bl">&lt;section&gt;</span>
+                <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>picture<span class="light-blue">.</span>path<span class="light-blue">, {</span> <span class="mu">'attr'</span><span class="lb">: {</span><span class="mu">'class' </span><span class="lb">: </span><span class="mu">'img_path' </span><span class="lb">&#37; &#125; ) </span><span class="br">&#125;&#125;</span>
+                <span class="brown">&#123;&#123;</span> form_row<span class="light-blue">(</span>picture<span class="light-blue">.</span>description<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+            <span class="bl">&lt;/section&gt;</span>
+        <span class="br">&#123;&#37; </span><span class="lb">endfor </span><span class="br">&#37;&#125; </span>
+    <span class="bl">&lt;/div&gt;</span>
+        <span class="brown">&#123;&#123;</span> form_rest<span class="light-blue">(</span>form<span class="light-blue">)</span> <span class="brown">&#125;&#125;</span>
+    <span class="bl">&lt;input </span><span class="gr">type=</span><span class="ng">"submit" </span><span class="gr">value=</span><span class="ng">"Submit" </span><span class="bl">/&gt;</span>
+    <span class="blue">&lt;/form&gt;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">endblock</span>  <span class="gd">&#37;&#125;</span>
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Route<a class="headerlink" href="#the-route" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-yaml">
+        <div class="highlight">
+<pre><span class="w"># src/Blogger/BlogBundle/Resources/config/routing.yml</span>
+<span class="l-Scalar-Plain">BloggerBlogBundle_plant_new</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">/plant/new</span>
+    <span class="l-Scalar-Plain">defaults</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">_controller</span><span class="p-Indicator">:</span> <span class="nv">BloggerBlogBundle</span><span class="p-Indicator">:</span><span class="nv">Plant</span><span class="p-Indicator">:</span><span class="nv">new</span> <span class="p-Indicator">}</span>
+    <span class="l-Scalar-Plain">requirements</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">_method</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">GET|POST</span>
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Controller<a class="headerlink" href="#the-route" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-php">
+        <div class="highlight">
+
+<pre>
+<span class="o">&lt;?</span><span class="nx">php</span>
+<span class="w">// src/Blogger/BlogBundle/Controller/PlantController.php</span>
+
+<span class="gt">namespace</span> <span class="nx">Blogger\BlogBundle\Controller</span><span class="p">;</span>
+
+<span class="gt">use</span> <span class="nx">Blogger\BlogBundle\Entity\Plant;</span> 
+<span class="gt">use</span> <span class="nx">Blogger\BlogBundle\Entity\Picture;</span> 
+<span class="gt">use</span> <span class="nx">Blogger\BlogBundle\Form\PlantForm;</span> 
+<span class="gt">use</span> <span class="nx">Symfony\Bundle\FrameworkBundle\Controller\Controller;</span> 
+<span class="gt">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request;</span> 
+
+<span class="gt">class</span> <span class="gs">PlantController</span> <span class="gt">extends</span> Controller
+<span class="p">{</span>
+    <span class="w">//...</span>
+    <span class="gt">public function</span> <span class="gs">newAction</span>(Request <span class="gd">$request</span>){
+        <span class="br">$plant</span> = <span class="bl">new </span>Plant();
+        <span class="br">$image1</span> = <span class="bl">new </span>Picture();
+        <span class="br">$plant</span>->getPictures()->add(<span class="br">$image1</span>);
+
+        <span class="w">//send the entity manager to the PlantForm - so we can assign default choices for related data:</span>
+        <span class="br">form </span>= <span class="br">$this</span>->createForm(<span class="bl">new </span>PlantForm(<span class="br">$this</span>->getDoctrine()->getManager()), <span class="br">$plant</span>);
+
+        <span class="bl">if</span> (<span class="br">$request</span>->getMethod() == <span class="ng">'POST'</span>) {
+            <span class="br">$form</span>->handleRequest(<span class="br">$request</span>);
+            <span class="bl">if </span>(<span class="br">$form</span>->isValid()) {
+                <span class="br">$em</span> = <span class="br">$this</span>->getDoctrine()->getEntityManager();
+                <span class="br">$plant</span>->setSlug(<span class="br">$plant</span>->getTaxGenus().<span class="ng">' '</span>.<span class="br">$plant</span>->getTaxSpecies().<span class="ng">' '</span>.<span class="br">$plant</span>->getTaxVariety().<span class="ng">' '</span>.<span class="br">$plant</span>->getTaxName() );
+                <span class="p">!</span><span class="bl">isset</span>(<span class="br">$image1</span>)?:<span class="br">$em</span>->persist(<span class="br">$image1</span>);
+                <span class="br">$em</span>->persist(<span class='br'>$plant</span>);
+                <span class="br">$em</span>->flush();
+
+                <span class='w'>// Redirect - This is important to prevent users re-posting
+                // the form if they refresh the page</span>
+                <span class="bl">return </span><span class="br">$this</span>->redirect(<span class="br">$this</span>->generateUrl(<span class="ng">'BloggerBlogBundle_plant_show'</span>, <span class="bl">array</span>(
+                    <span class="ng">'id'     </span>=>   <span class="br">$plant</span>->getId(),
+                    <span class="ng">'slug'   </span>=>   <span class="br">$plant</span>->getSlug()
+                <span class="p">)));</span>
+        <span class="p">}</span>  
+
+        <span class="bl">return</span> <span class="br">$this</span>->render(<span class="ng">'BloggerBlogBundle:Plant:new.html.twig'</span> , <span class='blue'>array</span>(
+            <span class='ng'>'form'</span> => <span class='br'>$form</span>->createView()
+        ));
+    <span class="p">}</span>
+    <span class="w">//...</span>
+<span class="p">}</span>
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Model<a class="headerlink" href="#the-model" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-php">
+        <div class="highlight">
+<pre>
+<span class="o">&lt;?</span><span class="nx">php</span>
+<span class="w">// src/Blogger/BlogBundle/Entity/Plant.php</span>
+
+<span class="bl">namespace</span> <span class="nx">Blogger\BlogBundle\Entity</span><span class="p">;</span>
+
+<span class="bl">use</span> <span class="nx">Doctrine\ORM\Mapping <span class="bl">as</span> ORM;</span> 
+<span class="bl">use</span> <span class="nx">Symfony\Component\Validator\Mapping\ClassMetadata;</span> 
+<span class="bl">use</span> <span class="nx">Symfony\Component\Validator\Constraints\NotBlank;</span> 
+<span class="bl">use</span> <span class="nx">Symfony\Component\Validator\Constraints <span class="bl">as</span> Assert;</span> 
+<span class="bl">use</span> <span class="nx">Doctrine\Common\Collections\ArrayCollection;</span> 
+<span class="w">
+/**
+ * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\PlantRepository")
+ * @ORM\Table(name="plant")
+ * @ORM\HasLifecycleCallbacks
+ */</span>
+<span class="gt">class</span> <span class="gs">Plant</span> 
+<span class="p">{</span>
+    <span class="w">
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">id</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToMany(targetEntity="Blogger\BlogBundle\Entity\Attracts", inversedBy="plants", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">attracts</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">authorId</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToOne(targetEntity="Blogger\BlogBundle\Entity\User")
+     * @ORM\JoinColumn(name="authorId", referencedColumnName="id")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">author</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">editorId</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToOne(targetEntity="Blogger\BlogBundle\Entity\User")
+     * @ORM\JoinColumn(name="editorId", referencedColumnName="id")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">editor</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="datetimetz")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">created</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="datetimetz")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">updated</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="integer")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">plantTypeId</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToOne(targetEntity="Blogger\BlogBundle\Entity\PlantType")
+     * @ORM\JoinColumn(name="plantTypeId", referencedColumnName="id")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">plantTypes</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="string")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">name</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="integer")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">taxKingdomId</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToOne(targetEntity="Blogger\BlogBundle\Entity\TaxKingdom")
+     * @ORM\JoinColumn(name="taxKingdomId", referencedColumnName="id")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">taxKingdom</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="integer")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">taxPhylumId</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToOne(targetEntity="Blogger\BlogBundle\Entity\TaxPhylum")
+     * @ORM\JoinColumn(name="taxPhylumId", referencedColumnName="id")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">taxPhylum</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="integer")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">taxClassId</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToOne(targetEntity="Blogger\BlogBundle\Entity\TaxClass")
+     * @ORM\JoinColumn(name="taxClassId", referencedColumnName="id")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">taxClass</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="integer")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">taxOrderId</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToOne(targetEntity="Blogger\BlogBundle\Entity\TaxOrder")
+     * @ORM\JoinColumn(name="taxOrderId", referencedColumnName="id")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">taxOrder</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="string", length=75)
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">taxFamily</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="string", length=75)
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">taxGenus</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="string", length=75)
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">taxSpecies</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="string", nullable=true, length=75)
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">taxVariety</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="integer")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">plantGroupId</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToOne(targetEntity="Blogger\BlogBundle\Entity\PlantGroup")
+     * @ORM\JoinColumn(name="plantGroupId", referencedColumnName="id")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">plantGroup</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="text")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">summary</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToMany(targetEntity="Blogger\BlogBundle\Entity\Light", inversedBy="plants", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">light</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToMany(targetEntity="Blogger\BlogBundle\Entity\Soil", inversedBy="plants", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">soil</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="integer")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">lifecycleId</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToOne(targetEntity="Blogger\BlogBundle\Entity\Lifecycle")
+     * @ORM\JoinColumn(name="lifecycleId", referencedColumnName="id")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">lifecycle</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToMany(targetEntity="Blogger\BlogBundle\Entity\BloomTime", inversedBy="plants", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">bloomTimes</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="integer")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">foliageColorId</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToOne(targetEntity="Blogger\BlogBundle\Entity\FoliageColor")
+     * @ORM\JoinColumn(name="foliageColorId", referencedColumnName="id")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">foliageColor</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToMany(targetEntity="Blogger\BlogBundle\Entity\FlowerColor", inversedBy="plants", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">flowerColor</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="text")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">propagation</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="text")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">planting</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="text")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">care</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToMany(targetEntity="Blogger\BlogBundle\Entity\Pests", inversedBy="plants", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">pests</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToMany(targetEntity="Blogger\BlogBundle\Entity\Diseases", inversedBy="plants", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">diseases</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="integer")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">originId</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToOne(targetEntity="Blogger\BlogBundle\Entity\Country")
+     * @ORM\JoinColumn(name="originId", referencedColumnName="id")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">origin</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="integer", length=3)
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">heightLow</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="integer", length=3)
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">heightHigh</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="integer")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">zoneLowId</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToOne(targetEntity="Blogger\BlogBundle\Entity\HardinessZone")
+     * @ORM\JoinColumn(name="zoneLowId", referencedColumnName="id")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">zoneLow</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="integer")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">zoneHighId</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToOne(targetEntity="Blogger\BlogBundle\Entity\HardinessZone")
+     * @ORM\JoinColumn(name="zoneHighId", referencedColumnName="id")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">zoneHigh</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="integer", length=3))
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">spreadLow</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="integer", length=3)
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">spreadHigh</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="boolean")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">resistsDeer</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="string", length=100)
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">seed</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="string", length=100)
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">invasivness</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToMany(targetEntity="Blogger\BlogBundle\Entity\PropagationMethod", inversedBy="plants", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">propagationMethod</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="string", length=10)
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">height_measure</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="string", length=10)
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">width_measure</span>;
+    <span class="w">
+    /**
+     * @ORM\ManyToMany(targetEntity="Blogger\BlogBundle\Entity\Picture", inversedBy="plants", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">pictures</span>;
+    <span class="w">
+    /**
+     * @ORM\Column(type="string")
+     */</span>
+    <span class="bl">protected</span> <span class="br">$</span><span class="gr">slug</span>;
+
+    <span class="bl">public static function</span> <span class="bbi">loadValidatorMetadata</span><span class="b">(ClassMetadata </span><span class="br">$metadata</span><span class="b">)
+    {</span>
+        <span class="br">$metadata</span>->addPropertyConstraint(<span class="ng">'plantTypes'</span>, <span class="bl">new </span>NotBlank());
+        <span class="br">$metadata</span>->addPropertyConstraint(<span class="ng">'taxFamily'</span>, <span class="bl">new </span>Assert\Length(<span class="bl">array</span>(
+            <span class="ng">'min'</span>   =>  <span class="pink">3</span>,
+            <span class="ng">'max'</span>   =>  <span class="pink">30</span>,
+        )));
+        <span class="br">$metadata</span>->addPropertyConstraint(<span class="ng">'taxGenus'</span>, <span class="bl">new </span>Assert\Length(<span class="bl">array</span>(
+            <span class="ng">'min'</span>   =>  <span class="pink">3</span>,
+            <span class="ng">'max'</span>   =>  <span class="pink">30</span>,
+        )));
+        <span class="br">$metadata</span>->addPropertyConstraint(<span class="ng">'taxSpecies'</span>, <span class="bl">new </span>Assert\Length(<span class="bl">array</span>(
+            <span class="ng">'min'</span>   =>  <span class="pink">3</span>,
+            <span class="ng">'max'</span>   =>  <span class="pink">30</span>,
+        )));
+        <span class="br">$metadata</span>->addPropertyConstraint(<span class="ng">'taxVariety'</span>, <span class="bl">new </span>Assert\Length(<span class="bl">array</span>(
+            <span class="ng">'min'</span>   =>  <span class="pink">3</span>,
+            <span class="ng">'max'</span>   =>  <span class="pink">30</span>,
+        )));
+        <span class="br">$metadata</span>->addPropertyConstraint(<span class="ng">'summary'</span>, <span class="bl">new </span>Assert\Length(<span class="bl">array</span>(
+            <span class="ng">'min'</span>   =>  <span class="pink">50</span>,
+            <span class="ng">'max'</span>   =>  <span class="pink">2500</span>,
+        )));
+        <span class="br">$metadata</span>->addPropertyConstraint(<span class="ng">'propagation'</span>, <span class="bl">new </span>Assert\Length(<span class="bl">array</span>(
+            <span class="ng">'min'</span>   =>  <span class="pink">50</span>,
+            <span class="ng">'max'</span>   =>  <span class="pink">2500</span>,
+        )));
+        <span class="br">$metadata</span>->addPropertyConstraint(<span class="ng">'care'</span>, <span class="bl">new </span>Assert\Length(<span class="bl">array</span>(
+            <span class="ng">'min'</span>   =>  <span class="pink">50</span>,
+            <span class="ng">'max'</span>   =>  <span class="pink">2500</span>,
+        )));
+        <span class="br">$metadata</span>->addPropertyConstraint(<span class="ng">'planting'</span>, <span class="bl">new </span>Assert\Length(<span class="bl">array</span>(
+            <span class="ng">'min'</span>   =>  <span class="pink">50</span>,
+            <span class="ng">'max'</span>   =>  <span class="pink">2500</span>,
+        )));
+    }
+    <span class="w">
+    /**
+     * Constructor
+     */</span>
+    <span class="bl">public function </span><span class="bb">__construct</span>()
+    {
+        <span class="br">$this</span>-><span class="gr">attracts </span>= <span class="bl">new </span>ArrayCollection();
+        <span class="br">$this</span>-><span class="gr">bloomTimes </span>= <span class="bl">new </span>ArrayCollection();<span class="br">$this</span>-><span class="gr">attracts </span>= <span class="bl">new </span>ArrayCollection();
+        <span class="br">$this</span>-><span class="gr">diseases </span>= <span class="bl">new </span>ArrayCollection();
+        <span class="br">$this</span>-><span class="gr">flowerColor </span>= <span class="bl">new </span>ArrayCollection();
+        <span class="br">$this</span>-><span class="gr">light </span>= <span class="bl">new </span>ArrayCollection();
+        <span class="br">$this</span>-><span class="gr">pests </span>= <span class="bl">new </span>ArrayCollection();
+        <span class="br">$this</span>-><span class="gr">propagationMethod </span>= <span class="bl">new </span>ArrayCollection();
+        <span class="br">$this</span>-><span class="gr">soil </span>= <span class="bl">new </span>ArrayCollection();
+        <span class="br">$this</span>-><span class="gr">pictures </span>= <span class="bl">new </span>ArrayCollection();
+        
+        <span class="br">$this</span>->setCreated(<span class="bl">new</span> \DateTime());
+        <span class="br">$this</span>->setUpdated(<span class="bl">new</span> \DateTime());
+    }
+    <span class="w">
+    /**
+     * @ORM\PreUpdate
+     */</span>
+    <span class="bl">public function </span><span class="bb">setUpdatedValue</span>()
+    {
+        <span class="br">$this</span>->setUpdated(<span class="bl">new</span> \DateTime());
+    }
+        
+    <span class="bl">public function</span> <span class="bb">getTaxName</span>() {
+        <span class="bl">return</span> ucfirst(<span class="br">$this</span>-><span class="gr">taxGenus</span>) .<span class="ng">' '</span>. strtolower(<span class="br">$this</span>-><span class="gr">taxSpecies</span>) .<span class="ng">' '</span>. <span class="ng">'\''</span>.strtolower(<span class="br">$this</span>-><span class="gr">taxVariety</span>).<span class="ng">'\''</span>;
+    }
+
+    <span class="bl">public function</span> <span class="bb">slugify</span>(<span class="br">$text</span>)
+    {
+        <span class="w">// replace non letter or digits by - </span>
+        <span class="br">$text</span> = preg_replace(<span class="ng">'#[^\\pL\d]+#u'</span>, <span class="ng">'-'</span>, <span class="br">$text</span>);
+
+        <span class="w">// trim</span>
+        <span class="br">$text</span> = trim(<span class="br">$text</span>, <span class="ng">'-'</span>);
+
+        <span class="w">// transliterate</span>
+        <span class="bl">if</span> (function_exists(<span class="ng">'iconv'</span>))
+        {
+            <span class="br">$text</span> = iconv(<span class="ng">'utf-8'</span>, <span class="ng">'us-ascii//TRANSLIT'</span>, <span class="br">$text</span>);
+        }
+
+        <span class="w">// lowercase</span>
+        <span class="br">$text</span> = strtolower(<span class="br">$text</span>);
+
+        <span class="w">// remove unwanted characters</span>
+        <span class="br">$text</span> = preg_replace(<span class="ng">'#[^-\w]+#'</span>, <span class="ng">''</span>, <span class="br">$text</span>);
+
+        <span class="bl">if</span> (empty(<span class="br">text</span>))
+        {
+            <span class="bl">return</span> <span class="ng">'n-a'</span>;
+        }
+
+        <span class="bl">return</span> <span class="br">$text</span>;
+    }
+     
+    <span class="w">/**
+     * Add pictures
+     *
+     * @param \Blogger\BlogBundle\Entity\Picture $pictures
+     * @return Plant
+     */</span>
+    <span class="bl">public function</span> <span class="bb">addPicture</span>(\Blogger\BlogBundle\Entity\Picture <span class="br">$pictures</span>)
+    {
+        <span class="br">$pictures</span>->addPlant(<span class="br">$this</span>);
+        <span class="br">$this</span>-><span class="gr">pictures</span>[] = <span class="br">$pictures</span>;
+    }
+
+    <span class="w">/**
+     * Remove pictures
+     *
+     * @param \Blogger\BlogBundle\Entity\Picture $pictures
+     */</span>
+    <span class="bl">public function</span> <span class="bb">removePicture</span>(\Blogger\BlogBundle\Entity\Picture <span class="br">$pictures</span>)
+    {
+        <span class="br">$this</span>-><span class="gr">pictures</span>->removeElement(<span class="br">$pictures</span>);
+    }
+
+    <span class="w">/**
+     * Get pictures
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */</span>
+    <span class="bl">public function</span> <span class="bb">getPictures</span>()
+    {
+        <span class="bl">return</span> <span class="br">$this</span>-><span class="gr">pictures</span>;
+    }
+
+<span class="w">//...</span>
+
+    <span class="w">//symfony2 generated getters & setters go here... I'm tired of color coding my code.</span>
+    <span class="w">//to generate these getters & setters, the command is: console doctrine:generate:entities blogger</span>
+
+<span class="w">//...</span>
+
+<span class="p">}</span>
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Form<a class="headerlink" href="#the-form" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-php">
+        <div class="highlight">
+
+<pre>
+<span class="o">&lt;?</span><span class="nx">php</span>
+<span class="w">// src/Blogger/BlogBundle/Form/PlantForm.php</span>
+
+<span class="gt">namespace</span> <span class="nx">Blogger\BlogBundle\Form;</span><span class="p">;</span>
+
+<span class="gt">use</span> <span class="nx">Symfony\Component\Form\AbstractType;</span> 
+<span class="gt">use</span> <span class="nx">Symfony\Component\Form\FormBuilderInterface;</span> 
+<span class="gt">use</span> <span class="nx">Symfony\Component\OptionsResolver\OptionsResolver;</span> 
+
+<span class="gt">class</span> <span class="bb">PlantForm</span> <span class="gt">extends</span> AbstractType
+<span class="p">{</span>
+    <span class='w'>//add em (entity manager) param to the constructor so we can pull in the entity manager  
+    //from the controller when we call new PlantForm()</span>
+    <span class="bl">public function</span> <span class="bb">__construct</span>(<span class="br">$em</span>) {
+        <span class="br">$this</span>-><span class="gr">em</span> = <span class="br">$em</span>;
+    }
+    <span class="gt">public function</span> <span class="bb">buildForm</span>(FormBuilderInterface <span class="br">$builder</span>, <span class="bl">array</span> <span class="br">$options</span>){
+        <span class='brown'>$builder</span>->add(<span class="ng">'attracts'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:Attracts'</span>,
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Wildlife'</span>,
+            <span class="ng">'required'</span>      =>  <span class="bl">false</span>,
+            <span class="ng">'multiple'</span>      =>  <span class="bl">true</span>,
+            <span class="ng">'expanded'</span>      =>  <span class="bl">true</span>,
+            <span class="ng">'attr'</span>          =>  <span class="bl">array</span>(
+                <span class="ng">'class'</span> =>  <span class="ng">'checkboxes'</span>)
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'bloomTimes'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:BloomTime'</span>,
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Bloom Time'</span>,
+            <span class="ng">'required'</span>      =>  <span class="bl">false</span>,
+            <span class="ng">'multiple'</span>      =>  <span class="bl">true</span>,
+            <span class="ng">'expanded'</span>      =>  <span class="bl">true</span>,
+            <span class="ng">'attr'</span>          =>  <span class="bl">array</span>(
+                <span class="ng">'class'</span> =>  <span class="ng">'checkboxes'</span>)
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'plantGroup'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:PlantGroup'</span>,
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Group'</span>,
+            <span class="ng">'placeholder'</span>   =>  <span class="ng">'Choose'</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'plantTypes'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:PlantType'</span>,
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Type'</span>,
+            <span class="ng">'placeholder'</span>   =>  <span class="ng">'Choose'</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'care'</span>, <span class="ng">'textarea'</span>, <span class="bl">array</span>(
+            <span class="ng">'label'</span>         =>  <span class="ng">'Instructions'</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'taxKingdom'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:TaxKingdom'</span>,
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Kingdom'</span>,
+            <span class="ng">'data'</span>          =>  <span class="br">$this</span>-><span class="gr">em</span>->getReference(<span class="ng">"BloggerBlogBundle:TaxKingdom"</span>, <span class="pink">6</span>)
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'taxPhylum'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:TaxPhylum'</span>,
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Phylum'</span>,
+            <span class="ng">'data'</span>          =>  <span class="br">$this</span>-><span class="gr">em</span>->getReference(<span class="ng">"BloggerBlogBundle:TaxPhylum"</span>, <span class="pink">2</span>)
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'taxOrder'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:TaxOrder'</span>,
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Order'</span>,
+            <span class="ng">'data'</span>          =>  <span class="ng">'Choose'</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'taxClass'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:TaxClass'</span>,
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Class'</span>,
+            <span class="ng">'data'</span>          =>  <span class="br">$this</span>-><span class="gr">em</span>->getReference(<span class="ng">"BloggerBlogBundle:TaxClass"</span>, <span class="pink">15</span>)
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'taxFamily'</span>, <span class="ng">'text'</span>, <span class="bl">array</span>(
+            <span class="ng">'label'</span>         =>  <span class="ng">'Family'</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'taxGenus'</span>, <span class="ng">'text'</span>, <span class="bl">array</span>(
+            <span class="ng">'label'</span>         =>  <span class="ng">'Genus'</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'taxSpecies'</span>, <span class="ng">'text'</span>, <span class="bl">array</span>(
+            <span class="ng">'label'</span>         =>  <span class="ng">'Species'</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'taxVariety'</span>, <span class="ng">'text'</span>, <span class="bl">array</span>(
+            <span class="ng">'label'</span>         =>  <span class="ng">'Variety'</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'name'</span>, <span class="ng">'text'</span>, <span class="bl">array</span>(
+            <span class="ng">'label'</span>         =>  <span class="ng">'Common Name'</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'diseases'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:Diseases'</span>,
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Diseases'</span>,
+            <span class="ng">'required'</span>      =>  <span class="bl">false</span>,
+            <span class="ng">'multiple'</span>      =>  <span class="bl">true</span>,
+            <span class="ng">'expanded'</span>      =>  <span class="bl">true</span>,
+            <span class="ng">'attr'</span>          =>  <span class="bl">array</span>(
+                <span class="ng">'class'</span> =>  <span class="ng">'checkboxes'</span>)
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'flowerColor'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:FlowerColor'</span>,
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Flower Color'</span>,
+            <span class="ng">'required'</span>      =>  <span class="bl">false</span>,
+            <span class="ng">'multiple'</span>      =>  <span class="bl">true</span>,
+            <span class="ng">'expanded'</span>      =>  <span class="bl">true</span>,
+            <span class="ng">'attr'</span>          =>  <span class="bl">array</span>(
+                <span class="ng">'class'</span> =>  <span class="ng">'checkboxes'</span>)
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'foliageColor'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:FoliageColor'</span>,
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Foliage Color'</span>,
+            <span class="ng">'placeholder'</span>   =>  <span class="ng">'Choose'</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'origin'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:Country'</span>,
+            <span class="ng">'query_builder'</span> =>  <span class="br">$this</span>-><span class="gr">em</span>->getRepository(<span class="ng">'BloggerBlogBundle:Country'</span>)->getGeographicRegionQuery(<span class="pink">21</span>,<span class="pink">32</span>),
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Origin'</span>,
+            <span class="ng">'placeholder'</span>   =>  <span class="ng">'Choose'</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'heightHigh'</span>, <span class="ng">'integer'</span>, <span class="bl">array</span>(
+            <span class="ng">'attr'</span>         =>  <span class="bl">array</span>(
+                <span class="ng">'placeholder'</span>   =>  <span class="ng">'High'</span>)
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'heightLow'</span>, <span class="ng">'integer'</span>, <span class="bl">array</span>(
+            <span class="ng">'label'</span>        =>  <span class="ng">'Plant Height'</span>,
+            <span class="ng">'attr'</span>         =>  <span class="bl">array</span>(
+                <span class="ng">'placeholder'</span>   =>  <span class="ng">'Low'</span>)
+        ));
+        <span class="w">// no, that's not a typo.  The way the form is layed out, the 'Plant Height' label had to be used in this place</span>
+        <span class='brown'>$builder</span>->add(<span class="ng">'height_measure'</span>, <span class="ng">'choice'</span>, <span class="bl">array</span>(
+            <span class="ng">'choices'</span>         =>  <span class="bl">array</span>(
+                <span class="ng">'inches'</span>   =>  <span class="ng">'inches'</span>,
+                <span class="ng">'feet'</span>     =>  <span class="ng">'feet'</span>
+            ),
+            <span class="ng">'required'</span>        =>  <span class="bl">true</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'lifecycle'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:Lifecycle'</span>,
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Lifecycle'</span>,
+            <span class="ng">'placeholder'</span>   =>  <span class="ng">'Choose'</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'invasivness'</span>, <span class="ng">'choice'</span>, <span class="bl">array</span>(
+            <span class="ng">'choices'</span>         =>  <span class="bl">array</span>(
+                <span class="ng">'Invasive'</span>      =>  <span class="ng">'Invasive'</span>,
+                <span class="ng">'Non-invasive'</span>  =>  <span class="ng">'Non-invasive'</span>
+            ),
+            <span class="ng">'required'</span>      =>  <span class="bl">true</span>,
+            <span class="ng">'placeholder'</span>   =>  <span class="ng">'Choose'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Invasivness'</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'light'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:Light'</span>,
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Light'</span>,
+            <span class="ng">'required'</span>      =>  <span class="bl">false</span>,
+            <span class="ng">'multiple'</span>      =>  <span class="bl">true</span>,
+            <span class="ng">'expanded'</span>      =>  <span class="bl">true</span>,
+            <span class="ng">'attr'</span>          =>  <span class="bl">array</span>(
+                <span class="ng">'class'</span> =>  <span class="ng">'checkboxes'</span>)
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'pests'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:Pests'</span>,
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Pests'</span>,
+            <span class="ng">'required'</span>      =>  <span class="bl">false</span>,
+            <span class="ng">'multiple'</span>      =>  <span class="bl">true</span>,
+            <span class="ng">'expanded'</span>      =>  <span class="bl">true</span>,
+            <span class="ng">'attr'</span>          =>  <span class="bl">array</span>(
+                <span class="ng">'class'</span> =>  <span class="ng">'checkboxes'</span>)
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'planting'</span>, <span class="ng">'textarea'</span>, <span class="bl">array</span>(
+            <span class="ng">'label'</span>         =>  <span class="ng">'Instructions'</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'propagation'</span>, <span class="ng">'textarea'</span>, <span class="bl">array</span>(
+            <span class="ng">'label'</span>         =>  <span class="ng">'Instructions'</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'propagationMethod'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:PropagationMethod'</span>,
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Methods'</span>,
+            <span class="ng">'required'</span>      =>  <span class="bl">false</span>,
+            <span class="ng">'multiple'</span>      =>  <span class="bl">true</span>,
+            <span class="ng">'expanded'</span>      =>  <span class="bl">true</span>,
+            <span class="ng">'attr'</span>          =>  <span class="bl">array</span>(
+                <span class="ng">'class'</span> =>  <span class="ng">'checkboxes'</span>)
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'resistsDeer'</span>, <span class="ng">'checkbox'</span>, <span class="bl">array</span>(
+            <span class="ng">'label'</span>         =>  <span class="ng">'Yes'</span>,
+            <span class="ng">'required'</span>      =>  <span class="bl">false</span>,
+            <span class="ng">'attr'</span>          =>  <span class="bl">array</span>(
+                <span class="ng">'class'</span> =>  <span class="ng">'checkboxes'</span>)
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'soil'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:Soil'</span>,
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Soil'</span>,
+            <span class="ng">'required'</span>      =>  <span class="bl">false</span>,
+            <span class="ng">'multiple'</span>      =>  <span class="bl">true</span>,
+            <span class="ng">'expanded'</span>      =>  <span class="bl">true</span>,
+            <span class="ng">'attr'</span>          =>  <span class="bl">array</span>(
+                <span class="ng">'class'</span> =>  <span class="ng">'checkboxes'</span>)
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'spreadLow'</span>, <span class="ng">'integer'</span>, <span class="bl">array</span>(
+            <span class="ng">'label'</span>         =>  <span class="ng">'Plant Width'</span>,
+            <span class="ng">'attr'</span>          =>  <span class="bl">array</span>(
+                <span class="ng">'placeholder'</span> =>  <span class="ng">'Low'</span>)
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'spreadHigh'</span>, <span class="ng">'integer'</span>, <span class="bl">array</span>(
+            <span class="ng">'attr'</span>          =>  <span class="bl">array</span>(
+                <span class="ng">'placeholder'</span> =>  <span class="ng">'High'</span>)
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'width_measure'</span>, <span class="ng">'choice'</span>, <span class="bl">array</span>(
+            <span class="ng">'choices'</span>         =>  <span class="bl">array</span>(
+                <span class="ng">'inches'</span>   =>  <span class="ng">'inches'</span>,
+                <span class="ng">'feet'</span>     =>  <span class="ng">'feet'</span>
+            ),
+            <span class="ng">'required'</span>        =>  <span class="bl">true</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'seed'</span>, <span class="ng">'choice'</span>, <span class="bl">array</span>(
+            <span class="ng">'choices'</span>         =>  <span class="bl">array</span>(
+                <span class="ng">'Seeds Prolifically'</span>      =>  <span class="ng">'Seeds Prolifically'</span>,
+                <span class="ng">'Seeds Sporadically'</span>  =>  <span class="ng">'Seeds Sporadically'</span>
+            ),
+            <span class="ng">'required'</span>      =>  <span class="bl">true</span>,
+            <span class="ng">'placeholder'</span>   =>  <span class="ng">'Choose'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Seed Behavior'</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'summary'</span>, <span class="ng">'textarea'</span>, <span class="bl">array</span>(
+            <span class="ng">'label'</span>         =>  <span class="ng">'General Description'</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'zoneLow'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:HardinessZone'</span>,
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'label'</span>         =>  <span class="ng">'Zone'</span>,
+            <span class="ng">'placeholder'</span>   =>  <span class="ng">'Low'</span>
+        ));
+        <span class='brown'>$builder</span>->add(<span class="ng">'zoneHigh'</span>, <span class="ng">'entity'</span>, <span class="bl">array</span>(
+            <span class="ng">'class'</span>         =>  <span class="ng">'BloggerBlogBundle:HardinessZone'</span>,
+            <span class="ng">'property'</span>      =>  <span class="ng">'name'</span>,
+            <span class="ng">'placeholder'</span>   =>  <span class="ng">'High'</span>
+        ));
+        <span class="br">$builder</span>->add(<span class="ng">'pictures'</span>, <span class="ng">'collection'</span>, <span class="bl">array</span>(
+            <span class="ng">'type'</span>      => <span class="bl">new</span> PictureForm(),
+            <span class="ng">'options'</span>   => <span class="bl">array</span>(
+                <span class="ng">'data_class'</span> => <span class="ng">'Blogger\BlogBundle\Entity\Picture'</span>),
+            <span class="ng">'allow_add'</span>    => <span class="bl">true</span>,
+            <span class="ng">'allow_delete'</span> => <span class="bl">true</span>,
+            <span class="ng">'by_reference'</span> => <span class="bl">false</span>,
+        ));
+    <span class="p">}</span>
+    <span class="bl">public function</span> <span class="bb">configureOptions</span>(OptionsResolver <span class="br">$resolver</span>)
+    {
+        <span class="br">$resolver</span>->setDefaults(<span class="bl">array</span>(
+            <span class="ng">'data_class'</span> => <span class="ng">'Blogger\BlogBundle\Entity\Plant'</span>,
+        ));
+    }
+    <span class="gt">public function</span> <span class="bb">getName</span>(){
+        <span class="blue">return</span> <span class="orange">'plant'</span>;
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+        </div>
+    </div>
+    
+    <h2 id="show">Symfony2 Show Action<a class="headerlink" href="#keyword_search" title="Permalink to this headline">¶</a></h2>
+     <div class='tech-body'>
+        <p>
+            The working example can be found <a class="reference internal" href="{{path('PpgwBundle_plant_show', { 'id': plant.id, 'slug': plant.slug })}}">here</a>.
+        </p>
+     </div>
+    <h3>The View<a class="headerlink" href="#the-view" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-html">
+        <div class="highlight">
+<pre>
+<span class="w">&#123;&#35; ..views/Plant/show.html.twig &#35;&#125;</span>
+
+<span class="br">&#123;&#37;</span> <span class="lb">extends</span> <span class="mustard">'BloggerBlogBundle::layout.html.twig'</span> <span class="br">&#37;&#125;</span>
+<span class="br">&#123;&#37;</span> <span class="lb">block</span> stylesheets <span class="br">&#37;&#125;</span>
+    <span class="br">&#123;&#123;</span> parent<span class="lb">() </span><span class="br">&#125;&#125;</span><span class="bl">&lt;link </span><span class="gr">href=</span><span class="ng">"</span><span class="br">&#123;&#123; </span>asset<span class="lb">(</span><span class="mustard">'bundles/bloggerblog/css/plant.css'</span><span class="lb">) </span><span class="br">&#125;&#125;</span><span class="ng">" </span><span class="gr">type=</span><span class="ng">"text/css" </span><span class="gr">rel=</span><span class="ng">"stylesheet" </span><span class="bl">/&gt;</span>    
+<span class="br">&#123;&#37;</span> <span class="lb">endblock</span> <span class="br">&#37;&#125;</span>
+<span class="br">&#123;&#37;</span> <span class="lb">block</span> title <span class="br">&#37;&#125;</span>Plant Details<span class="br">&#123;&#37;</span> <span class="lb">endblock</span> <span class="br">&#37;&#125;</span>
+<span class="br">&#123;&#37;</span> <span class="lb">block </span>body <span class="br">&#37;&#125;</span>
+
+    <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">section-header</span><span class="ng">"</span><span class="bl">&gt;&lt;h1&gt;</span>Plant Summary<span class="bl">&lt;/h1&gt;</span>
+        <span class="bl">&lt;ul </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">page-nav</span><span class="ng">"</span><span class="bl">&gt;</span>
+            <span class="bl">&lt;li&gt;&lt;a </span><span class="gr">href=</span><span class="ng">"#"</span><span class="bl">&gt;</span>Search<span class="bl">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="bl">&lt;li&gt;&lt;a </span><span class="gr">href=</span><span class="ng">"</span><span class="br">&#123;&#123; </span>path<span class="lb">(</span><span class="mustard">"BloggerBlogBundle_plant_new"</span><span class="lb">) </span><span class="br">&#125;&#125;</span><span class="ng">"</span><span class="bl">&gt;</span>Create New<span class="bl">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="bl">&lt;li&gt;&lt;a </span><span class="gr">href=</span><span class="ng">"</span><span class="br">&#123;&#123; </span>path<span class="lb">(</span><span class="mustard">"BloggerBlogBundle_plant_edit"</span><span class="lb">, {</span><span class="mustard">'id' </span><span class="lb">: </span>plant<span class="lb">.</span>id<span class="lb">} </span><span class="lb">) </span><span class="br">&#125;&#125;</span><span class="ng">"</span><span class="bl">&gt;</span>Edit<span class="bl">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="bl">&lt;/ul&gt;</span>
+    <span class="bl">&lt;/div&gt;</span>
+    
+    <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">wrapper</span><span class="ng">"</span><span class="bl">&gt;</span>
+        <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">img_section</span><span class="ng">"</span><span class="bl">&gt;</span>
+            <span class="br">&#123;&#37; </span><span class="lb">if </span>plant<span class="lb">.</span>pictures <span class="lb">is not </span>empty <span class="br">&#37;&#125;</span><span class="bl">&lt;img </span><span class="gr">src=</span><span class="ng">"</span><span class="br">&#123;&#123; </span>random<span class="lb">(</span>plant<span class="lb">.</span>pictures<span class="lb">).</span>path <span class="br">&#125;&#125;</span><span class="ng">" </span><span class="bl">/&gt;</span><span class="br">&#123;&#37; </span><span class="lb">else </span><span class="br">&#37;&#125;</span><span class="bl">&lt;img </span><span class="gr">src=</span><span class="ng">"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNDcrG80wqzVn2wZRARTJEuZ3mUVSXxMiXfE6cGOvm6TOEiI_F"</span><span class="bl">/&gt;</span><span class="br">&#123;&#37; </span><span class="lb">endif </span><span class="br">&#37;&#125;</span>
+        <span class="bl">&lt;/div&gt;</span>
+        <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">taxonomy_section</span><span class="ng">"</span><span class="bl">&gt;</span>
+            <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">taxonomy_container</span><span class="ng">"</span><span class="bl">&gt;</span>
+                <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">tax_name_cont</span><span class="ng">"</span><span class="bl">&gt;</span>
+                    <span class="br">&#123;&#37; </span><span class="lb">if </span>plant<span class="lb">.</span>taxName<span class="lb">|</span>length <span class="lb">&gt; </span>40 <span class="br">&#37;&#125; </span>
+                        <span class="bl">&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">tax_name_short</span><span class="ng">"</span><span class="bl">&gt;</span>
+                            <span class="bl">&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">i</span><span class="ng">"</span><span class="bl">&gt;</span>
+                                <span class="br">&#123;&#123; </span>plant<span class="lb">.</span>taxName <span class="br">&#125;&#125;</span>
+                            <span class="bl">&lt;/span&gt;</span>
+                        <span class="bl">&lt;/span&gt;</span>
+                    <span class="br">&#123;&#37; </span><span class="lb">else </span><span class="br">&#37;&#125; </span>
+                        <span class="bl">&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">tax_name</span><span class="ng">"</span><span class="bl">&gt;</span>
+                            <span class="bl">&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">i</span><span class="ng">"</span><span class="bl">&gt;</span>
+                                <span class="br">&#123;&#123; </span>plant<span class="lb">.</span>taxGenus<span class="lb">|</span>title <span class="br">&#125;&#125; </span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>taxSpecies<span class="lb">|</span>lower <span class="br">&#125;&#125;</span>
+                            <span class="bl">&lt;/span&gt;</span>
+                        <span class="bl">&lt;/span&gt;</span> var. 
+                        <span class="bl">&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">tax_name</span><span class="ng">"</span><span class="bl">&gt;</span>
+                            <span class="bl">&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">i</span><span class="ng">"</span><span class="bl">&gt;</span>
+                                <span class="br">&#123;&#123; </span>plant<span class="lb">.</span>taxVariety<span class="lb">|</span>capitalize <span class="br">&#125;&#125;</span>
+                            <span class="bl">&lt;/span&gt;</span>
+                        <span class="bl">&lt;/span&gt;</span>
+                    <span class="br">&#123;&#37; </span><span class="lb">endif </span><span class="br">&#37;&#125; </span>
+                <span class="bl">&lt;/div&gt;</span>
+                <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">common-name</span><span class="ng">"</span><span class="bl">&gt;&lt;div&gt;</span>Common Name: <span class="bl">&lt;/div&gt;&lt;section&gt;&lt;h7&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>name<span class="lb">|</span>title <span class="br">&#125;&#125;</span><span class="bl">&lt;/h7&gt;&lt;/section&gt;&lt;/div&gt;</span>
+                <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">alt_cont_a</span><span class="ng">"</span><span class="bl">&gt;&lt;div&gt;</span>Kingdom: <span class="bl">&lt;/div&gt;&lt;section&gt;&lt;h7&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>taxKingdom<span class="lb">.</span>name<span class="lb">|</span>title <span class="br">&#125;&#125;</span><span class="bl">&lt;/h7&gt;&lt;/section&gt;&lt;/div&gt;</span>
+                <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">alt_cont_a</span><span class="ng">"</span><span class="bl">&gt;&lt;div&gt;</span>Phylum: <span class="bl">&lt;/div&gt;&lt;section&gt;&lt;h7&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>taxPhylum<span class="lb">.</span>name<span class="lb">|</span>title <span class="br">&#125;&#125;</span><span class="bl">&lt;/h7&gt;&lt;/section&gt;&lt;/div&gt;</span>
+                <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">alt_cont_a</span><span class="ng">"</span><span class="bl">&gt;&lt;div&gt;</span>Order: <span class="bl">&lt;/div&gt;&lt;section&gt;&lt;h7&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>taxOrder<span class="lb">.</span>name<span class="lb">|</span>title <span class="br">&#125;&#125;</span><span class="bl">&lt;/h7&gt;&lt;/section&gt;&lt;/div&gt;</span>
+                <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">alt_cont_a</span><span class="ng">"</span><span class="bl">&gt;&lt;div&gt;</span>Class: <span class="bl">&lt;/div&gt;&lt;section&gt;&lt;h7&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>taxClass<span class="lb">.</span>name<span class="lb">|</span>title <span class="br">&#125;&#125;</span><span class="bl">&lt;/h7&gt;&lt;/section&gt;&lt;/div&gt;</span>
+                <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">alt_cont_a</span><span class="ng">"</span><span class="bl">&gt;&lt;div&gt;</span>Family: <span class="bl">&lt;/div&gt;&lt;section&gt;&lt;h7&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>taxFamily<span class="lb">.</span>name<span class="lb">|</span>title <span class="br">&#125;&#125;</span><span class="bl">&lt;/h7&gt;&lt;/section&gt;&lt;/div&gt;</span>
+                <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">alt_cont_a</span><span class="ng">"</span><span class="bl">&gt;&lt;div&gt;</span>Genus: <span class="bl">&lt;/div&gt;&lt;section&gt;&lt;h7&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>taxGenus<span class="lb">.</span>name<span class="lb">|</span>title <span class="br">&#125;&#125;</span><span class="bl">&lt;/h7&gt;&lt;/section&gt;&lt;/div&gt;</span>
+                <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">alt_cont_a</span><span class="ng">"</span><span class="bl">&gt;&lt;div&gt;</span>Species: <span class="bl">&lt;/div&gt;&lt;section&gt;&lt;h7&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>taxSpecies<span class="lb">.</span>name<span class="lb">|</span>title <span class="br">&#125;&#125;</span><span class="bl">&lt;/h7&gt;&lt;/section&gt;&lt;/div&gt;</span>
+                <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">alt_cont_a</span><span class="ng">"</span><span class="bl">&gt;&lt;div&gt;</span>Variety: <span class="bl">&lt;/div&gt;&lt;section&gt;&lt;h7&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>taxVariety<span class="lb">.</span>name<span class="lb">|</span>title <span class="br">&#125;&#125;</span><span class="bl">&lt;/h7&gt;&lt;/section&gt;&lt;/div&gt;</span>
+            <span class="bl">&lt;/div&gt;</span>
+        <span class="bl">&lt;/div&gt;</span>
+    <span class="bl">&lt;/div&gt;</span>
+    <span class="bl">&lt;div </span><span class="gr">id=</span><span class="ng">"</span><span class="gr">alt_cont_b</span><span class="ng">"</span><span class="bl">&gt;</span>
+        <span class="bl">&lt;div </span><span class="gr">id=</span><span class="ng">"</span><span class="gr">thumbnails</span><span class="ng">"</span><span class="bl">&gt;</span>
+            <span class="br">&#123;&#37; </span><span class="lb">for </span>pic <span class="lb">in </span>plant<span class="lb">.</span>pictures <span class="br">&#37;&#125;</span>
+                <span class="bl">&lt;a </span><span class="gr">href=</span><span class="ng">"</span><span class="br">&#123;&#123; </span>pic<span class="bl">.</span>path <span class="br">&#125;&#125;</span><span class="ng">" </span><span class="gr">target=</span><span class="ng">"_blank"</span><span class="bl">&gt;&lt;img </span><span class="gr">src=</span><span class="ng">"</span><span class="br">&#123;&#123; </span>pic<span class="lb">.</span>path <span class="br">&#125;&#125;</span><span class="ng">" </span><span class="gr">height=</span><span class="ng">"72" </span><span class="gr">width=</span><span class="ng">"72"</span><span class="bl">/&gt;&lt;/a&gt;</span>
+            <span class="br">&#123;&#37;</span> <span class="lb">endfor </span><span class="br">&#37;&#125;</span>
+        <span class="bl">&lt;/div&gt;</span>
+        <span class="bl">&lt;div </span><span class="gr">id=</span><span class="ng">"</span><span class="gr">alt_cont_c</span><span class="ng">"</span><span class="bl">&gt;</span>
+            <span class="bl">&lt;div </span><span class="gr">id=</span><span class="ng">"</span><span class="gr">alt_cont_d</span><span class="ng">"</span><span class="bl">&gt;</span>
+                <span class="bl">&lt;ul&gt;</span>
+                    <span class="bl">&lt;li&gt;&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">plant_height</span><span class="ng">"</span><span class="bl">&gt;&lt;h4&gt;</span>Height<span class="bl">&lt;/h4&gt;&lt;h5&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>heightLow <span class="br">&#125;&#125; </span>to <span class="br">&#123;&#123; </span>plant<span class="lb">.</span>heightHigh <span class="br">&#125;&#125; &#123;&#123; </span>plant<span class="lb">.</span>heightMeasure <span class="br">&#125;&#125;</span><span class="bl">&lt;/h5&gt;&lt;/span&gt;&lt;/li&gt;</span>
+                    <span class="bl">&lt;li&gt;&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">plant_spread</span><span class="ng">"</span><span class="bl">&gt;&lt;h4&gt;</span>Spread<span class="bl">&lt;/h4&gt;&lt;h5&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>spreadLow <span class="br">&#125;&#125; </span>to <span class="br">&#123;&#123; </span>plant<span class="lb">.</span>spreadHigh <span class="br">&#125;&#125; &#123;&#123; </span>plant<span class="lb">.</span>spreadMeasure <span class="br">&#125;&#125;</span><span class="bl">&lt;/h5&gt;&lt;/span&gt;&lt;/li&gt;</span>
+                    <span class="bl">&lt;li&gt;&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">plant_soil</span><span class="ng">"</span><span class="bl">&gt;&lt;h4&gt;</span>Soil Requirement<span class="bl">&lt;/h4&gt;&lt;h5&gt;</span><span class="br">&#123;&#123; </span>soil <span class="br">&#125;&#125;</span><span class="bl">&lt;/h5&gt;&lt;/span&gt;&lt;/li&gt;</span>
+                    <span class="bl">&lt;li&gt;&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">plant_flower_color</span><span class="ng">"</span><span class="bl">&gt;&lt;h4&gt;</span>Bloom Color<span class="bl">&lt;/h4&gt;&lt;h5&gt;</span><span class="br">&#123;&#123; </span>color <span class="br">&#125;&#125;</span><span class="bl">&lt;/h5&gt;&lt;/span&gt;&lt;/li&gt;</span>
+                    <span class="bl">&lt;li&gt;&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">plant_geo_org</span><span class="ng">"</span><span class="bl">&gt;&lt;h4&gt;</span>Geographic Origin<span class="bl">&lt;/h4&gt;&lt;h5&gt;</span><span class="br">&#123;&#123; </span>origin <span class="br">&#125;&#125;</span><span class="bl">&lt;/h5&gt;&lt;/span&gt;&lt;/li&gt;</span>
+                <span class="bl">&lt;/ul&gt;</span>
+                <span class="bl">&lt;div </span><span class="gr">id=</span><span class="ng">"</span><span class="gr">alt_cont_d</span><span class="ng">"</span><span class="bl">&gt;</span>
+                    <span class="bl">&lt;ul&gt;</span>
+                        <span class="bl">&lt;li&gt;&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">plant_zone</span><span class="ng">"</span><span class="bl">&gt;&lt;h4&gt;</span>Zone<span class="bl">&lt;/h4&gt;&lt;h5&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>zoneLow<span class="lb">.</span>name <span class="br">&#125;&#125; </span>to <span class="br">&#123;&#123; </span>plant<span class="lb">.</span>zoneHighw<span class="lb">.</span>name <span class="br">&#125;&#125; &#123;&#123; </span>plant<span class="lb">.</span>heightMeasure <span class="br">&#125;&#125;</span><span class="bl">&lt;/h5&gt;&lt;/span&gt;&lt;/li&gt;</span>
+                        <span class="bl">&lt;li&gt;&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">plant_bloom_time</span><span class="ng">"</span><span class="bl">&gt;&lt;h4&gt;</span>Bloom-time<span class="bl">&lt;/h4&gt;&lt;h5&gt;</span><span class="br">&#123;&#123; </span>bloomtime <span class="br">&#125;&#125;</span><span class="bl">&lt;/h5&gt;&lt;/span&gt;&lt;/li&gt;</span>
+                        <span class="bl">&lt;li&gt;&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">plant_light</span><span class="ng">"</span><span class="bl">&gt;&lt;h4&gt;</span>Light Requirement<span class="bl">&lt;/h4&gt;&lt;h5&gt;</span><span class="br">&#123;&#123; </span>light <span class="br">&#125;&#125;</span><span class="bl">&lt;/h5&gt;&lt;/span&gt;&lt;/li&gt;</span>
+                        <span class="bl">&lt;li&gt;&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">plant_foliage_color</span><span class="ng">"</span><span class="bl">&gt;&lt;h4&gt;</span>Foliage-color<span class="bl">&lt;/h4&gt;&lt;h5&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>foliageColor<span class="lb">.</span>name <span class="br">&#125;&#125;</span><span class="bl">&lt;/h5&gt;&lt;/span&gt;&lt;/li&gt;</span>
+                        <span class="bl">&lt;li&gt;</span>
+                            <span class="br">&#123;&#37; </span><span class="lb">if </span> plant<span class="lb">.</span>resistsDeer <span class="lb">==</span> true <span class="br">&#37;&#125;</span>
+                                <span class="bl">&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">plant_deer</span><span class="ng">"</span><span class="bl">&gt;&lt;h4 </span><span class="gr">style=</span><span class="ng">"</span><span class="bl">padding-top</span>: 7px; <span class="bl">padding-bottom</span>: 10px; <span class="ng">"</span><span class="bl">&gt;</span>Resists Deer<span class="bl">&lt;/h4&gt;&lt;/span&gt;</span>                            
+                            <span class="br">&#123;&#37;</span> <span class="lb">else</span> <span class="br">&#37;&#125;</span>
+                                <span class="bl">&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">plant_deer_no</span><span class="ng">"</span><span class="bl">&gt;</span><span class="bl">&lt;/span&gt;</span>                            
+                            <span class="br">&#123;&#37;</span> <span class="lb">endif</span> <span class="br">&#37;&#125;</span>
+                        <span class="bl">&lt;/li&gt;</span>
+                    <span class="bl">&lt;/ul&gt;</span>
+                <span class="bl">&lt;/div&gt;</span>
+            <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">plant_desc</span><span class="ng">"</span><span class="bl">&gt;</span>
+                <span class="bl">&lt;h4&gt;</span>Description<span class="bl">&lt;/h4&gt;</span>
+                <span class="bl">&lt;p&gt;</span><span class="br">&#123;&#123;</span> plant<span class="lb">.</span>summary <span class="br">&#125;&#125;</span><span class="bl">&lt;/p&gt;</span>
+                <span class="bl">&lt;p&gt;</span>Bloom-times typically occur during the following months of the year for zones <span class="br">&#123;&#123;</span> plant<span class="lb">.</span>zoneLow<span class="lb">.</span>name <span class="br">&#125;&#125;</span> to <span class="br">&#123;&#123;</span> plant<span class="lb">.</span>zoneHigh<span class="lb">.</span>name <span class="br">&#125;&#125;</span>: 
+                    <span class="bl">&lt;ul&gt;</span><span class="br">&#123;&#37;</span> <span class="lb">for</span> pbt <span class="lb">in</span> plant<span class="lb">.</span>bloomTimes <span class="br">&#37;&#125;</span><span class="bl">&lt;li&gt;</span><span class="br">&#123;&#123;</span>pbt<span class="lb">.</span>name<span class="br">&#125;&#125;</span><span class="bl">&lt;/li&gt;</span><span class="br">&#123;&#37;</span> <span class="lb">endfor</span> <span class="br">&#37;&#125;</span><span class="bl">&lt;/ul&gt;</span>
+                <span class="bl">&lt;/p&gt;</span>
+                <span class="bl">&lt;p&gt;</span>'<span class="bl">&lt;span&gt; </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">i</span><span class="ng">"</span><span class="bl">&gt;</span><span class="br">&#123;&#123;</span> plant<span class="lb">.</span>taxGenus<span class="lb">|</span>title <span class="br">&#125;&#125;</span> <span class="br">&#123;&#123;</span> plant<span class="lb">.</span>taxSpecies<span class="lb">|</span>lower <span class="br">&#125;&#125;</span><span class="bl">&lt;/span&gt;</span>' has been observed successfully growing in the following soil conditions: 
+                    <span class="bl">&lt;ul&gt;</span><span class="br">&#123;&#37;</span> <span class="lb">for</span> ps <span class="lb">in</span> plant<span class="lb">.</span>soil <span class="br">&#37;&#125;</span><span class="bl">&lt;li&gt;</span><span class="br">&#123;&#123;</span>ps<span class="lb">.</span>name<span class="br">&#125;&#125;</span><span class="bl">&lt;/li&gt;</span><span class="br">&#123;&#37;</span> <span class="lb">endfor</span> <span class="br">&#37;&#125;</span><span class="bl">&lt;/ul&gt;</span>
+                <span class="bl">&lt;/p&gt;</span>
+                <span class="br">&#123;&#37;</span> <span class="lb">if</span> color <span class="lb">!=</span> <span class="mustard">'Unspecified'</span> <span class="br">&#37;&#125;</span>
+                    <span class="bl">&lt;p&gt;</span>'<span class="bl">&lt;span&gt; </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">i</span><span class="ng">"</span><span class="bl">&gt;</span><span class="br">&#123;&#123;</span> plant<span class="lb">.</span>taxGenus<span class="lb">|</span>title <span class="br">&#125;&#125;</span> <span class="br">&#123;&#123;</span> plant<span class="lb">.</span>taxSpecies<span class="lb">|</span>lower <span class="br">&#125;&#125;</span><span class="bl">&lt;/span&gt;</span>' comes in a variety of colors; they are: 
+                            <span class="bl">&lt;ul&gt;</span><span class="br">&#123;&#37;</span> <span class="lb">for</span> color <span class="lb">in</span> plant<span class="lb">.</span>flowerColor <span class="br">&#37;&#125;</span><span class="bl">&lt;li&gt;</span><span class="br">&#123;&#123;</span>color<span class="lb">.</span>name<span class="br">&#125;&#125;</span><span class="bl">&lt;/li&gt;</span><span class="br">&#123;&#37;</span> <span class="lb">endfor</span> <span class="br">&#37;&#125;</span><span class="bl">&lt;/ul&gt;</span>
+                    <span class="bl">&lt;/p&gt;</span>
+                <span class="br">&#123;&#37;</span> <span class="lb">endif</span> <span class="br">&#37;&#125;</span>
+                <span class="br">&#123;&#37;</span> <span class="lb">if</span> light <span class="lb">!=</span> <span class="mustard">'Unspecified'</span> <span class="br">&#37;&#125;</span>
+                    <span class="bl">&lt;p&gt;</span>Additionally, '<span class="bl">&lt;span&gt; </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">i</span><span class="ng">"</span><span class="bl">&gt;</span><span class="br">&#123;&#123;</span> plant<span class="lb">.</span>taxGenus<span class="lb">|</span>title <span class="br">&#125;&#125;</span> <span class="br">&#123;&#123;</span> plant<span class="lb">.</span>taxSpecies<span class="lb">|</span>lower <span class="br">&#125;&#125;</span><span class="bl">&lt;/span&gt;</span>' does best under the following light conditions: 
+                            <span class="bl">&lt;ul&gt;</span><span class="br">&#123;&#37;</span> <span class="lb">for</span> pl <span class="lb">in</span> plant<span class="lb">.</span>light <span class="br">&#37;&#125;</span><span class="bl">&lt;li&gt;</span><span class="br">&#123;&#123;</span>pl<span class="lb">.</span>name<span class="br">&#125;&#125;</span><span class="bl">&lt;/li&gt;</span><span class="br">&#123;&#37;</span> <span class="lb">endfor</span> <span class="br">&#37;&#125;</span><span class="bl">&lt;/ul&gt;</span>
+                    <span class="bl">&lt;/p&gt;</span>
+                <span class="br">&#123;&#37;</span> <span class="lb">endif</span> <span class="br">&#37;&#125;</span>
+            <span class="bl">&lt;/div&gt;</span>
+        <span class="bl">&lt;/div&gt;</span>
+    <span class="bl">&lt;/div&gt;</span>
+    <span class="bl">&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">section-header</span><span class="ng">"</span><span class="bl">&lt;h1&gt;</span>Plant Details<span class="bl">&lt;/h1&gt;</span><span class="bl">&lt;/span&gt;</span>
+    <span class="bl">&lt;div </span><span class="gr">id=</span><span class="ng">"</span><span class="gr">plant_details_cont</span><span class="ng">"</span> <span class="bl">&gt;</span>
+        <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">alt_cont_e</span><span class="ng">"</span><span class="bl">&gt;&lt;h7&gt;</span>Type: <span class="bl">&lt;/h7&gt;&lt;/div&gt;&lt;section&gt;&lt;p&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>plantTypes<span class="lb">.</span>name <span class="br">&#125;&#125;</span><span class="bl">&lt;/p&gt;&lt;/section&gt;&lt;/div&gt;</span>
+        <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">alt_cont_e</span><span class="ng">"</span><span class="bl">&gt;&lt;h7&gt;</span>Lifecycle: <span class="bl">&lt;/h7&gt;&lt;/div&gt;&lt;section&gt;&lt;p&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>lifecycle<span class="lb">.</span>name <span class="br">&#125;&#125;</span><span class="bl">&lt;/p&gt;&lt;/section&gt;&lt;/div&gt;</span>
+        <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">alt_cont_e</span><span class="ng">"</span><span class="bl">&gt;&lt;h7&gt;</span>Group: <span class="bl">&lt;/h7&gt;&lt;/div&gt;&lt;section&gt;&lt;p&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>plantGroup<span class="lb">.</span>name <span class="br">&#125;&#125;</span><span class="bl">&lt;/p&gt;&lt;/section&gt;&lt;/div&gt;</span>
+        <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">alt_cont_e</span><span class="ng">"</span><span class="bl">&gt;&lt;h7&gt;</span>Behavior: <span class="bl">&lt;/h7&gt;&lt;/div&gt;&lt;section&gt;&lt;p&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>invasivness<span class="lb">|</span>capitalize <span class="br">&#125;&#125;</span>, <span class="br">&#123;&#123; </span>plant<span class="lb">.</span>seed<span class="lb">|</span>capitalize <span class="br">&#125;&#125;</span><span class="bl">&lt;/p&gt;&lt;/section&gt;&lt;/div&gt;</span>
+        <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">alt_cont_e</span><span class="ng">"</span><span class="bl">&gt;&lt;h7&gt;</span>Wildlife: <span class="bl">&lt;/h7&gt;&lt;/div&gt;&lt;section&gt;&lt;p&gt;</span><span class="br">&#123;&#123; </span>wildlife<span class="lb">|</span>capitalize <span class="br">&#125;&#125;</span><span class="bl">&lt;/p&gt;&lt;/section&gt;&lt;/div&gt;</span>
+        <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">alt_cont_e</span><span class="ng">"</span><span class="bl">&gt;&lt;h7&gt;</span>Diseases: <span class="bl">&lt;/h7&gt;&lt;/div&gt;&lt;section&gt;&lt;p&gt;</span><span class="br">&#123;&#123; </span>diseases<span class="lb">|</span>capitalize <span class="br">&#125;&#125;</span><span class="bl">&lt;/p&gt;&lt;/section&gt;&lt;/div&gt;</span>
+        <span class="bl">&lt;div </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">alt_cont_e</span><span class="ng">"</span><span class="bl">&gt;&lt;h7&gt;</span>Pests: <span class="bl">&lt;/h7&gt;&lt;/div&gt;&lt;section&gt;&lt;p&gt;</span><span class="br">&#123;&#123; </span>pests<span class="lb">|</span>capitalize <span class="br">&#125;&#125;</span><span class="bl">&lt;/p&gt;&lt;/section&gt;&lt;/div&gt;</span>
+    <span class="bl">&lt;/div&gt;</span>
+    <span class="bl">&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">section-header </span><span class="bl">&gt;&lt;h1&gt;</span>Propagation<span class="bl">&lt;/h1&gt;&lt;/span&gt;</span>
+    <span class="bl">&lt;p&gt;&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">h7_noIndent</span><span class="ng">"</span><span class="bl">&gt;</span>Successful propagation methods include: <span class="bl">&lt;/span&gt;</span> <span class="br">&#123;&#123; </span>propMeths<span class="lb">|</span>capitalize <span class="br">&#125;&#125;</span><span class="bl">&lt;/p&gt;</span>
+    <span class="bl">&lt;p&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>propagation <span class="br">&#125;&#125;</span><span class="bl">&lt;/p&gt;</span>
+    <span class="bl">&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">section-header </span><span class="bl">&gt;&lt;h1&gt;</span>Planting<span class="bl">&lt;/h1&gt;&lt;/span&gt;</span>
+    <span class="bl">&lt;p&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>planting <span class="br">&#125;&#125;</span><span class="bl">&lt;/p&gt;</span>
+    <span class="bl">&lt;span </span><span class="gr">class=</span><span class="ng">"</span><span class="gr">section-header </span><span class="bl">&gt;&lt;h1&gt;</span>Care<span class="bl">&lt;/h1&gt;&lt;/span&gt;</span>
+    <span class="bl">&lt;p&gt;</span><span class="br">&#123;&#123; </span>plant<span class="lb">.</span>care <span class="br">&#125;&#125;</span><span class="bl">&lt;/p&gt;</span>
+<span class="br">&#123;&#37; </span><span class="lb">endblock </span><span class="br">&#37;&#125;</span>
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Route<a class="headerlink" href="#the-route" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-yaml">
+        <div class="highlight">
+<pre><span class="w"># src/Blogger/BlogBundle/Resources/config/routing.yml</span>
+<span class="bl">BloggerBlogBundle_sort</span><span class="p-Indicator">:</span>
+    <span class="bl">pattern</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">/plant/show/{id}/{slug}</span>
+    <span class="bl">defaults</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">_controller</span><span class="p-Indicator">:</span> <span class="nv">BloggerBlogBundle</span><span class="p-Indicator">:</span><span class="nv">Plant</span><span class="p-Indicator">:</span><span class="nv">show</span> <span class="p-Indicator">}</span>
+    <span class="bl">requirements</span><span class="p-Indicator">:</span>
+        <span class="bl">_method</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">GET</span>
+        <span class="bl">id</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">\d+</span>
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Controller<a class="headerlink" href="#the-route" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-php">
+        <div class="highlight">
+
+<pre>
+<span class="o">&lt;?</span><span class="nx">php</span>
+<span class="w">// src/Blogger/BlogBundle/Controller/PlantController.php</span>
+
+<span class="gt">namespace</span> <span class="nx">Blogger\BlogBundle\Controller</span><span class="p">;</span>
+
+<span class="gt">use</span> <span class="nx">Symfony\Bundle\FrameworkBundle\Controller\Controller;</span> 
+<span class="gt">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request;</span> 
+
+<span class="gt">class</span> <span class="gs">PlantController</span> <span class="gt">extends</span> Controller
+<span class="p">{</span>
+    <span class="w">//...</span>
+    <span class="gt">public function</span> <span class="gs">showAction</span>(<span class="br">$id</span>, <span class="br">$slug</span> = <span class="bl">null</span>){
+        <span class="br">$em</span> = <span class="br">$this</span>->getDoctrine()->getEntityManager();
+        <span class="br">$plant</span> = <span class="br">$em</span>->getRepository(<span class="ng">'BloggerBlogBundle:Plant'</span>)->find(<span class="br">$id</span>);
+
+        <span class="bl">if</span> (!<span class="br">$plant</span>) {
+            <span class="bl">throw</span> <span class="br">$this</span>->createNotFoundException(<span class="ng">'Unable to find specified plant.'</span>);
+        <span>}</span>
+
+        <span class="br">$wildlife </span>= <span class="br">$em</span>->getRepository(<span class="ng">'BloggerBlogBundle:Plant'</span>)->getWildlifeStr(<span class="br">$plant</span>);
+        <span class="br">$bts </span>= <span class="br">$em</span>->getRepository(<span class="ng">'BloggerBlogBundle:Plant'</span>)->getBloomTimeString(<span class="br">$plant</span>);
+        <span class="br">$diseases </span>= <span class="br">$em</span>->getRepository(<span class="ng">'BloggerBlogBundle:Plant'</span>)->getDiseasesStr(<span class="br">$plant</span>);
+        <span class="br">$pests </span>= <span class="br">$em</span>->getRepository(<span class="ng">'BloggerBlogBundle:Plant'</span>)->getPestsStr(<span class="br">$plant</span>);
+        <span class="br">$propMethods </span>= <span class="br">$em</span>->getRepository(<span class="ng">'BloggerBlogBundle:Plant'</span>)->getPropMethodsStr(<span class="br">$plant</span>);
+        <span class="br">$light </span>= <span class="br">$em</span>->getRepository(<span class="ng">'BloggerBlogBundle:Plant'</span>)->getLight(<span class="br">$plant</span>);
+        <span class="br">$color </span>= <span class="br">$em</span>->getRepository(<span class="ng">'BloggerBlogBundle:Plant'</span>)->getBloomColor(<span class="br">$plant</span>);
+        <span class="br">$origin </span>= (<span class="br">$plant</span>->getOrigin()->getId() == <span class="pink">1 </span>? <span class="ng">"United States" </span>: <span class="br">$plant</span>->getOrigin()->getName());
+        <span class="br">$soil </span>= (count(<span class="br">$plant</span>->getSoil()) >= <span class="pink">2 </span>? <span class="ng">"Tolerates variety of soils" </span>: <span class="br">$plant</span>->getSoil()[<span class="pink">0</span>]->getName());
+
+        <span class="bl">return </span><span class="br">$this</span>->render(<span class="ng">'BloggerBlogBundle:Plant:show.html.twig'</span>, <span class="bl">array</span>(
+            <span class="ng">'plant'</span>     =>  <span class="br">$plant</span>,         <span class="ng">'bloomtime'</span>  =>  <span class="br">$bts</span>,       <span class="ng">'color'</span>   =>  <span class="br">$color</span>,
+            <span class="ng">'origin'</span>    =>  <span class="br">$origin</span>,        <span class="ng">'soil'</span>       =>  <span class="br">$soil</span>,      <span class="ng">'light'</span>   =>  <span class="br">$light</span>,
+            <span class="ng">'wildlife'</span>  =>  <span class="br">$wildlife</span>,      <span class="ng">'diseases'</span>   =>  <span class="br">$diseases</span>,  <span class="ng">'pests'</span>   =>  <span class="br">$pests</span>,
+            <span class="ng">'propMeths'</span> =>  <span class="br">$propMethods</span>
+        <span>));</span>
+    <span>}</span>
+    <span class="w">//...</span>
+<span class="p">}</span>
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Model<a class="headerlink" href="#the-model" title="Permalink to this headline">¶</a></h3>
+    <div class='tech-body'>
+        <p>
+            My controller actually calls several methods defined in the Plant repository, but I'm only going
+            to demonstrate one of them - the getDiseasesStr() .  The others are all variations of this method:
+        </p>
+     </div>
+    <div class="highlight-php">
+        <div class="highlight">
+<pre>
+<span class="o">&lt;?</span><span class="nx">php</span>
+<span class="w">// src/Blogger/BlogBundle/Entity/Repository/PlantRepository.php</span>
+
+<span class="gt">namespace</span> <span class="nx">Blogger\BlogBundle\Entity\Repository</span><span class="p">;</span>
+
+<span class="gt">use</span> <span class="nx">Doctrine\ORM\EntityRepository;</span> 
+
+<span class="gt">class</span> <span class="gs">PlantRepository</span> <span class="gt">extends</span> EntityRepository
+<span class="p">{</span>
+    <span class="w">//...</span>
+    <span class="bl">public function</span> getDiseasesStr(<span class="br">$plant</span>){
+        <span class="br">$ar</span> = <span class="bl">array</span>();
+        <span class="br">$string</span> = '';
+        <span class="br">$diseases</span> = <span class="br">$plant</span>->getDiseases();
+        <span class="bl">foreach</span>(<span class="br">$diseases</span> <span class="bl">as</span> <span class="br">$disease</span>){
+            <span class="br">$ar</span>[] = <span class="br">$disease</span>->getName();
+        <span>}</span>
+        <span class="w">//return a formated string</span>
+        <span class="bl">foreach</span>(<span class="br">$ar</span> <span class="bl">as</span> <span class="br">$var</span>){
+            <span class="br">$string</span> .= <span class="br">$var</span>.', ';
+        <span>}</span>
+        <span class="bl">return</span> substr(<span class="br">$string</span>, <span class="pink">0</span>, <span class="pink">-2</span>);
+    <span>}</span>
+    <span class="w">//...</span>
+<span class="p">}</span>
+</pre>
+        </div>
+    </div>
+    
+    <h2 id="edit">Symfony2 Edit Action<a class="headerlink" href="#symfony-2-edit-action" title="Permalink to this headline">¶</a></h2>
+    <div class='tech-body'>
+        <p>
+            The Edit Action is almost exactly the same as the New Action, with a few exceptions.  The exceptions
+            are demonstrated below.  Note: there is a more conscise way to combine the New and Edit actions to 
+            reduce the amount of code and re-writing.  But if there are significant changes in the way these two 
+            actions are performed, it is best practice to write seperate views and actions.  
+        </p>
+     </div>
+    <h3>The View<a class="headerlink" href="#the-view" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-html">
+        <div class="highlight">
+<pre>
+<span class="w">&#123;&#35; ..views/Plant/edit.html.twig &#35;&#125;</span>
+
+<span class="brown">&#123;&#37;</span> <span class="light-blue">extends</span> <span class="mustard">'BloggerBlogBundle::layout.html.twig'</span> <span class="gd">&#37;&#125;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">block</span> stylesheets <span class="gd">&#37;&#125;</span>
+    <span class="brown">&#123;&#123;</span> parent<span class="light-blue">()</span> <span class="gd">&#125;&#125;</span>
+    <span class="blue">&lt;link </span><span class="green">href=</span><span class="orange">"</span><span class="brown">&#123;&#123;</span><span class="light-blue">(</span><span class="mustard">'bundles/bloggerblog/css/plant.css'</span><span class="light-blue">)</span><span class="brown">&#125;&#125;</span><span class="orange">"</span><span class="green"> type=</span><span class="orange">"text/css"</span><span class="green"> rel=</span><span class="orange">"stylesheet"</span><span class="gt"> /&gt;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">endblock</span> <span class="gd">&#37;&#125;</span>
+<span class="brown">&#123;&#37;</span> <span class="light-blue">block</span> title <span class="gd">&#37;&#125;</span>Edit Plant<span class="brown">&#123;&#37;</span> <span class="light-blue">endblock</span> <span class="gd">&#37;&#125;</span>
+<span class="brown">&#123;&#37;</span> <span class="lb">block</span> javascripts <span class="gd">&#37;&#125;</span>
+    <span class="brown">&#123;&#123;</span> parent<span class="lb">()</span> <span class="gd">&#125;&#125;</span>
+    <span class="bl">&lt;script</span> <span class="gr">src=</span><span class="ng">"https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"</span><span class="bl">&gt;&lt;/script&gt;</span>
+    <span class="bl">&lt;script</span> <span class="gr">src=</span><span class="ng">"</span><span class="brown">&#123;&#123;</span> asset<span class="lb">(</span><span class="ng">'bundles/bloggerblog/js/forms.js'</span><span class="lb">)</span> <span class="gd">&#125;&#125;</span><span class="ng">"</span><span class="bl">&gt;&lt;/script&gt;</span>
+<span class="brown">&#123;&#37;</span> <span class="lb">endblock</span> <span class="gd">&#37;&#125;</span>
+
+<span class="brown">&#123;&#37;</span> form_theme form _self <span class="gd">&#37;&#125;</span>
+
+<span class="w">//...</span>
+
+<span class="brown">&#123;&#37;</span> <span class="lb">block</span> body <span class="gd">&#37;&#125;</span>
+<span class="w">//...</span>
+    <span class="bl">&lt;form</span> <span class="gr">action=</span><span class="ng">"</span><span class="brown">&#123;&#123;</span> path<span class="lb">(</span><span class="mustard">'BloggerBlogBundle_plant_edit'</span>, <span class="lb">{</span><span class="mustard">'id'</span> : plant.id<span class="lb">})</span> <span class="gd">&#125;&#125;</span><span class="ng">"</span> <span class="gr">method=</span><span class="ng">"post"</span> <span class="brown">&#123;&#123;</span> form_enctype<span class="lb">(</span>form<span class="lb">)</span> <span class="gd">&#125;&#125;</span> <span class="gr">class=</span><span class="ng">"</span><span class="gr">blogger</span><span class="ng">"</span><span class="bl">&gt;</span>
+        <span class="w">//...</span>
+    <span class="bl">&lt;/form&gt;</span>
+<span class="w">//...</span>
+<span class="brown">&#123;&#37;</span> <span class="lb">endblock</span> <span class="gd">&#37;&#125;</span>
+
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Route<a class="headerlink" href="#the-route" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-yaml">
+        <div class="highlight">
+<pre><span class="w"># src/Blogger/BlogBundle/Resources/config/routing.yml</span>
+<span class="bl">BloggerBlogBundle_plant_edit</span><span class="p-Indicator">:</span>
+    <span class="bl">pattern</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">/plant/edit/{id}</span>
+    <span class="bl">defaults</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">_controller</span><span class="p-Indicator">:</span> <span class="nv">BloggerBlogBundle</span><span class="p-Indicator">:</span><span class="nv">Plant</span><span class="p-Indicator">:</span><span class="nv">edit</span> <span class="p-Indicator">}</span>
+    <span class="bl">requirements</span><span class="p-Indicator">:</span>
+        <span class="bl">_method</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">GET|POST</span>
+        <span class="bl">id</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">\d+</span>
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Controller<a class="headerlink" href="#the-route" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-php">
+        <div class="highlight">
+
+<pre>
+<span class="o">&lt;?</span><span class="nx">php</span>
+<span class="w">// src/Blogger/BlogBundle/Controller/PlantController.php</span>
+
+<span class="gt">namespace</span> <span class="nx">Blogger\BlogBundle\Controller</span><span class="p">;</span>
+
+<span class="gt">use</span> <span class="nx">Blogger\BlogBundle\Entity\Plant;</span> 
+<span class="gt">use</span> <span class="nx">Blogger\BlogBundle\Entity\Picture;</span> 
+<span class="gt">use</span> <span class="nx">Blogger\BlogBundle\Form\PlantForm;</span> 
+<span class="gt">use</span> <span class="nx">Symfony\Bundle\FrameworkBundle\Controller\Controller;</span> 
+<span class="gt">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request;</span> 
+
+<span class="gt">class</span> <span class="gs">PlantController</span> <span class="gt">extends</span> Controller
+<span class="p">{</span>
+    <span class="w">//...</span>
+    <span class="gt">public function</span> <span class="gs">editAction</span>(<span class="br">$id </span>Request <span class="gd">$request</span>){
+        <span class="br">$em</span> = <span class="br">$this</span>->getDoctrine()->getEntityManager();
+        <span class="br">$plant</span> = <span class="br">$em</span>->getRepository(<span class="ng">'BloggerBlogBundle:Plant'</span>)->find(<span class="br">$id</span>);
+
+
+        <span class="bl">if</span> (!<span class="br">$plant</span> && !<span class="br">$request</span>->isMethod(<span class="ng">'POST'</span>)) {
+            <span class="bl">throw</span> <span class="br">$this</span>->createNotFoundException(
+                    <span class="ng">'No plant found for id '</span> . <span class="br">$id</span>
+            );
+        }
+        
+        <span class="br">$originalPics</span> = <span class="bl">new</span> ArrayCollection();
+
+        <span class="w">// Create an ArrayCollection of the current Picture objects in the database</span>
+        <span class="br">foreach</span> (<span class="br">$plant</span>->getPictures() <span class="br">as</span> <span class="br">$pic</span>) {
+            <span class="br">$originalPics</span>->add(<span class="br">$pic</span>);
+        }
+        
+        <span class="br">$form</span> = <span class="br">$this</span>->createForm(<span class="bl">new</span> PlantForm(<span class="br">$em</span>), <span class="br">$plant</span>);
+        
+        <span class="bl">if</span> (<span class="br">$request</span>->isMethod(<span class="ng">'POST'</span>)) {
+            <span class="br">$form</span>->handleRequest(<span class="br">$request</span>);
+
+            <span class="bl">if</span> (<span class="br">$form</span>->isValid()) {
+                
+                <span class="w">// remove the relationship between the Picture and the Plant</span>
+                <span class="bl">foreach</span> (<span class="br">$originalPics</span> <span class="bl">as</span> <span class="br">$pic</span>) {
+                    <span class="bl">if</span> (<span class="bl">false</span> === <span class="br">$plant</span>->getPictures()->contains(<span class="br">$pic</span>)) {
+                        <span class="w">// remove the Task from the Tag</span>
+                        <span class="br">$pic</span>->getPictures()->removeElement(<span class="br">$plant</span>);
+
+                        <span class="w">// if it was a many-to-one relationship, remove the relationship like this</span>
+                        <span class="w">// $tag->setTask(null);</span>
+
+                        <span class="br">$em</span>->persist(<span class="br">$pic</span>);
+
+                        <span class="w">// if you wanted to delete the Tag entirely, you can also do that</span>
+                        <span class="w">// $em->remove($tag);</span>
+                    }
+                }
+                
+                <span class="br">$plant</span>->setSlug(<span class="br">$plant</span>->getTaxGenus().<span class="ng">' '</span>.<span class="br">$plant</span>->getTaxSpecies().<span class="ng">' '</span>.<span class="br">$plant</span>->getTaxVariety().<span class="ng">' '</span>.<span class="br">$plant</span>->getName() );
+                <span class="w">// $em->persist($plant); //not required in an update action. Since you fetched the object </span>
+                <span class="w">// from Doctrine, it's already managed.</span>
+                <span class="br">$em</span>->flush();
+
+                <span class="bl">return</span> <span class="br">$this</span>->redirect(<span class="br">$this</span>->generateUrl(<span class="ng">'BloggerBlogBundle_plant_show'</span>, <span class="bl">array</span>(
+                    <span class="ng">'id'</span>    => <span class="br">$plant</span>->getId(),
+                    <span class="ng">'slug'</span>  => <span class="br">$plant</span>->getSlug()
+                )));
+            }
+            <span class="br">$em</span>->refresh(<span class="br">$plant</span>);
+        }
+        
+        <span class="bl">return</span> <span class="br">$this</span>->render(<span class="ng">'BloggerBlogBundle:Plant:edit.html.twig'</span>, <span class="bl">array</span>(
+            <span class="ng">'plant'</span>     =>  <span class="br">$plant</span>, 
+            <span class="ng">'form'</span>      =>  <span class="br">$form</span>->createView(),
+            <span class="ng">'slug'</span>      => <span class="br">$plant</span>->getSlug()
+        ));
+<span class="p">}</span>
+</pre>
+        </div>
+    </div>
+    
+    <div class='tech-body'>
+        <p>
+            The model for the Edit action is the same as the New action.  
+        </p>
+     </div>
+    
+    <h2 id="delete">Symfony2 Delete Action<a class="headerlink" href="#symfony-2-delete-action" title="Permalink to this headline">¶</a></h2>
+
+    
+</div>
+{% endblock %}

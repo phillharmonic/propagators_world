@@ -1,0 +1,50 @@
+{% extends 'PpgwBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} <link href="{{ asset('bundles/ppgw/css/blog.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+{% block body %}
+    
+    <header>
+        <h1>Promoting Botanical Propagation Worldwide</h1>
+    </header>
+
+        <p style="letter-spacing: 0px; ">
+            <img style="height: 300px; padding-right: 20px; padding-top: 12px; padding-bottom: 20px; " align="left" src="{{ asset('bundles/ppgw/images/gardening_1.gif') }}" >
+        </p>
+        <p>Propagator's World is the internet's destination for all buyers, sellers and traders of newly propagated plants, seeds & bulbs.  We offer:   </p>
+        <ul class="list-styled">
+            <li>Free classified ads</li>
+            <li>Commercial and consumer quantities</li>
+            <li>Unparalleled diversity and range of species</li>
+            <li>Simplistic buying and selling experience</li>
+        </ul>
+        <p style="letter-spacing: 0px; ">This website is supported through ad-sponsored revenue and through $5 per year memberships (which removes the ads).  </p>
+        <p style="letter-spacing: 0px; ">Please consider becoming a member today.</p>
+        </br>
+        <hr>  
+        </br>
+        <h1>Blog Posts</h1>
+        </br></br></br>
+    {% for blog in blogs %}
+        <article class="blog">
+            <div class="date"><time datetime="{{ blog.created|date('c') }}">{{ blog.created|date('l, F j, Y') }}</time></div>
+            <header>
+                <h2><a href="{{ path('PpgwBundle_blog_show', { 'id': blog.id, 'slug': blog.slug }) }}">{{ blog.title }}</a></h2>
+            </header>
+
+            <img src="{{ asset(['bundles/ppgw/images/', blog.image]|join) }}" />
+            <div class="snippet">
+                <p>{{ blog.blog(500) }}</p>
+                <p class="continue"><a href="{{ path('PpgwBundle_blog_show', { 'id': blog.id, 'slug': blog.slug }) }}">Continue reading...</a></p>
+            </div>
+
+            <footer class="meta">
+                <p>Comments: <a href="{{ path('PpgwBundle_blog_show', { 'id': blog.id, 'slug': blog.slug }) }}#comments">{{ blog.comments|length }}</a></p>
+                <p>Posted by <span class="highlight">{{blog.author}}</span> at {{ blog.created|date('h:iA') }}</p>
+                <p>Tags: <span class="highlight">{{ blog.tags }}</span></p>
+            </footer>
+        </article>
+    {% else %}
+        <p>There are no blog entries for symblog</p>
+    {% endfor %}
+{% endblock %}

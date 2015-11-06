@@ -1,0 +1,463 @@
+{% extends 'PpgwBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/symblog.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/coding.css')}}" type="text/css" />
+{% endblock%}
+{% block title %}Propagators World - Symfony2 Search Strategies{% endblock%}
+{% block sidebar %}
+    {% render controller("PpgwBundle:Tech:tableOfContents") %}
+{% endblock %}
+{% block body %}
+    <div class="symblog">
+    <div class="section-header"><h1>[ Chapter 8 ] - Search</h1>
+        <ul class="page-nav">
+            <li><a href="#">Code Behind</a></li>
+            <li><a href="#">Comment</a></li>
+        </ul>
+    </div>
+    <div class="section" id="overview">
+        <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+        <div class='tech-body'>
+            <p>
+                This chapter will attempt to cover as many search strategies as possible and how to correctly 
+                code them in our environment.  Doctrine will be used extensively, so go put your ORM hat on
+                and let's get started.  
+            </p><p>
+                The following topics will be demonstrated in this chapter:
+            </p>
+            <ol class='arabic simple'>
+                <li>Search by alphabet</li>
+                <li>Search by select</li>
+                <li>Search by keyword</li>
+                <li>Advanced search form</li>
+                <li>Google site-crawl search</li>
+                <li>Search long descriptions for keywords</li>
+            </ol>
+        </div>
+    </div>
+    <h2>Search by Alphabet<a class="headerlink" href="#alphabet_search" title="Permalink to this headline">¶</a></h2>
+     <div class='tech-body'>
+        <p>
+            The working example can be found <a class="reference internal" href="{{path('PpgwBundle_plant_index')}}">here</a>,
+            which looks like:
+            </br></br>
+            <img alt="Search Alphabet" class="align-center" src="{{asset("bundles/ppgw/images/ppgworld_screenshots/search_alphabet.png")}}" width="685" style="border:1px dotted #ccc" />
+            </br></br>
+            As you can see in the example above, the user is simply presented with an in-line alphabetical list of letters,
+            all presented as hyperlinks using the anchor tag.  
+        </p>
+     </div>
+    <h3>The View<a class="headerlink" href="#the-view" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-html">
+        <div class="highlight">
+<pre>
+<span class="w">&#123;&#35; ..views/Plant/index.html.twig &#35;&#125;</span>
+
+<span class="w">//..</span>
+
+<span class="gt">&lt;div</span> <span class="gi">class=</span><span class="sx">"</span><span class="gi">search_section</span><span class="sx">"</span><span class="gt">&gt;</span>
+    <span class="gt">&lt;ul</span> <span class="gi">name=</span><span class="sx">"alphabet"</span> <span class="gi">class=</span><span class="sx">"</span><span class="gi">inline</span><span class="sx">"</span><span class="gt">&gt;</span>
+        <span class="gt">&lt;label</span> <span class="gi">for=</span><span class="sx">"alphabet"</span> <span class="gt">&gt;</span>List by Name:<span class="gt">&lt;/label&gt;</span>
+        <span class="gt">&lt;li&gt;</span><span class="gt">&lt;a</span> <span class="gi">href=</span><span class="gp">"</span><span class="gd">&#123;&#123;</span> path<span class="no">(</span><span class="mu">"BloggerBlogBundle_sort"</span><span class="no">, {</span><span class="mu">'letter'</span><span class="no"> : </span><span class="mu">'A'</span><span class="no">}</span><span class="no">)</span> <span class="gd">&#125;&#125;</span><span class="gp">"</span><span class="gt">&gt;</span>A<span class="gt">&lt;/a&gt;</span><span class="gt">&lt;/li&gt;</span>
+        <span class="gt">&lt;li&gt;</span><span class="gt">&lt;a</span> <span class="gi">href=</span><span class="gp">"</span><span class="gd">&#123;&#123;</span> path<span class="no">(</span><span class="mu">"BloggerBlogBundle_sort"</span><span class="no">, {</span><span class="mu">'letter'</span><span class="no"> : </span><span class="mu">'B'</span><span class="no">}</span><span class="no">)</span> <span class="gd">&#125;&#125;</span><span class="gp">"</span><span class="gt">&gt;</span>B<span class="gt">&lt;/a&gt;</span><span class="gt">&lt;/li&gt;</span>
+        <span class="gt">&lt;li&gt;</span><span class="gt">&lt;a</span> <span class="gi">href=</span><span class="gp">"</span><span class="gd">&#123;&#123;</span> path<span class="no">(</span><span class="mu">"BloggerBlogBundle_sort"</span><span class="no">, {</span><span class="mu">'letter'</span><span class="no"> : </span><span class="mu">'C'</span><span class="no">}</span><span class="no">)</span> <span class="gd">&#125;&#125;</span><span class="gp">"</span><span class="gt">&gt;</span>C<span class="gt">&lt;/a&gt;</span><span class="gt">&lt;/li&gt;</span>
+        <span class="w">//... </span>
+    <span class="gt">&lt;/ul&gt;</span>
+<span class="gt">&lt;/div&gt;</span>
+
+<span class="w">//..</span>
+
+<span class="blue">&lt;div </span><span class="green">class=</span><span class="orange">"</span><span class="green">section-header</span><span class="orange">"</span>
+    <span class="blue">&lt;h1 </span><span class="green">class=</span><span class="orange">"</span><span class="green">results</span><span class="orange">"</span><span class="blue">&gt;</span>Results<span class="blue">&lt;/h1&gt;</span>
+    <span class="blue">&lt;span </span><span class="blue">&gt;</span>
+        <span class="w">//..</span>
+        <span class="brown">&#123;&#37;</span> <span class="light-blue">if</span> letter <span class="light-blue">is</span> defined <span class="gd">&#37;&#125;</span>[ Letter "<span class="brown">&#123;&#123;</span> letter <span class="brown">&#125;&#125;</span>" was selected ]<span class="brown">&#123;&#37;</span> <span class="light-blue">endif</span> <span class="gd">&#37;&#125;</span>
+        <span class="w">//..</span>
+    <span class="blue">&lt;/span&gt;</span>
+<span class="blue">&lt;/div&gt;</span>
+
+<span class="w">//..</span>
+
+</pre>
+        </div>
+    </div>
+    <div class="admonition note">
+        <p class="first admonition-title">Thought</p>
+        <p class="last">Holy-god.  Before the above paragraph, I had never css formated code before on the back-end.  I have a whole
+            new level of appreciation for those that take the time to format code so that it may present better
+            to readers.  The above forteen (14) lines of code took 90 minutes to code!!  All-Hail the CSS Heros!</p><p>  Moving on... 
+        </p>
+    </div>
+    <h3>The Route<a class="headerlink" href="#the-route" title="Permalink to this headline">¶</a></h3>
+    <p>
+        
+    </p>
+    <div class="highlight-yaml">
+        <div class="highlight">
+<pre><span class="w"># src/Blogger/BlogBundle/Resources/config/routing.yml</span>
+<span class="l-Scalar-Plain">BloggerBlogBundle_sort</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">/plant/index</span>
+    <span class="l-Scalar-Plain">defaults</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">_controller</span><span class="p-Indicator">:</span> <span class="nv">BloggerBlogBundle</span><span class="p-Indicator">:</span><span class="nv">Plant</span><span class="p-Indicator">:</span><span class="nv">index</span> <span class="p-Indicator">}</span>
+    <span class="l-Scalar-Plain">requirements</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">_method</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">GET|POST</span>
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Controller<a class="headerlink" href="#the-route" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-php">
+        <div class="highlight">
+<pre>
+<span class="o">&lt;?</span><span class="nx">php</span>
+<span class="w">// src/Blogger/BlogBundle/Controller/PlantController.php</span>
+
+<span class="gt">namespace</span> <span class="nx">Blogger\BlogBundle\Controller</span><span class="p">;</span>
+
+<span class="gt">use</span> <span class="nx">Symfony\Bundle\FrameworkBundle\Controller\Controller;</span> 
+<span class="gt">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request;</span> 
+
+<span class="gt">class</span> <span class="gs">PlantController</span> <span class="gt">extends</span> Controller
+<span class="p">{</span>
+    <span class="w">//...</span>
+    <span class="gt">public function</span> <span class="gs">indexAction</span>(Request <span class="gd">$request</span>){
+        <span class="gd">$params</span> = <span class="gt">array</span>();
+        <span class="gd">$em</span> = <span class="gd">$this</span>->getDoctrine()->getEntityManager();        
+
+        <span class="w">//sort by letter</span>
+        <span class="blue">if</span>(!is_null(<span class="brown">$request</span>->get(<span class="orange">'letter'</span>))){
+            <span class="brown">$params</span>[<span class="orange">'letter'</span>] = <span class="brown">$request</span>->get(<span class="orange">'letter'</span>);
+            <span class="brown">$params</span>[<span class="orange">'plants'</span>] = <span class="brown">$em</span>->getRepository(<span class="mustard">'BloggerBlogBundle:Plant'</span>)->getSortedPlants(<span class="brown">$params</span>[<span class="orange">'letter'</span>]);
+        <span>}</span>
+        <span class="w">//send your collection to the view:</span>
+        <span class="blue">return</span> <span class="brown">$this</span>->render(<span class="mustard">'BloggerBlogBundle:Plant:index.html.twig'</span>, <span class="brown">$params</span>);
+    <span>}</span>
+    <span class="w">//...</span>
+<span class="p">}</span>
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Model<a class="headerlink" href="#the-model" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-php">
+        <div class="highlight">
+<pre>
+<span class="o">&lt;?</span><span class="nx">php</span>
+<span class="w">// src/Blogger/BlogBundle/Entity/Repository/PlantRepository.php</span>
+
+<span class="gt">namespace</span> <span class="nx">Blogger\BlogBundle\Entity\Repository</span><span class="p">;</span>
+
+<span class="gt">use</span> <span class="nx">Doctrine\ORM\EntityRepository;</span> 
+
+<span class="gt">class</span> <span class="gs">PlantRepository</span> <span class="gt">extends</span> EntityRepository
+<span class="p">{</span>
+    <span class="w">//...</span>
+    <span class="gt">public function</span> <span class="gs">getSortedPlants</span>(<span class="gd">$letter</span>){
+        <span class="brown">$qb</span> = <span class="brown">$this</span>->createQueryBuilder(<span class="orange">'p'</span>);
+               <span class="brown">$qb</span>->select(<span class="orange">'p'</span>)
+               ->where(<span class="brown">$qb</span>->expr()->like(<span class="orange">'p.taxGenus'</span>, <span class="orange">'?1'</span>))
+               ->addOrderBy(<span class="orange">'p.taxGenus'</span>, <span class="orange">'ASC'</span>)
+                ->addOrderBy(<span class="orange">'p.taxSpecies'</span>, <span class="orange">'ASC'</span>)
+                 ->addOrderBy(<span class="orange">'p.taxVariety'</span>, <span class="orange">'ASC'</span>)
+               ->setParameter(<span class="pink">1</span>, <span class="brown">$letter</span>.<span class="orange">'%'</span>);
+
+                <span class="blue">return</span> <span class="brown">$qb</span>->getQuery()
+                  ->getResult();
+    <span>}</span>
+    <span class="w">//...</span>
+<span class="p">}</span>
+</pre>
+        </div>
+    </div>
+    
+    <h2>Search by Select<a class="headerlink" href="#alphabet_search" title="Permalink to this headline">¶</a></h2>
+     <div class='tech-body'>
+        <p>
+            The working example can be found <a class="reference internal" href="{{path('PpgwBundle_plant_index')}}">here</a>,
+            which, for the section we are working on, looks like:
+            </br></br>
+            <img alt="Search Select" class="align-center" src="{{asset("bundles/ppgw/images/ppgworld_screenshots/search_select.png")}}" style="border:1px dotted #ccc; display: block;" />
+            </br></br>
+            As you can see in the example above, the user is simply presented with an in-line alphabetical list of letters,
+            all presented as hyperlinks using the anchor tag.  
+        </p>
+     </div>
+    <h3>The View<a class="headerlink" href="#the-view" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-html">
+        <div class="highlight">
+<pre>
+<span class="w">&#123;&#35; ..views/Plant/index.html.twig &#35;&#125;</span>
+
+<span class="w">//..</span>
+
+<span class="blue">&lt;form </span><span class="green">action=</span><span class="orange">"</span><span class="brown">&#123;&#123;</span> <span class="">path</span><span class="light-blue">(</span><span class="mustard">'BloggerBlogBundle_sort'</span><span class="light-blue">) </span><span class="brown">&#125;&#125;</span><span class="orange">"</span> <span class="green">method=</span><span class="orange">"post"</span> <span class="brown">&#123;&#123;</span> form_enctype<span class="light-blue">(</span>form<span class="light-blue">) </span><span class="brown">&#125;&#125;</span> <span class="green">class=</span><span class="orange">"</span><span class="green">search_form</span><span class="orange">"</span> <span class="blue">&gt;</span>
+    <span class="brown">&#123;&#123;</span> form_widget<span class="light-blue">(</span>form.plantGroup<span class="light-blue">)</span> <span class="gd">&#125;&#125;</span>
+    <span class="brown">&#123;&#123;</span> form_rest<span class="light-blue">(</span>form<span class="light-blue">)</span> <span class="gd">&#125;&#125;</span>
+    <span class="blue">&lt;input </span><span class="green">type=</span><span class="orange">submit</span><span class="blue"> /&gt;</span>
+<span class="blue">&lt;/form&gt;</span>
+
+<span class="w">//..</span>
+
+<span class="blue">&lt;div </span><span class="green">class=</span><span class="orange">"</span><span class="green">section-header</span><span class="orange">"</span>
+    <span class="blue">&lt;h1 </span><span class="green">class=</span><span class="orange">"</span><span class="green">results</span><span class="orange">"</span><span class="blue">&gt;</span>Results<span class="blue">&lt;/h1&gt;</span>
+    <span class="blue">&lt;span </span><span class="blue">&gt;</span>
+        <span class="w">//..</span>
+        <span class="brown">&#123;&#37;</span> <span class="light-blue">if</span> group <span class="light-blue">is</span> defined <span class="gd">&#37;&#125;</span>[ Group "<span class="brown">&#123;&#123;</span> group <span class="brown">&#125;&#125;</span>" was selected ]<span class="brown">&#123;&#37;</span> <span class="light-blue">endif</span> <span class="gd">&#37;&#125;</span>
+        <span class="w">//..</span>
+    <span class="blue">&lt;/span&gt;</span>
+<span class="blue">&lt;/div&gt;</span>
+
+<span class="w">//..</span>
+
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Route<a class="headerlink" href="#the-route" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-yaml">
+        <div class="highlight">
+<pre><span class="w"># src/Blogger/BlogBundle/Resources/config/routing.yml</span>
+<span class="l-Scalar-Plain">BloggerBlogBundle_sort</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">/plant/index</span>
+    <span class="l-Scalar-Plain">defaults</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">_controller</span><span class="p-Indicator">:</span> <span class="nv">BloggerBlogBundle</span><span class="p-Indicator">:</span><span class="nv">Plant</span><span class="p-Indicator">:</span><span class="nv">index</span> <span class="p-Indicator">}</span>
+    <span class="l-Scalar-Plain">requirements</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">_method</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">GET|POST</span>
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Controller<a class="headerlink" href="#the-route" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-php">
+        <div class="highlight">
+
+<pre>
+<span class="o">&lt;?</span><span class="nx">php</span>
+<span class="w">// src/Blogger/BlogBundle/Controller/PlantController.php</span>
+
+<span class="gt">namespace</span> <span class="nx">Blogger\BlogBundle\Controller</span><span class="p">;</span>
+
+<span class="gt">use</span> <span class="nx">Symfony\Bundle\FrameworkBundle\Controller\Controller;</span> 
+<span class="gt">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request;</span> 
+
+<span class="gt">class</span> <span class="gs">PlantController</span> <span class="gt">extends</span> Controller
+<span class="p">{</span>
+    <span class="w">//...</span>
+    <span class="gt">public function</span> <span class="gs">indexAction</span>(Request <span class="gd">$request</span>){
+        <span class="gd">$params</span> = <span class="gt">array</span>();
+        <span class="gd">$em</span> = <span class="gd">$this</span>->getDoctrine()->getEntityManager();
+        <span class="gd">$params</span>[<span class="sx">'form'</span>] = <span class="gd">$this</span>->createForm(<span class="gt">new</span> BrowseCategoryForm(<span class="gd">$this</span>->getDoctrine()->getManager()))->createView();
+        
+        <span class="w">//...</span>
+
+        <span class="w">//sort by category or group</span>
+        <span class="blue">if</span>(!is_null(<span class="brown">$request</span>->get(<span class="orange">'plant'</span>)[<span class="orange">'plantGroup'</span>])){
+        <span class="w">/*
+         * because we re-used a form of the plant class, the plant object was used.  Therefore, 
+         * the post parameter was wrapped in the 'plant' collection - necessitating the 
+         * array key->value illustrated below:
+         */</span>
+            <span class="brown">$group</span> = <span class="brown">$request</span>->get(<span class="orange">'plant'</span>)[<span class="orange">'plantGroup'</span>];
+            <span class="brown">$params</span>[<span class="orange">'plants'</span>] = <span class="brown">$em</span>->getRepository(<span class="mustard">'BloggerBlogBundle:Plant'</span>)->getPlantsInGroup(<span class="brown">$group</span>);
+            <span class="brown">$params</span>[<span class="orange">'group'</span>] = <span class="brown">$em</span>->getRepository(<span class="mustard">'BloggerBlogBundle:PlantGroup'</span>)->find(<span class="brown">$group</span>)->getName();
+        <span>}</span>
+        <span class="w">//send your collection to the view:</span>
+        <span class="blue">return</span> <span class="brown">$this</span>->render(<span class="mustard">'BloggerBlogBundle:Plant:index.html.twig'</span>, <span class="brown">$params</span>);
+    <span>}</span>
+    <span class="w">//...</span>
+<span class="p">}</span>
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Model<a class="headerlink" href="#the-model" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-php">
+        <div class="highlight">
+<pre>
+<span class="o">&lt;?</span><span class="nx">php</span>
+<span class="w">// src/Blogger/BlogBundle/Entity/Repository/PlantRepository.php</span>
+
+<span class="gt">namespace</span> <span class="nx">Blogger\BlogBundle\Entity\Repository</span><span class="p">;</span>
+
+<span class="gt">use</span> <span class="nx">Doctrine\ORM\EntityRepository;</span> 
+
+<span class="gt">class</span> <span class="gs">PlantRepository</span> <span class="gt">extends</span> EntityRepository
+<span class="p">{</span>
+    <span class="w">//...</span>
+    <span class="gt">public function</span> <span class="gs">getPlantsInGroup</span>(<span class="gd">$group</span>){
+        <span class="brown">$qb</span> = <span class="brown">$this</span>->createQueryBuilder(<span class="orange">'p'</span>);
+               <span class="brown">$qb</span>->select(<span class="orange">'p'</span>)
+               ->where(<span class="orange">'p.plantGroup = ?1'</span>)
+               ->addOrderBy(<span class="orange">'p.taxGenus'</span>, <span class="orange">'ASC'</span>)
+                ->addOrderBy(<span class="orange">'p.taxSpecies'</span>, <span class="orange">'ASC'</span>)
+                 ->addOrderBy(<span class="orange">'p.taxVariety'</span>, <span class="orange">'ASC'</span>)
+               ->setParameter(<span class="pink">1</span>, <span class="brown">$group</span>);
+
+                <span class="blue">return</span> <span class="brown">$qb</span>->getQuery()
+                  ->getResult();
+    <span>}</span>
+    <span class="w">//...</span>
+<span class="p">}</span>
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Form<a class="headerlink" href="#the-form" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-php">
+        <div class="highlight">
+
+<pre>
+<span class="o">&lt;?</span><span class="nx">php</span>
+<span class="w">// src/Blogger/BlogBundle/Form/BrowseCategoryForm.php</span>
+
+<span class="gt">namespace</span> <span class="nx">Blogger\BlogBundle\Form</span><span class="p">;</span>
+
+<span class="gt">use</span> <span class="nx">Symfony\Component\Form\AbstractType;</span> 
+<span class="gt">use</span> <span class="nx">Symfony\Component\Form\FormBuilderInterface;</span> 
+
+<span class="gt">class</span> <span class="bb">BrowseCategoryForm</span> <span class="gt">extends</span> AbstractType
+<span class="p">{</span>
+    <span class="gt">public function</span> <span class="bb">buildForm</span>(FormBuilderInterface <span class="brown">$builder</span>, <span class="blue">array</span> <span class="brown">$options</span>){
+        <span class='brown'>$builder</span>->add(<span class="orange">'plantGroup'</span>, <span class="orange">'entity'</span>, <span class="blue">array</span>(
+            <span class="orange">'class'</span>         =>  <span class="orange">'BloggerBlogBundle:PlantGroup'</span>,
+            <span class="orange">'property'</span>      =>  <span class="orange">'name'</span>,
+            <span class="orange">'label'</span>         =>  <span class="orange">'Group'</span>,
+            <span class="orange">'placeholder'</span>   =>  <span class="orange">'Browse Category'</span>
+        ));
+    <span class="p">}</span>
+
+    <span class="gt">public function</span> <span class="bb">getName</span>(){
+        <span class="blue">return</span> <span class="orange">'plant'</span>;
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+        </div>
+    </div>
+    
+    <h2>Search by Keyword<a class="headerlink" href="#keyword_search" title="Permalink to this headline">¶</a></h2>
+     <div class='tech-body'>
+        <p>
+            The working example can be found <a class="reference internal" href="{{path('PpgwBundle_plant_index')}}">here</a>,
+            which, for the section we are working on, looks like:
+            </br></br>
+            <img alt="Search Select" class="align-center" src="{{asset("bundles/ppgw/images/ppgworld_screenshots/search_keyword.png")}}" style="border:1px dotted #ccc; display: block; width: 600px;" />
+            </br></br>
+             
+        </p>
+     </div>
+    <h3>The View<a class="headerlink" href="#the-view" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-html">
+        <div class="highlight">
+<pre>
+<span class="w">&#123;&#35; ..views/Plant/index.html.twig &#35;&#125;</span>
+
+<span class="w">//..</span>
+
+<span class="blue">&lt;form </span><span class="green">action=</span><span class="orange">"</span><span class="brown">&#123;&#123;</span> <span class="">path</span><span class="light-blue">(</span><span class="mustard">'BloggerBlogBundle_sort'</span><span class="light-blue">) </span><span class="brown">&#125;&#125;</span><span class="orange">"</span> <span class="green">method=</span><span class="orange">"post"</span> <span class="brown">&#123;&#123;</span> form_enctype<span class="light-blue">(</span>form<span class="light-blue">) </span><span class="brown">&#125;&#125;</span> <span class="green">class=</span><span class="orange">"</span><span class="green">search_form</span><span class="orange">"</span> <span class="blue">&gt;</span>
+    <span class="blue">&lt;input </span><span class="green">id=</span><span class="orange">"</span><span class="green">keywords_search</span><span class="orange">"</span><span class="green"> type=</span><span class="orange">"search"</span><span class="green"> name=</span><span class="orange">"keywords"</span><span class="green"> placeholder=</span><span class="orange">"Search Keyword"</span> /&gt;</span>
+    <span class="blue">&lt;input </span><span class="green">type=</span><span class="orange">submit</span><span class="blue"> <span class="green">class=</span><span class="orange">"</span><span class="green">keyword_input</span><span class="orange">"</span> /&gt;</span>
+<span class="blue">&lt;/form&gt;</span>
+
+<span class="w">//..</span>
+
+<span class="blue">&lt;div </span><span class="green">class=</span><span class="orange">"</span><span class="green">section-header</span><span class="orange">"</span>
+    <span class="blue">&lt;h1 </span><span class="green">class=</span><span class="orange">"</span><span class="green">results</span><span class="orange">"</span><span class="blue">&gt;</span>Results<span class="blue">&lt;/h1&gt;</span>
+    <span class="blue">&lt;span </span><span class="blue">&gt;</span>
+        <span class="w">//..</span>
+        <span class="brown">&#123;&#37;</span> <span class="light-blue">if</span> keywords <span class="light-blue">is</span> defined <span class="gd">&#37;&#125;</span>[ Keywords "<span class="brown">&#123;&#123;</span> keywords <span class="brown">&#125;&#125;</span>" was searched ]<span class="brown">&#123;&#37;</span> <span class="light-blue">endif</span> <span class="gd">&#37;&#125;</span>
+        <span class="w">//..</span>
+    <span class="blue">&lt;/span&gt;</span>
+<span class="blue">&lt;/div&gt;</span>
+
+<span class="w">//..</span>
+
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Route<a class="headerlink" href="#the-route" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-yaml">
+        <div class="highlight">
+<pre><span class="w"># src/Blogger/BlogBundle/Resources/config/routing.yml</span>
+<span class="l-Scalar-Plain">BloggerBlogBundle_sort</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">/plant/index</span>
+    <span class="l-Scalar-Plain">defaults</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">_controller</span><span class="p-Indicator">:</span> <span class="nv">BloggerBlogBundle</span><span class="p-Indicator">:</span><span class="nv">Plant</span><span class="p-Indicator">:</span><span class="nv">index</span> <span class="p-Indicator">}</span>
+    <span class="l-Scalar-Plain">requirements</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">_method</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">GET|POST</span>
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Controller<a class="headerlink" href="#the-route" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-php">
+        <div class="highlight">
+
+<pre>
+<span class="o">&lt;?</span><span class="nx">php</span>
+<span class="w">// src/Blogger/BlogBundle/Controller/PlantController.php</span>
+
+<span class="gt">namespace</span> <span class="nx">Blogger\BlogBundle\Controller</span><span class="p">;</span>
+
+<span class="gt">use</span> <span class="nx">Symfony\Bundle\FrameworkBundle\Controller\Controller;</span> 
+<span class="gt">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request;</span> 
+
+<span class="gt">class</span> <span class="gs">PlantController</span> <span class="gt">extends</span> Controller
+<span class="p">{</span>
+    <span class="w">//...</span>
+    <span class="gt">public function</span> <span class="gs">indexAction</span>(Request <span class="gd">$request</span>){
+        <span class="gd">$params</span> = <span class="gt">array</span>();
+        <span class="gd">$em</span> = <span class="gd">$this</span>->getDoctrine()->getEntityManager();
+        
+        <span class="w">//...</span>
+
+        <span class="w">//sort by keyword</span>
+        <span class="blue">if</span>(!is_null(<span class="brown">$request</span>->get(<span class="orange">'keywords'</span>))){
+            <span class="brown">$params</span>[<span class="orange">'keywords'</span>] = <span class="brown">$request</span>->get(<span class="orange">'keywords'</span>);
+            <span class="brown">$params</span>[<span class="orange">'plants'</span>] = <span class="brown">$em</span>->getRepository(<span class="orange">'BloggerBlogBundle:Plant'</span>)->getPlantsByKeyword(<span class="brown">$params</span>[<span class="orange">'keywords'</span>]);
+        <span>}</span>
+        <span class="w">//send your collection to the view:</span>
+        <span class="blue">return</span> <span class="brown">$this</span>->render(<span class="mustard">'BloggerBlogBundle:Plant:index.html.twig'</span>, <span class="brown">$params</span>);
+    <span>}</span>
+    <span class="w">//...</span>
+<span class="p">}</span>
+</pre>
+        </div>
+    </div>
+    
+    <h3>The Model<a class="headerlink" href="#the-model" title="Permalink to this headline">¶</a></h3>
+    <div class="highlight-php">
+        <div class="highlight">
+<pre>
+<span class="o">&lt;?</span><span class="nx">php</span>
+<span class="w">// src/Blogger/BlogBundle/Entity/Repository/PlantRepository.php</span>
+
+<span class="gt">namespace</span> <span class="nx">Blogger\BlogBundle\Entity\Repository</span><span class="p">;</span>
+
+<span class="gt">use</span> <span class="nx">Doctrine\ORM\EntityRepository;</span> 
+
+<span class="gt">class</span> <span class="gs">PlantRepository</span> <span class="gt">extends</span> EntityRepository
+<span class="p">{</span>
+    <span class="w">//...</span>
+    <span class="gt">public function</span> <span class="gs">getPlantsByKeyword</span>(<span class="gd">$keyword</span>){
+        <span class="brown">$qb</span> = <span class="brown">$this</span>->createQueryBuilder(<span class="orange">'p'</span>);
+               <span class="brown">$qb</span>->select(<span class="orange">'p'</span>)
+               ->where(<span class="brown">$qb</span>->expr()->like(<span class="orange">'p.name'</span>, <span class="orange">':name'</span>))
+               ->addOrderBy(<span class="orange">'p.taxGenus'</span>, <span class="orange">'ASC'</span>)
+                ->addOrderBy(<span class="orange">'p.taxSpecies'</span>, <span class="orange">'ASC'</span>)
+                 ->addOrderBy(<span class="orange">'p.taxVariety'</span>, <span class="orange">'ASC'</span>)
+               ->setParameter(<span class="orange">'name'</span>, <span class="orange">'%'</span> . <span class="brown">$keyword</span> . <span class="orange">'%'</span>);
+
+                <span class="blue">return</span> <span class="brown">$qb</span>->getQuery()
+                  ->getResult();
+    <span>}</span>
+    <span class="w">//...</span>
+<span class="p">}</span>
+</pre>
+        </div>
+    </div>
+    
+    
+        </div>
+    </div>
+    
+</div>
+{% endblock %}
