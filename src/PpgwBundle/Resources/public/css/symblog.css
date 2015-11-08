@@ -136,17 +136,17 @@ pre {
 .note {
     border-color: #00529B !important;
     background-color: #DBF3FF !important;
-    background-image: url('/symfony2_project_1/web/bundles/bloggerblog/images/note.png') !important;
+    background-image: url('/website/web/bundles/ppgw/images/note.png') !important;
 }
 .tip {
     border-color: #4F8A10 !important;
     background-color: #E5F2D0 !important;
-    background-image:url('/symfony2_project_1/web/bundles/bloggerblog/images/tip.png') !important;
+    background-image:url('/website/web/bundles/ppgw/images/tip.png') !important;
     }
 .warning {
     border-color: #9F6000 !important;
     background-color: #FFF7DB !important;
-    background-image: url('/symfony2_project_1/web/bundles/bloggerblog/images/warning.png') !important;
+    background-image: url('/website/web/bundles/ppgw/images/warning.png') !important;
 }
 .shade-grey{
     background-color: #ccc;

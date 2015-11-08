@@ -3,6 +3,7 @@
 
 namespace PpgwBundle\Controller;
 
+use PpgwBundle\Helpers\Helper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -43,9 +44,15 @@ class TechController extends Controller
     } 
     
     public function ch7Action(){
-        $twig = file_get_contents('C:/WAMP/www/website/src/PpgwBundle/Resources/views/Plant/index.html.twig');
+        $option_array = array();
+        $option_array[] = 'PpgwBundle::layout.html.twig';
+        $option_array[] = 'bundles\/ppgw\/css\/plant.css';  //escape the backslash
+        $option_array[] = 'PpgwBundle_sort';
+        $option_array[] = 'PpgwBundle_plant_new';
+        $option_array[] = 'PpgwBundle_sort';
+        $option_array[] = 'PpgwBundle_plant_show';
         return $this->render('PpgwBundle:Tech:ch7.html.twig', array(
-            'twig'  => $twig
+            'twig'  => Helper::highlight_twig('C:/WAMP/www/website/src/PpgwBundle/Resources/views/Plant/index.html.twig', $option_array)
         ));
     }     
     
@@ -53,11 +60,6 @@ class TechController extends Controller
         return $this->render('PpgwBundle:Tech:ch8.html.twig', array(
         ));
     }    
-    
-//    public function ch8Action(){
-//        return $this->render('PpgwBundle:Tech:ch8.html.twig', array(
-//        ));
-//    }
     
     public function part1Action(){
         return $this->render('PpgwBundle:Tech:pt1.html.twig', array(

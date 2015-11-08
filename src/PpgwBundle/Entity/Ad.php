@@ -1,20 +1,4 @@
 <?php
-/*
- * Naming conventions used:
- * 
- * classes:         PascalCase  
- * tables:          camelCase
- * columns:         camelCase
- * methods:         camelCase  
- * functions:       camelCase  
- * variables:       camelCase
- * constants:       CONSTANT_CASE
- * constructors:     __constructCase
- * 
- * OR:  database naming = underscore
- *      everything else = camelCase
- * 
- */
 namespace PpgwBundle\Entity;
 
 class Ad
