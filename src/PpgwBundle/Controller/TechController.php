@@ -3,7 +3,7 @@
 
 namespace PpgwBundle\Controller;
 
-use PpgwBundle\Helpers\Helper;
+use PpgwBundle\Helpers\CodeHighlighter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -33,8 +33,36 @@ class TechController extends Controller
         $em = $this->getDoctrine()
                    ->getManager();
         $plant = $em->getRepository('PpgwBundle:Plant')->find(1);
+        $ar = array();
+        $ar[] = 'BloggerBlogBundle::layout.html.twig';
+        $ar[] = 'bundles/bloggerblog/css/plant.css';
+        $ar[] = 'BloggerBlogBundle_plant_show';
+        $ar[] = 'PpgwBundle::layout.html.twig';
+        $ar[] = 'bundles/ppgw/css/forms.css';
+        $ar[] = 'bundles/ppgw/js/forms.js';
+        $ar[] = 'widget_container_attributes';
+        $ar[] = 'widget_attributes';
+        $ar[] = 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js';
+        $ar[] = 'PpgwBundle_plant_index';
+        $ar[] = 'PpgwBundle_plant_new';
+        $ar[] = 'http://www.catalogueoflife.org/annual-checklist/2015/browse/';
+        $ar[] = 'bundles/ppgw/css/plant.css';
+        $ar[] = 'PpgwBundle_plant_edit';
+        $ar[] = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNDcrG80wqzVn2wZRARTJEuZ3mUVSXxMiXfE6cGOvm6TOEiI_F';
+        $helper = $this->get('twig.highlighter');
+        $twig_1 = $helper->highlightTwigFile('C:/WAMP/www/website/src/PpgwBundle/code_snippets/ch5_snippet_1.html.twig', $ar);
+        $twig_2 = $helper->highlightTwigFile('C:/WAMP/www/website/src/PpgwBundle/Resources/views/Plant/new.html.twig', $ar);
+        $php_1 = $helper->highlightPhpFile('C:/WAMP/www/website/src/PpgwBundle/Entity/Plant.php');
+        $php_2 = $helper->highlightPhpFile('C:/WAMP/www/website/src/PpgwBundle/Form/PlantForm.php');
+        $twig_3 = $helper->highlightTwigFile('C:/WAMP/www/website/src/PpgwBundle/Resources/views/Plant/show.html.twig', $ar);
+        $php_3 = $helper->highlightPhpFile('C:/WAMP/www/website/src/PpgwBundle/code_snippets/ch5_snippet_3.php');
+        $twig_4 = $helper->highlightTwigFile('C:/WAMP/www/website/src/PpgwBundle/Resources/views/Plant/edit.html.twig', $ar);
+        $php_4 = $helper->highlightPhpFile('C:/WAMP/www/website/src/PpgwBundle/code_snippets/ch5_snippet_4.php');
+        
         return $this->render('PpgwBundle:Tech:ch5.html.twig', array(
-            'plant' =>  $plant
+            'plant' =>  $plant,     'twig_1' =>  $twig_1,   'twig_2'    =>  $twig_2,
+            'twig_3'=>  $twig_3,    'php_1'  =>  $php_1,    'php_2'    =>  $php_2,
+            'php_3' =>  $php_3,     'twig_4' =>  $twig_4,   'php_4'    =>  $php_4,
         ));
     }
     
@@ -44,15 +72,18 @@ class TechController extends Controller
     } 
     
     public function ch7Action(){
-        $option_array = array();
-        $option_array[] = 'PpgwBundle::layout.html.twig';
-        $option_array[] = 'bundles\/ppgw\/css\/plant.css';  //escape the backslash
-        $option_array[] = 'PpgwBundle_sort';
-        $option_array[] = 'PpgwBundle_plant_new';
-        $option_array[] = 'PpgwBundle_sort';
-        $option_array[] = 'PpgwBundle_plant_show';
+       $ar = array();
+        $ar[1] = 'PpgwBundle::layout.html.twig';
+        $ar[2] = 'bundles/ppgw/css/plant.css';  
+        $ar[3] = 'PpgwBundle_sort';
+        $ar[4] = 'PpgwBundle_plant_new';
+        $ar[5] = 'PpgwBundle_plant_show';
+
+        $helper = $this->get('twig.highlighter');
+        $twig_1 = $helper->highlightTwigFile('C:/WAMP/www/website/src/PpgwBundle/Resources/views/Plant/index.html.twig', $ar);
+        $twig_2 = $helper->highlightTwigFile('C:/WAMP/www/website/src/PpgwBundle/code_snippets/pagination_snippet_1.html.twig', $ar);
         return $this->render('PpgwBundle:Tech:ch7.html.twig', array(
-            'twig'  => Helper::highlight_twig('C:/WAMP/www/website/src/PpgwBundle/Resources/views/Plant/index.html.twig', $option_array)
+            'twig_1'  => $twig_1,     'twig_2'    =>  $twig_2
         ));
     }     
     
@@ -60,6 +91,11 @@ class TechController extends Controller
         return $this->render('PpgwBundle:Tech:ch8.html.twig', array(
         ));
     }    
+    
+    public function ch9Action(){
+        return $this->render('PpgwBundle:Tech:ch9.html.twig', array(
+        ));
+    }
     
     public function part1Action(){
         return $this->render('PpgwBundle:Tech:pt1.html.twig', array(
@@ -117,11 +153,12 @@ class TechController extends Controller
         $ch6 = "chapter-6-symfony2-embedded-forms";
         $ch7 = "chapter-7-symfony2-pagination";
         $ch8 = "chapter-8-symfony2-search";
+        $ch9 = "services-symfony2-answer-for-global-functions";
         return $this->render('PpgwBundle:Tech:toc.html.twig', array(
             'pt1'   =>  $pt1,   'pt2'   =>  $pt2,   'ch1'   =>  $ch1,   'ch4'   =>  $ch4,
             'pt3'   =>  $pt3,   'pt4'   =>  $pt4,   'ch2'   =>  $ch2,   'ch5'   =>  $ch5,
             'pt5'   =>  $pt5,   'pt6'   =>  $pt6,   'ch3'   =>  $ch3,   'ch6'   =>  $ch6,
-            'ch7'   =>  $ch7,   'ch8'   =>  $ch8
+            'ch7'   =>  $ch7,   'ch8'   =>  $ch8,   'ch9'   =>  $ch9
         ));
     }
 }

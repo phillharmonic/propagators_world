@@ -1,0 +1,54 @@
+{% extends 'PpgwBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/symblog.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{asset('bundles/ppgw/css/coding.css')}}" type="text/css" />
+{% endblock%}
+{% block title %}Propagators World - Services: Symfony2's Answer to Global Functions{% endblock%}
+{% block sidebar %}
+    {% render controller("PpgwBundle:Tech:tableOfContents") %}
+{% endblock %}
+{% block body %}
+    <div class="symblog">
+    <div class="section-header"><h1>[ Chapter 9 ] - Services: Global Functions in Symfony2</h1>
+        <ul class="page-nav">
+            <li><a href="#">Code Behind</a></li>
+            <li><a href="#">Comment</a></li>
+        </ul>
+    </div>
+    <div class="section" id="overview">
+        <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+        <div class='tech-body'>
+            <p>
+                This chapter is about a special PHP object in Symfony that helps you instantiate, organize and retrieve the many objects of your application. This object, called a service container, will allow you to standardize and centralize the way objects are constructed in your application. The container makes your life easier, is super fast, and emphasizes an architecture that promotes reusable and decoupled code. Since all core Symfony classes use the container, you'll learn how to extend, configure and use any object in Symfony. In large part, the service container is the biggest contributor to the speed and extensibility of Symfony.
+            </p><p>
+                According to the Symfony cookbook: 
+            </p>
+            <div class="admonition note">
+                <p class="first admonition-title">Note:</p>
+                <p class="last">As a rule, a PHP object is a service if it is used globally in your application. A single Mailer service is used globally to send email messages whereas the many Message objects that it delivers are not services. Similarly, a Product object is not a service, but an object that persists Product objects to a database is a service.</p>
+            </div>
+            <p>
+                This chapter will cover how to implement a helper class which will be used as a service.  In fact,
+                the first helper I wrote in this app is a helper which is used across many different controllers 
+                that will higlight my twig code.  According to Symfony, this function fits the definition of a service,
+                so we will fist build a helper service.  We will also cover a few different service varients so 
+                we have a good understanding about how and when to use a service.  
+            </p>
+            <h3>Chapter Contents:</h3>
+            <ol class='arabic simple'>
+                <li><a href='#helper_class'>Helper Class Service</a></li>
+                <li><a>Another Service</a></li>
+                <li><a>Another Service</a></li>
+            </ol>
+        </div>
+    </div>
+    <div class="section" id="overview">
+        <h2 id='helper_class'>Helper Class<a class="headerlink" href="#helper_class" title="Permalink to this headline">¶</a></h2>
+        <p>
+            
+        </p>
+    </div>
+    
+</div>
+{% endblock %}

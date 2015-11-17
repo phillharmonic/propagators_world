@@ -1,0 +1,17 @@
+{# ..views/Plant/index.html.twig #}
+
+{% extends 'BloggerBlogBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{('bundles/bloggerblog/css/plant.css')}}" type="text/css" rel="stylesheet" />
+{% endblock %}
+{% block title %}Plant Index{% endblock %}
+{% block body %}
+{# .... #}
+    <ul class="plant_list" />
+        {% for plant in plants %}
+            <li><a href="{{ path('BloggerBlogBundle_plant_show', {'id' : plant.id, 'slug' : plant.slug }) }}">{{ plant.taxName }}</a> - {{ plant.name }}</li>
+        {% endfor %}
+    </ul>
+{# .... #}
+{% endblock  %}

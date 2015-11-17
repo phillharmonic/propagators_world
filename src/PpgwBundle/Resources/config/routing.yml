@@ -226,5 +226,13 @@ PpgwBundle_ch_8:
     requirements:
         _method:  GET
         
+PpgwBundle_ch_9:        
+    pattern:  /tech/chapter/9/{slug}
+    defaults: { _controller: PpgwBundle:Tech:ch9 }
+    requirements:
+        _method:  GET        
+        
+#PpgwBundle_ch_temp1        
+        
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

@@ -1,0 +1,21 @@
+{# ..views/Plant/index.html.twig #}
+
+{% extends 'PpgwBundle::layout.html.twig' %}
+{% block stylesheets %}{{parent()}}
+    <link href="{{ asset('bundles/ppgw/css/plant.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+{% block title %}Plant Library{% endblock %}
+
+{% block body %}
+    
+{#  ...  #}
+    
+    <ul class="plant_list">
+        {% for plant in pagination %}
+            <li {% if loop.index is odd %}class="pagination-highlight"{% endif %}><a style="font-style: italic; padding-left: 5px;" href="{{ path('PpgwBundle_plant_show', { 'id': plant.id, 'slug': plant.slug }) }}">{{ plant.taxName }}</a> - {{plant.name}}</li>
+        {% endfor %}
+    </ul>
+    
+<div class="navigation-pagination"><div class='pager'>{{ knp_pagination_render(pagination) }}</div></div>
+    
+{% endblock %}

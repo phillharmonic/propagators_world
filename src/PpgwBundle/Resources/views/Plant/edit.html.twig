@@ -7,9 +7,9 @@
     {{ parent() }}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="{{ asset('bundles/ppgw/js/forms.js') }}"></script>
-{%endblock %}
+{% endblock %}
 
-{% block title %}Edit Plant{% endblock%}
+{% block title %}Edit Plant{% endblock %}
 
 {% form_theme form _self %}
 
@@ -117,4 +117,4 @@
             {{ form_rest(form) }}
         <input type="submit" value="Submit" />
     </form>
-{%endblock%}
+{% endblock %}

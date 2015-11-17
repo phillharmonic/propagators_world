@@ -21,30 +21,119 @@
     <div class='tech-body'>
         <p>
             This chapter will cover the first steps when creating a development environment using Windows, 
-            WAMP, Netbeans IDE, Composer, and of course Symfony2.            
+            WAMP, Netbeans IDE, Composer, and of course Symfony2.  Be sure to install the sofware below in the
+            correct order.  
         </p><p>
             The following topics will be demonstrated in this chapter:
         </p>
         <ol class='arabic simple'>
-            <li>Configuring Windows 10 as a development server using WAMP</li>
             <li>Installing and configuring WAMP Server 2.5 64Bit </li>
             <li>Installing and configuring Netbeans IDE 8.X.X</li>
             <li>Apache 2.4.9</li>
             <li>PHP 5.5.12</li>
             <li>MySQL 5.0.11</li>
             <li>Doctrine 2</li>
-            <li>Symphony 2</li>
             <li>Composer</li>
+            <li>Symphony 2</li>
             <li>Installing PHP globally</li>
         </ol>
     </div>
+    <div class="section-header"><span class="title"><h2>WAMP</h2></span></div>
+    <div class='tech-body'>
+        <p>
+            Installing WAMP 2.5 64bit in Windows 10:
+        </p><p>
+            First things first.  This tutorial is assuming that you have a fresh machine with nothing pre-installed
+            or configured to use other services.  Basically a fresh Windows 10 install WITHOUT Internet Information Services (IIS) activated.  
+            IIS (formerly Internet Information Server) is Windows version of a webserver and
+            may conflict with Apache if installed side by side.  To be on the safe side, do not install IIS.  
+        </p><p>
+            Our first order of business is to turn our machine into a local web server that can host a website.  Does 
+            that mean that your machine will somehow begin advertising your location on the internet and make you 
+            suceptible to security vulnerabilities?  No.  Relax.  We are just going to teach your machine how to
+            processes requests via HTTP, the basic network protocol used to distribute information on the World Wide Web, and 
+            in the process how to host and interprep a php project using MySql.  
+        </p>
+        <div class="admonition note">
+            <p class="first admonition-title">Opinion Alert:</p>
+            <p class="last">
+                A quick opinion on the stack we are using: Windows/Apache/MySql/PHP.  For the lay-person who is perhaps
+                contemplating what set of technologies to utilize for the development of their website, I would like
+                to share my opinion on the matter and why I believe a LAMP or WAMP stack is a good choice for learning
+                how to develop websites.  
+            </p><p>
+                For me, an inquisitive untrained techno-nerd, the choice was easy: LAMP.  Why?  Cost.  Back in the day,
+                Microsoft used to basically give their software away to developers (a smart business decision in my opnion).  
+                It's the technology stack that I cut my teeth on when I began to have an interest in learning
+                how to code.  However, somewhere along the way, Microsoft changed course and began charging developers big and small
+                for licensing their technologies: mainly SQL and Visual Studio (their IDE).  
+                The cost of Visual Studio alone, made the choice for me, and why I abandoned the WISA stack.  
+                I was simply driven out of it due to cost when you factor in the initial investment and
+                then each subsequent annual upgrade - the costs soon become unjustifiable.  
+            </p><p>
+                As a guy just trying to learn how to code on his own, the WISA stack doesn't make any sense when there are
+                competing technologies that get the job done almost as elegantly.  WISA definitely has some cool tools; there's
+                no denying that.  But is it worth the cost?  Sure, if someone else is paying for it, but I couldn't imagine
+                anyone shelling out that kind of money on their own to simply learn how to code. And with Netbeans and 
+                Symfony, the FREE tools and technology available to the LAMP/WAMP developer, coding becomes fun and easy to learn.  
+                ...and in the end, the LAMP architechure is just as effective and scalable.
+            </p>
+        </div>
+        <p>
+            ...I digress.
+        </p>
+        <p>
+            There are two very similiar _AMP packages: XAMP and WAMP.  They are virtually the same, so take your
+            pick and use what you like.  For my setup, I chose WAMP.  No reason, really.  Whatever you choose, be
+            aware that your directory structure may be different depending upon what package you install.  
+        </p>
+        <h3>Installation:</h3>
+        <ol class='arabic simple'>
+            <li><a href='http://www.wampserver.com/en/#wampserver-64-bits-php-5-5'>Download</a></li>
+            <li>Install - following the WAMP <a href='http://www.wampserver.com/en/'>guidelines</a></li>
+            <ul class='arabic simple'>
+                <li>If you'd like to keep your directory structure like mine, in order to follow along with
+                    the examples in this tutorial, be sure to install WAMP in the following directory when prompted:
+                </li>
+                <li>
+                    <span class="shade-grey">C:\WAMP</span>
+                </li>
+            </ul>
+            <li>You should now have a driectory structure that looks similiar to this (minus a few directories
+            which we will add in the steps to follow.</li>
+            <img src={{ asset('bundles/ppgw/images/ppgworld_screenshots/WAMP_directory_structure.PNG') }} />
+            <li>Start WampServer</li>
+            <img src={{ asset('bundles/ppgw/images/ppgworld_screenshots/WAMP_menu.PNG') }} />
+            <li>WampServer Submenu</li>
+            <img src={{ asset('bundles/ppgw/images/ppgworld_screenshots/WAMP_submenu.PNG') }} />
+        </ol>
+        <p>
+            At this point you don't actually have to start WampServer, but it won't hurt either.  Personally, when
+            I install software, I like to look around.  So feel free.  You'll notice that when you do start WampServer
+            that a small pink icon will appear in your tray area and commences to change to orange and then green.  These
+            are the indicators showing you that the service is starting up.  It's ready to go when it changes to green.
+        </p><p>
+            Also of note, by right clicking the green icon in the tray you will be presented with the submenu
+            shown in the graphic above.  This is a nice tool to have handy in the times when you need to stop 
+            or restart a service.  
+        </p><p>
+            With WAMP now installed we now have the essentials needed to start developing: PHP, MySql, and Apache.  We
+            actually don't need an IDE like Netbeans to start writing code - all you need is a text editor like NotePad,
+            WordPad, Libra Office Writer, or NotePad++.  But in order to stay organized, an IDE is almost essential.  We'll
+            get to that shortly.  
+        </p><p>
+            The next step is to configure our webserver: Apache.  Once this is configured correctly, we will immediately
+            be able to visualize our environments using a simple web browser.
+        </p>
+    </div>
+    
     
     <div class="section-header"><span class="title"><h2>Composer</h2></span></div>
     <div class='tech-body'>
         <p>Installing Composer in Windows 10:</p>
         <ol class='arabic simple'>
             <li>Right-click the window icon and choose <tt class="docutils literal">'Command Prompt'</tt></li>
-            <li>Open up <tt class="docutils literal">File Explorer</tt> and navigate to your php directory in WAMP.  Mine is: <tt class="docutils literal">C:/WAMP/bin/php/php5.5.12</tt></li>
+            <li>Open up <tt class="docutils literal">File Explorer</tt> and navigate to your php directory in WAMP.  Mine is: <tt class="docutils literal">C:\WAMP\bin\php\php5.5.12</tt></li>
             <li>In the navigation bar of File Explorer, right-click the php directory and Copy the address</li>
             <li>In the Command Prompt, type: '<tt class="docutils literal">cd </tt>' then right-click and choose Paste.  Press Enter.</li>
             <li>At the next prompt, after the directory has changed to the above directory, type the following command and press enter: <tt class="docutils literal">php -r "readfile('https://getcomposer.org/installer');" | php</tt></li>
@@ -57,10 +146,39 @@
             <li>Navigate to: Tools->Options</li>
             <li>Select the PHP menu</li>
             <li>Select the 'Frameworks & Tools' tab</li>
-            <li>In the Composer field, choose 'Browse' and browse to the location where your php install is located.  Mine is: <tt class="docutils literal">C:/WAMP/bin/php/php5.5.12</tt></li>
+            <li>In the Composer field, choose 'Browse' and browse to the location where your php install is located.  Mine is: <tt class="docutils literal">C:\WAMP\bin\php\php5.5.12</tt></li>
             <li>Choose the file composer.phar and select 'Apply'</li>
             <li>After composer is installed, select 'OK'</li>
         </ol>
     </div>
+    
+    <div class="section-header"><span class="title"><h2>Symfony2</h2></span></div>
+    <div class='tech-body'>
+        <p>Installing Symfony in Netbeans using Windows 10:</p>
+        <ol class='arabic simple'>
+            <li>Install Symfony installer in your php directory: <tt class="docutils literal">C:/WAMP/bin/php/php5.5.12</tt></li>
+            <li>Open up <tt class="docutils literal">Command Prompt</tt> and change directory to your php installation.  <tt class="docutils literal">cd C:/WAMP/bin/php/php5.5.12</tt></li>
+            <li>After directory has been changed, type: <tt class="docutils literal">php symfony new C:WAMP/symfony_zips</tt></li>
+            <li>Symfony then downloads and installs the latest version of Symfony in the above directory.</li>
+            <li>Netbeans requires a .zip file in order for everything to work correctly.  So we're going to simply zip the Symfony
+                files we need.  The most important thing to know here, is what to zip.  Don't just zip the container folder of the
+                Symfony directory.  If you do, it will zip the directory like: symfony->symfony->app etc... which is not readable by
+                Netbeans.  Zip according to the graphic below:
+            </li>
+            <li>pic</li>
+            <li>Now that we have a nice new clean fresh copy of Symfony zipped up according to how Netbeans likes it, let's
+                tell Netbeans where it is so the IDE can use it the next time you begin a new Symfony2 project.  Open
+                up Netbean go to: Tools->option->php->framework->Symfony2.  In the field reserved for the zip file, 
+                browse to the path where you store your Symfony2 zips.  Since Symfony updates regulary, I keep all the
+                different versions zipped in my symfony folder.  So, point it to the intallation you want to use and 
+                click Apply.  All done. 
+            </li>
+            <li>Now that we have everthing installed correctly, let's go through the steps of opening a new Symfony2
+                project in Netbeans. 
+            </li>
+        </ol>
+    </div>
+    
+    
 </div>
 {% endblock %}

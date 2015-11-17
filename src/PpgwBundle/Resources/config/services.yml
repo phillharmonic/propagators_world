@@ -1,3 +1,6 @@
+parameters:
+    #language: value  #this is just an example
+
 services:
     app.form.registration:
         class: PpgwBundle\Form\RegistrationForm
@@ -7,3 +10,7 @@ services:
         class: PpgwBundle\Twig\Extensions\PpgwExtension
         tags:
             - { name: twig.extension }
+    twig.highlighter: 
+        class:      PpgwBundle\Helpers\TwigHighlighter
+        #By surrounding the language string in percent (%) signs, the container knows to look for a parameter with that name.
+        # arguments:  [%language%]  

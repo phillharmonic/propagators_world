@@ -1,7 +1,12 @@
 imports:
+    # imports are cool.  They allow you to keep all of your code contained within it's own bundle:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@PpgwBundle/Resources/config/services.yml" }
+#   The resource location, for files, is the absolute path to the resource file. The special 
+#   @ syntax resolves the directory path of the PpgwBundle bundle. This helps you specify the path to the 
+#   resource without worrying later if you move the Bundle to a different directory.    
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
