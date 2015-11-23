@@ -113,7 +113,7 @@
             that a small pink icon will appear in your tray area and commences to change to orange and then green.  These
             are the indicators showing you that the service is starting up.  It's ready to go when it changes to green.
         </p><p>
-            Also of note, by right clicking the green icon in the tray you will be presented with the submenu
+            Also of note, by left clicking the green icon in the tray you will be presented with the submenu
             shown in the graphic above.  This is a nice tool to have handy in the times when you need to stop 
             or restart a service.  
         </p><p>
@@ -125,12 +125,31 @@
             The next step is to configure our webserver: Apache.  Once this is configured correctly, we will immediately
             be able to visualize our environments using a simple web browser.
         </p>
+        <h3>Configure Apache</h3>
+        <p>Right now, out-of-the-box, you are currently a host and can navigate to <tt class="docutils literal">locahost</tt> on your web browser and be presented with a basic start-up page (so long as you have started wampserver):</br></br>
+        <img src={{ asset('bundles/ppgw/images/ppgworld_screenshots/localhost.PNG') }} /></p>
+        <p>
+            We can actually keep everything vanilla (unchanged) and have everything work just fine.  Keeping the Apche settings vanilla, all we would have to do is navigate our urls according to our directory structures in our PHP directory.  However, that's commonly a long extension.  So to keep things concise, we take advantage of Virtual Servers and alias's which will cut away the fluff in the url and direct our requests to where the alias points.  
+        </p>
+        <p>
+            We can do this manually (more difficult), or by taking advantage of WAMP's built in utility (an easy and less error-prone method).  To configure it manually, I'm going to refer you to Symblog's method in <a href="{{ path('PpgwBundle_symblog_1', {'slug' : slug }) }}" >Part 1</a>.  To configure it with the utility, follow these steps:
+        </p>
+        <ul class='arabic simple'>
+            <li>Left-click your Wamp icon in your tray, which brings up the Wamp sub-menu system.  Navigate the menu system accordingly until you are presented with the 'Add an alias' choice:</br></br>
+            <img src={{ asset('bundles/ppgw/images/ppgworld_screenshots/apache_alias.PNG') }} width="600px" /></br></br></li>
+            <li>Click the 'Add an alias' option</li>
+            <li>At this point, you will be presented with a command line interface and be prompted to answer two questions:</li>
+            <ul class='arabic simple'>
+                <li>The name of your alias</li>
+                <li>The path to your project directory</li>
+            </ul>
+        </ul>
     </div>
-    
-    
-    <div class="section-header"><span class="title"><h2>Composer</h2></span></div>
+        <div class="section-header"><span class="title"><h2>Composer</h2></span></div>
     <div class='tech-body'>
         <p>Installing Composer in Windows 10:</p>
+        <p>Composer is a tool for dependency management in PHP. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you.  Composer is not a package manager in the same sense as Yum or Apt are. Yes, it deals with "packages" or libraries, but it manages them on a per-project basis, installing them in a directory (e.g. vendor) inside your project. By default it will never install anything globally. Thus, it is a dependency manager.</p>
+        <p>In a later step, we will add Composer support in Netbeans.  However, before we install Netbeans, let's first install Composer, so when we go to configure Netbeans, Composer will have already been installed.</p>
         <ol class='arabic simple'>
             <li>Right-click the window icon and choose <tt class="docutils literal">'Command Prompt'</tt></li>
             <li>Open up <tt class="docutils literal">File Explorer</tt> and navigate to your php directory in WAMP.  Mine is: <tt class="docutils literal">C:\WAMP\bin\php\php5.5.12</tt></li>
@@ -140,23 +159,19 @@
             <li>Composer will install.</li>
         </ol>
     </div>
+     <div class="section-header"><span class="title"><h2>Symfony2</h2></span></div>
     <div class='tech-body'>
-        <p>Installing Composer in Netbeans 8.0.2:</p>
+        <p>Installing Symfony:</p>
+        <p>Like Composer, this isn't so much of an install as it is a download.  We will be using Symfony2 from within Netbeans in a later step, but we will need to have it downloaded and zipped up in the correct format and location before we configure Netbeans, so let's prepare for that now.</p>
+        <p>Symfony2 assumes you will use Composer from a command line prompt to install Symfony.  We won't be doing it this way, so it involves a few extra steps (since Symfony2 is no longer available in .zip format).  This extra step requires us to install Symfony using their proprietary installer in order to get the files we need.  </p>
         <ol class='arabic simple'>
-            <li>Navigate to: Tools->Options</li>
-            <li>Select the PHP menu</li>
-            <li>Select the 'Frameworks & Tools' tab</li>
-            <li>In the Composer field, choose 'Browse' and browse to the location where your php install is located.  Mine is: <tt class="docutils literal">C:\WAMP\bin\php\php5.5.12</tt></li>
-            <li>Choose the file composer.phar and select 'Apply'</li>
-            <li>After composer is installed, select 'OK'</li>
-        </ol>
-    </div>
-    
-    <div class="section-header"><span class="title"><h2>Symfony2</h2></span></div>
-    <div class='tech-body'>
-        <p>Installing Symfony in Netbeans using Windows 10:</p>
-        <ol class='arabic simple'>
-            <li>Install Symfony installer in your php directory: <tt class="docutils literal">C:/WAMP/bin/php/php5.5.12</tt></li>
+            <li>Install the Symfony Installer in your php directory: <tt class="docutils literal">C:/WAMP/bin/php/php5.5.12</tt>.  This requires a few steps:</li>
+            <ul class='arabic simple'>
+                <li>Open a command promp by right-clicking the windows icon in the bottom-left corner and choosing 'Command Prompt'</li>
+                <li>In the command prompt we need to navigate to our PHP directory (so that it can understand PHP commands).  In my installation the command is: <tt class="docutils literal">cd C:/WAMP/bin/php/php5.5.12</tt></li>
+                <li>Once in the correct directory, type the following command in order to install Symfony: <tt class="docutils literal">php -r "file_put_contents('symfony', file_get_contents('http://symfony.com/installer'));"</tt>
+                </br></br>What this does is install the core Symfony file we need in order to execute and interpret Symfony commands.  It does not actually install the files we need for a project.  That's next.</li>
+            </ul>
             <li>Open up <tt class="docutils literal">Command Prompt</tt> and change directory to your php installation.  <tt class="docutils literal">cd C:/WAMP/bin/php/php5.5.12</tt></li>
             <li>After directory has been changed, type: <tt class="docutils literal">php symfony new C:WAMP/symfony_zips</tt></li>
             <li>Symfony then downloads and installs the latest version of Symfony in the above directory.</li>
@@ -165,19 +180,66 @@
                 Symfony directory.  If you do, it will zip the directory like: symfony->symfony->app etc... which is not readable by
                 Netbeans.  Zip according to the graphic below:
             </li>
-            <li>pic</li>
-            <li>Now that we have a nice new clean fresh copy of Symfony zipped up according to how Netbeans likes it, let's
-                tell Netbeans where it is so the IDE can use it the next time you begin a new Symfony2 project.  Open
-                up Netbean go to: Tools->option->php->framework->Symfony2.  In the field reserved for the zip file, 
-                browse to the path where you store your Symfony2 zips.  Since Symfony updates regulary, I keep all the
-                different versions zipped in my symfony folder.  So, point it to the intallation you want to use and 
-                click Apply.  All done. 
-            </li>
-            <li>Now that we have everthing installed correctly, let's go through the steps of opening a new Symfony2
-                project in Netbeans. 
-            </li>
+            <img src={{ asset('bundles/ppgw/images/ppgworld_screenshots/symfonyzip_directory_structure.PNG') }} />
+            <li>It's not important what you name the zipped file (although it does need to be compressed using the .zip format), or where it is placed (directory-wise - so long as you know where it is).</li>
+            
         </ol>
     </div>
+    <div class="section-header"><span class="title"><h2>Netbeans</h2></span></div>
+    <div class='tech-body'>
+        <p>Installing Netbeans 8.0.X in Windows 10:</p>
+        <p>Netbeans is to Linux as Visual Basic is to Windows.  Its the IDE.   An integrated development environment (IDE) is a software application that provides comprehensive facilities to computer programmers for software development. An IDE normally consists of a source code editor, build automation tools and a debugger</p>
+        <p>NetBeans began in 1996 as Xelfi (word play on Delphi), a Java IDE student project under the guidance of the Faculty of Mathematics and Physics at Charles University in Prague. In 1997 Roman Staněk formed a company around the project and produced commercial versions of the NetBeans IDE until it was bought by Sun Microsystems in 1999. Sun open-sourced the NetBeans IDE in June of the following year. Since then, the NetBeans community has continued to grow.  In 2010, Sun (and thus NetBeans) was acquired by Oracle.</p>
+        <p>Netbeans is a Java technology and requires the Java platform to be installed (Java JDK) in order to work properly.  Both Netbeans and the Java JDK can be installed seperately, but there is a combined download which is recommended if both of these technologies are not currently installed on your system.  The download can be found <a href="http://www.oracle.com/technetwork/articles/javase/jdk-netbeans-jsp-142931.html" >here</a>.</p>
+        <p>Let's get started with the steps:</p>
+        <ol class='arabic simple'>
+            <li><a href="http://www.oracle.com/technetwork/articles/javase/jdk-netbeans-jsp-142931.html">Download</a> the correct version of Netbeans and Java JDK for your system (accept the license agreement in the process):</li>
+            <img src=' {{ asset('bundles/ppgw/images/ppgworld_screenshots/netbeans_download_page.PNG') }} ' />
+            <li>After the package has completed downloading, go ahead and install by double-clicking the executable file.  The installation process may take awhile depending on your system.</li>
+            <li>After installation is complete, launch Netbeans:</li>
+            <img src=' {{ asset('bundles/ppgw/images/ppgworld_screenshots/netbeans_startpage.PNG') }} ' width='650px'/>
+            <li>Add Plugins: [ Tools->Plugins ] and check the following plugins in the 'Available Plugins' tab:</li>
+            <ul class='arabic simple'>
+                <li>PHP</li>
+                <li>HTML5</li>
+                <li>Git Toolbar</li>
+            </ul>
+            <li>Configure Netbeans:</li>
+            <ul class='arabic simple'>
+                <li>PHP</li>
+                <img src=' {{ asset('bundles/ppgw/images/ppgworld_screenshots/netbeans_php5_interpreter.PNG') }} ' width='600px'/>
+                <li>Composer</li>
+                <ul class='arabic simple'>
+                    <li>Navigate to: Tools->Options</li>
+                    <li>Select the PHP menu</li>
+                    <li>Select the 'Frameworks & Tools' tab</li>
+                    <li>In the Composer field, choose 'Browse' and browse to the location where your php install is located.  Mine is: <tt class="docutils literal">C:\WAMP\bin\php\php5.5.12</tt></li>
+                    <li>Choose the file composer.phar and select 'Apply'</li>
+                    <li>After composer is installed, select 'OK'</li>
+                </ul>
+                <li>Symfony2</li>
+                <ul  class='arabic simple'>
+                    <li>We did the leg-work for this step previously.  All we have to do now is tell Netbeans where we placed the zipped Symfony files we want to use:</li>
+                    <li>In Netbeans navigate to: Tools->Options->php->framework->Symfony2</li>
+                    <li>
+                        In the field reserved for the zip file, browse to the path where you store your Symfony2 zips.  Since Symfony updates regulary, I keep all the
+                        different versions zipped in my symfony folder: <tt class="docutils literal">C:WAMP/symfony_zips</tt>
+                    </li>
+                    <li>
+                        Now, every time you create a new Symfony2 project using Netbeans, it will copy a brand-new symfony directory structure into your project according to the Symfony version you told Netbeans to use.  If you upgrade to a new version of Symfony or want to revert to an older version, all you have to do is tell Netbeans which version you want to use; the rest is automated.
+                    </li>
+                </ul>
+                <li>Activate Chrome Web Browser Support</li>
+                <img src=' {{ asset('bundles/ppgw/images/ppgworld_screenshots/netbeans_chrome.PNG') }} ' width='600px'/>
+            </ul>
+        </ol>
+    </div>
+
+        
+
+    
+    
+   
     
     
 </div>
